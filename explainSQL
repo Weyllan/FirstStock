@@ -1,0 +1,17 @@
+Pour configurer une base de donnée : 
+
+Installer et configurer mysql
+https://doc.ubuntu-fr.org/mysql
+
+Installer et configurer phpmyadmin
+https://doc.ubuntu-fr.org/phpmyadmin
+
+Par la suite, pour lancer la base: 
+sudo service mysql start
+
+Lancer phpmyadmin: 
+Dans le navigateur, entrer: http://localhost/phpmyadmin
+
+Pour se connecter: de base:
+root
+mdp rentré dans la config de votre base mysql
