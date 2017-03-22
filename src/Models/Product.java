@@ -9,21 +9,28 @@ package Models;
  *
  * @author louis
  */
-public class Product {
+public class Product{
     private String name;
     private double price;
     private Product[] ingredients;
     private int quantity;
         
-    public Product(String name, double price, int quantity){
+    public Product(String name, double price, int quantity) throws Exception {
         this.name = name;
-        this.price = price;
+        try{
+            if(price < 0 || quantity < 1)
+               throw new Exception();
+            this.price = price;
+            this.quantity = quantity;
+        }
+        catch(Exception e){
+           System.err.printf("Error on price/quantity number");
+        }
         Product[] empty = {};
         this.ingredients = empty;
-        this.quantity = quantity;
     }
     
-    public Product(String name, double price, Product[] ingredients, int quantity){
+    public Product(String name, double price, Product[] ingredients, int quantity) throws Exception{
         this(name, price, quantity);
         this.ingredients = ingredients;
     }
@@ -33,7 +40,7 @@ public class Product {
         return f;
     }
     
-    public String getName(){        
+    public String getName(){
         return name;
     }
     
