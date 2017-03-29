@@ -12,7 +12,7 @@ import view.Window;
  * @author valentin
  */
 public class FirstStock {
-
+    // TODO : Add button action
     /**
      * @param args the command line arguments
      */
