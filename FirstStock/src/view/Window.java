@@ -6,15 +6,18 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author kieffersarah
  */
-public class Window extends JFrame{
+public class Window extends JFrame implements MouseListener{
     private int sizeX=600;
     private int sizeY=500;
     private MainMenu mainMenu = new MainMenu();
@@ -122,5 +125,30 @@ public class Window extends JFrame{
      */
     public void setNotification(JButton notification) {
         this.notification = notification;
+    }
+    
+    @Override
+    public void mousePressed(MouseEvent e) {
+    
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
