@@ -18,7 +18,7 @@ public class FirstStock {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Window win = new Window("ta maman");
+        Window win = new Window("FirstStock");
         win.main();
     }
     

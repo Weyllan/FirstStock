@@ -5,8 +5,12 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 /**
@@ -15,42 +19,51 @@ import javax.swing.JPanel;
  */
 public class CashMenu extends JPanel{
     
-    private JButton stock = new JButton("Stock");
-    private JButton back = new JButton("Back");
-    
     public CashMenu(){
-        this.setLayout(new GridLayout(1, 2));     
-        this.add(stock);
-        this.add(back);
-        this.setVisible(false);
+        this.setLayout(new BorderLayout());     
+        this.setVisible(true);
     }
 
     /**
      * @return the stock
      */
-    public JButton getStock() {
+    /*public JButton getStock() {
         return stock;
     }
 
     /**
      * @param stock the stock to set
      */
-    public void setStock(JButton stock) {
+    /*public void setStock(JButton stock) {
         this.stock = stock;
     }
 
     /**
      * @return the back
      */
-    public JButton getBack() {
+    /*public JButton getBack() {
         return back;
     }
 
     /**
      * @param back the back to set
      */
-    public void setBack(JButton back) {
+    /**public void setBack(JButton back) {
         this.back = back;
     }
+    */
     
+    private void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.gridx = x;
+        gc.gridy = y;
+        gc.gridwidth = width;
+        gc.gridheight = height;
+        gc.weightx = 100.0;
+        gc.weighty = 100.0;
+        gc.insets = new Insets(5, 5, 5, 5);
+        gc.anchor = align;
+        gc.fill = GridBagConstraints.NONE;
+        p.add(c, gc);
+    }
 }
