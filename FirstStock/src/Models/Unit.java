@@ -9,10 +9,12 @@ package Models;
  *
  * @author louis
  */
-public enum Unity {
+public enum Unit {
+    /* Penser à implenter une sérialisation de l'enum afin de rajouter des 
+        unités par l'utilisateur
+    */
     kg,
     g,
     L,
     mL
-        
 }

@@ -18,16 +18,18 @@ public class Order {
     private final int id;
     private Product[] list;
     private Transaction transaction;
+    private final String corporation;
     
     // Format date
     public Date date;
     public final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
-    public Order(Product[] list, Transaction transaction){
+    public Order(Product[] list, String corp ,Transaction transaction){
         this.list = list;
         this.transaction = transaction;
         Order.counter++;
         this.id = Order.counter;
+        this.corporation = corp;
         
         // Création date
         this.date = new Date();
@@ -41,6 +43,7 @@ public class Order {
     public double totalCost(){
         double f = 0;
         for (Product list : getList()) {
+            // A adapter à l'unité
             f += list.getPrice() * list.getQuantity();
         }
         return f;

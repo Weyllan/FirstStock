@@ -22,7 +22,7 @@ public class FirstStock {
         /*Window win = new Window("ta maman");
         win.main();*/
         Product [] p = {};
-        Order o = new Order(p, Transaction.VENTE);
+        Order o = new Order(p,"totoCorp", Transaction.VENTE);
     }
     
 }
