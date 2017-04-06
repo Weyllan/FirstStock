@@ -27,7 +27,6 @@ public class FirstStock {
         win.main();*/
         Product [] p = {};
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
-        
         DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
         try{
             myDB.selectAllRawsStocks();
