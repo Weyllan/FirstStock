@@ -7,6 +7,7 @@ package firststock;
 
 import Models.*;
 import controller.DBAccess;
+import java.sql.SQLException;
 import view.Window;
 
 /**
@@ -28,6 +29,12 @@ public class FirstStock {
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
         
         DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        try{
+            myDB.selectAllBDD();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
     
 }
