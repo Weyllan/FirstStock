@@ -5,6 +5,7 @@
  */
 package firststock;
 
+import Models.*;
 import view.Window;
 
 /**
@@ -18,8 +19,12 @@ public class FirstStock {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Window win = new Window("ta maman");
+        Window win = new Window("FirstStock");
         win.main();
+        /*Window win = new Window("ta maman");
+        win.main();*/
+        Product [] p = {};
+        Order o = new Order(p,"totoCorp", Transaction.VENTE);
     }
     
 }
