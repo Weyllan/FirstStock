@@ -11,11 +11,11 @@ package Models;
  */
 public class Treasury {
     // Valeur du compte courant
-    private int value;
+    private double value;
     // Plafond de découvert
-    private int limit = 0;
+    private double limit = 0;
     
-    Treasury(int value, int limit){
+    Treasury(double value, double limit){
         this.value = value;
     }
     Treasury(int value){
