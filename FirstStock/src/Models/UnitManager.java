@@ -106,7 +106,7 @@ public class UnitManager {
             unit = new Unit(uni, units.get(uni));
         }
         catch(Exception e){
-            System.out.println("Error can't find unit");
+            System.err.println("Error can't find unit");
         }
         return unit;
     }
