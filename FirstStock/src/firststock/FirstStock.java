@@ -25,6 +25,17 @@ public class FirstStock {
         win.main();*/
         Product [] p = {};
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
+        UnitManager um = new UnitManager("units.txt");
+       /* um.add("L",0);
+        um.add("mL",-3);
+        um.add("kg", 3);
+        um.add("T", 6);
+        um.add("g",0);
+        um.write();
+        */
+        // um.clear();
+        um.read();
+        System.out.println(um);
     }
     
 }

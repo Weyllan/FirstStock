@@ -28,10 +28,10 @@ public class UnitManager {
     private String fileName;
     private Map<String, Integer> units;
     
-    UnitManager(String f){
+    public UnitManager(String f){
         fileName = f;
         units = new LinkedHashMap<>();
-        this.write();
+        this.read();
     }
     
     public void clear(){
@@ -65,8 +65,6 @@ public class UnitManager {
     }
     
     public void read(){
-        this.units.clear();
-
         try{
             // Affichage
             ObjectInputStream dataIn;
@@ -108,7 +106,7 @@ public class UnitManager {
         String str = "";
         while(it.hasNext()){
             Entry<String, Integer> e = it.next();
-            str += e.toString()+"\n";
+            str += "Unit : "+e.getKey()+" with 10^"+e.getValue()+"\n";
         }
         return str;
     }
