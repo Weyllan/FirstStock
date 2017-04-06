@@ -30,7 +30,7 @@ public class FirstStock {
         
         DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
         try{
-            myDB.selectAllBDD();
+            myDB.selectAllRawsStocks();
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
