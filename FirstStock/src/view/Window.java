@@ -6,40 +6,48 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author kieffersarah
  */
-public class Window extends JFrame implements MouseListener{
+public class Window extends JFrame {
+    
     private int sizeX=600;
     private int sizeY=500;
+    
     private MainMenu mainMenu = new MainMenu();
     private StockMenu stockMenu = new StockMenu();
     private CashMenu cashMenu = new CashMenu();
     public JMenuBar menuBar = new JMenuBar();
+    
     private JButton notification = new JButton("Notifications");
+    private JButton stock = new JButton("Stocks");
+    private JButton cash = new JButton("Trésorerie");
+    private JButton back = new JButton("Retour");
     
     public Window(String str){
         super(str);
     }
     
     public void main(){
-
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(5, 5));
         
-        this.add(menuBar, BorderLayout.NORTH);
-        this.add(getMainMenu(), BorderLayout.CENTER);
-        this.add(getNotification(), BorderLayout.SOUTH);
-        this.setVisible(true);
+        stock.addActionListener(new EventStock());
+        cash.addActionListener(new EventCash());
+        back.addActionListener(new EventBack());
+        
+        loadMainMenu();
+        
     }
 
     /**
@@ -127,28 +135,76 @@ public class Window extends JFrame implements MouseListener{
         this.notification = notification;
     }
     
-    @Override
-    public void mousePressed(MouseEvent e) {
-    
+    /*
+    * Retour au menu Principal
+    */
+    public class EventBack implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            Window.this.loadMainMenu();
+        }
     }
     
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
+    /*
+    * Chargement du menu des Stocks
+    */
+    public class EventStock implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            Window.this.loadStockMenu();
+        }
     }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+    
+    /*
+    * Chargement du menu Trésorerie
+    */
+    public class EventCash implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            Window.this.loadCashMenu();
+        }
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
+    
+    public void loadCashMenu(){
+        cashMenu.add(menuBar, BorderLayout.NORTH);
+        cashMenu.add(stock, BorderLayout.CENTER);     
+        cashMenu.add(notification, BorderLayout.SOUTH);
+        
+        this.getContentPane().remove(mainMenu);
+        this.setContentPane(cashMenu);
+        this.getContentPane().validate();
+        this.setVisible(true);
+        
+        System.out.println("view.Window.loadStockMenu()");
     }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    
+    
+    
+    public void loadStockMenu(){
+        
+        stockMenu.add(menuBar, BorderLayout.NORTH);
+        stockMenu.add(cash, BorderLayout.CENTER);     
+        stockMenu.add(notification, BorderLayout.SOUTH);
+        
+        this.getContentPane().remove(mainMenu);
+        this.setContentPane(stockMenu);
+        this.getContentPane().validate();
+        this.setVisible(true);
+        
+        System.out.println("view.Window.loadStockMenu()");
+        
     }
+    
+
+    public void loadMainMenu(){
+        
+        mainMenu.add(menuBar, BorderLayout.NORTH);
+        mainMenu.add(cash, BorderLayout.WEST);     
+        mainMenu.add(stock, BorderLayout.EAST);
+        mainMenu.add(notification, BorderLayout.SOUTH);
+        
+        this.setContentPane(mainMenu);
+        this.setVisible(true);
+    }
+    
 }
