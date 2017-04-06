@@ -99,6 +99,18 @@ public class UnitManager {
         return units;
     }
     
+    public Unit getOneUnit(String uni){
+        Unit unit = null;
+        try{
+            if(units.get(uni) == null) throw new Exception();
+            unit = new Unit(uni, units.get(uni));
+        }
+        catch(Exception e){
+            System.out.println("Error can't find unit");
+        }
+        return unit;
+    }
+    
     @Override
     public String toString(){
         Set<Entry<String, Integer>> setUnits = units.entrySet();
