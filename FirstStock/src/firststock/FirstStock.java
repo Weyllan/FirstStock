@@ -6,6 +6,7 @@
 package firststock;
 
 import Models.*;
+import controller.DBAccess;
 import view.Window;
 
 /**
@@ -25,6 +26,8 @@ public class FirstStock {
         win.main();*/
         Product [] p = {};
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
+        
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     }
     
 }
