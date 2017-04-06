@@ -14,14 +14,16 @@ public class Product{
     private double price;
     private Product[] ingredients;
     private int quantity;
+    private Unit unit;
         
-    public Product(String name, double price, int quantity) throws Exception {
+    public Product(String name, double price, int quantity, Unit unit) throws Exception {
         this.name = name;
         try{
             if(price < 0 || quantity < 1)
                throw new Exception();
             this.price = price;
             this.quantity = quantity;
+            this.unit = unit;
         }
         catch(Exception e){
            System.err.printf("Error on price/quantity number");
