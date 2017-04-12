@@ -38,12 +38,11 @@ public class DBAccess {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
             ResultSet rs = statement.executeQuery(selectTableSQL);
-            while (rs.next()) {
-                String productStock = rs.getString("product_stock");
-                mystock = Integer.parseInt(productStock);
-                System.out.println("product stock : " + productStock);
-                return mystock;
-            }
+            rs.next();
+            String productStock = rs.getString("product_stock");
+            mystock = Integer.parseInt(productStock);
+            System.out.println("product stock : "+product_type+":" + productStock);
+            return mystock;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 	} finally {
@@ -260,7 +259,130 @@ public class DBAccess {
     }
     
     /*  Add a Raw_Type to BDD */
+    public void setRaw(String raw_name, double price, int quantity) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `raw_type` (`raw_name`, `price_buy`, `raw_stock`) VALUES ('"+raw_name+"', '"+price+"', '"+quantity+"')";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }   
     
+    /*  Add a link between a raw and a product */
+    public void setProductRaw(String product_name, String raw_name, int quantity) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `product_raw` (`product_id`, `raw_id`, `quantity`) VALUES ('"+product_name+"', '"+raw_name+"', '"+quantity+"')";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }  
+    
+    /*  Add a buy to BDD */
+    public void setBuy(String date_buy, int quantity_buy, String raw_name) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `buy` ( `date_buy`, `quantity_buy`, `raw_name`) VALUES ( '"+date_buy+"', '"+quantity_buy+"','"+raw_name+"' )";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }   
+    
+    /*  Add a Commande to BDD */
+    public void setCmd(String date_cmd, int quantity_sold, String product_name) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `commande` ( `date`, `quantity_sold`, `product_name`) VALUES ( '"+date_cmd+"', '"+quantity_sold+"','"+product_name+"' )";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }   
+    
+    /*  Add a Production Order to BDD */
+    public void setProductionOrder(String production_date, int quantity, String product_name) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `production_order` ( `production_date`, `quantity`, `product_name`) VALUES ( '"+production_date+"', '"+quantity+"','"+product_name+"' )";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }   
+    
+    /*  Add a Use Raw Production to BDD */
+    public void setUseRaw(String product_name,String raw_name,String date) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `use_raw` ( `product_name`, `raw_name`, `date`) VALUES ( '"+product_name+"', '"+raw_name+"','"+date+"' )";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
     
     
     
