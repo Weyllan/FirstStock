@@ -29,8 +29,9 @@ public class FirstStock {
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
         
         DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
         try{
-            myDB.selectAllRawsStocks();
+            myDB.setProduct("test", 200.20,0);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());

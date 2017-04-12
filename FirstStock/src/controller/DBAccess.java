@@ -177,6 +177,93 @@ public class DBAccess {
         return mymonney;
     }
     
+    /*  Return all commands about one product specified  */
+    public Hashtable getCmdForProduct(String product_name) throws SQLException{
+        Hashtable ht = new Hashtable();
+	Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT date,quantity_sold FROM commande WHERE product_name LIKE '"+product_name+"'";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String date = rs.getString("date");
+                String stockSold = rs.getString("quantity_sold");
+		System.out.println("date : " + date);
+                System.out.println("Stock sold : " + stockSold);
+                ht.put(date, Integer.parseInt(stockSold)); 
+            }
+            return ht;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return ht;
+    }
+    
+    public Hashtable getBuyForRaw(String raw_name) throws SQLException{
+        Hashtable ht = new Hashtable();
+	Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT date_buy,quantity_buy FROM buy WHERE raw_name LIKE '"+raw_name+"'";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String date = rs.getString("date_buy");
+                String stockBuy = rs.getString("quantity_buy");
+		System.out.println("date : " + date);
+                System.out.println("Stock buy : " + stockBuy);
+                ht.put(date, Integer.parseInt(stockBuy)); 
+            }
+            return ht;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return ht;
+    }
+    
+    /*  Add a Product_Type to BDD */
+    public void setProduct(String product_name, double price, int quantity) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "INSERT INTO `product_type` (`product_name`, `price`, `product_stock`) VALUES ('"+product_name+"', '"+price+"', '"+quantity+"')";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
+    /*  Add a Raw_Type to BDD */
+    
+    
+    
+    
     
     /*  Function wich return a connection  */
     private static Connection getDBConnection() {
