@@ -34,15 +34,26 @@ public class UnitManager {
         this.read();
     }
     
+    /**
+     * Efface la sauvegarde
+     */
     public void clear(){
         this.units.clear();
         this.write();
     }
     
+    /**
+     * Ajoute une unité
+     * @param s
+     * @param i 
+     */
     public void add(String s, Integer i){
         units.put(s,i);
     }
     
+    /**
+     * Ecriture dans un fichier
+     */
     public void write(){
         // Ecriture
         ObjectOutputStream dataOut;
@@ -64,6 +75,9 @@ public class UnitManager {
         }
     }
     
+    /**
+     * Lecture depuis un fichier
+     */
     public void read(){
         try{
             // Affichage
@@ -99,6 +113,11 @@ public class UnitManager {
         return units;
     }
     
+    /**
+     * Récupère un Unit spécifié, null si non trouvé
+     * @param uni
+     * @return 
+     */
     public Unit getOneUnit(String uni){
         Unit unit = null;
         try{
@@ -106,7 +125,7 @@ public class UnitManager {
             unit = new Unit(uni, units.get(uni));
         }
         catch(Exception e){
-            System.out.println("Error can't find unit");
+            System.err.println("Error can't find unit");
         }
         return unit;
     }
