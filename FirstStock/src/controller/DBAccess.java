@@ -10,7 +10,7 @@ import java.util.Hashtable;
  *
  * @author valentin
  */
-
+/* REMEMBER VAL : CHANGE NECESSARY WITH DELETE AND UPDATE, AND SET CASH  */
 
 public class DBAccess {
     
@@ -97,12 +97,11 @@ public class DBAccess {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
             ResultSet rs = statement.executeQuery(selectTableSQL);
-            while (rs.next()) {
-                String productStock = rs.getString("raw_stock");
-                mystock = Integer.parseInt(productStock);
-                System.out.println("raw stock : " + productStock);
-                return mystock;
-            }
+            rs.next();
+            String rawStock = rs.getString("raw_stock");
+            mystock = Integer.parseInt(rawStock);
+            System.out.println("raw stock : " + rawStock);
+            return mystock;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
 	} finally {
@@ -116,7 +115,63 @@ public class DBAccess {
         return mystock;
     }
     
-    /* Return all stocks of all products */
+    /*  Return Price of ONE Product, wich is specified  */
+    public double selectAProductPrice(String product_type) throws SQLException {
+        double mystock = -1;
+	Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT price FROM product_type WHERE product_name LIKE '"+product_type+"'";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            rs.next();
+            String productPrice = rs.getString("price");
+            mystock = Double.parseDouble(productPrice);
+            System.out.println("product price : " + productPrice);
+            return mystock;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return mystock;
+    }
+    
+    /*  Return Price of ONE Raw, wich is specified  */
+    public double selectARawPrice(String raw_type) throws SQLException {
+        double mystock = -1;
+	Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT price_buy FROM raw_type WHERE raw_name LIKE '"+raw_type+"'";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            rs.next();
+            String rawPrice = rs.getString("price_buy");
+            mystock = Double.parseDouble(rawPrice);
+            System.out.println("raw price : " + rawPrice);
+            return mystock;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return mystock;
+    }
+    
+    /* Return all stocks of all raws */
     public Hashtable selectAllRawsStocks() throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -127,11 +182,11 @@ public class DBAccess {
             statement = dbConnection.createStatement();
             ResultSet rs = statement.executeQuery(selectTableSQL);
             while (rs.next()) {
-                String productName = rs.getString("raw_name");
-                String productStock = rs.getString("raw_stock");
-		System.out.println("raw name : " + productName);
-                System.out.println("raw stock : " + productStock);
-                ht.put(productName, Integer.parseInt(productStock)); 
+                String rawName = rs.getString("raw_name");
+                String rawStock = rs.getString("raw_stock");
+		System.out.println("raw name : " + rawName);
+                System.out.println("raw stock : " + rawStock);
+                ht.put(rawName, Integer.parseInt(rawStock)); 
             }
             return ht;
         } catch (SQLException e) {
@@ -148,6 +203,37 @@ public class DBAccess {
     }
     
     /* Return all stocks of all products */
+    public Hashtable selectAllNecessaru(String product_name) throws SQLException {
+	Connection dbConnection = null;
+	Statement statement = null;
+        Hashtable ht = new Hashtable();
+	String selectTableSQL = "SELECT `raw_id`,`quantity` FROM `product_raw` WHERE `product_id` LIKE '"+product_name+"' ";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String rawName = rs.getString("raw_id");
+                String quantity = rs.getString("quantity");
+		System.out.println("raw id : " + rawName);
+                System.out.println("quantity: " + quantity);
+                ht.put(rawName, Integer.parseInt(quantity)); 
+            }
+            return ht;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return ht;
+    }
+    
+    /* Return Entreprise cash */
     public double getMyCash() throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -383,6 +469,92 @@ public class DBAccess {
             }
     	}
     }
+    
+
+    /*  Modify product Price */
+    public void modifyProductPrice(String product_name, double price) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "UPDATE `product_type` SET `price` = '"+price+"' WHERE `product_type`.`product_name` = '"+product_name+"';";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
+    /*  Modify product stock */
+    public void modifyProductStock(String product_name, int stock) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "UPDATE `product_type` SET `product_stock` = '"+stock+"' WHERE `product_type`.`product_name` = '"+product_name+"';";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
+    /*  Modify Raw Price */
+    public void modifyRawPrice(String raw_name, double price) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "UPDATE `raw_type` SET `price_buy` = '"+price+"' WHERE `raw_type`.`raw_name` = '"+raw_name+"';";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
+    /*  Modify raw stock */
+    public void modifyRawStock(String raw_name, int stock) throws SQLException{
+	Connection dbConnection = null;
+	Statement statement = null; 
+        String selectTableSQL = "UPDATE `raw_type` SET `raw_stock` = '"+stock+"' WHERE `raw_type`.`raw_name` = '"+raw_name+"';";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
     
     
     

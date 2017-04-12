@@ -31,7 +31,7 @@ public class FirstStock {
         DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
         try{
-            myDB.selectAProductStock("ordinateur");
+            myDB.modifyRawStock("souris", 15);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
