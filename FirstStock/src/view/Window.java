@@ -6,10 +6,8 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
@@ -22,34 +20,29 @@ public class Window extends JFrame {
     private int sizeX=600;
     private int sizeY=500;
     
-    private MainMenu mainMenu = new MainMenu();
-    private StockMenu stockMenu = new StockMenu();
-    private CashMenu cashMenu = new CashMenu();
-    public JMenuBar menuBar = new JMenuBar();
-    
-    private JButton notification = new JButton("Notifications");
-    private JButton stock = new JButton("Stocks");
-    private JButton cash = new JButton("Trésorerie");
-    private JButton back = new JButton("Retour");
+    private ToolsBox toolsBox = new ToolsBox();
+    private JMenuBar menuBar = new JMenuBar();
+    private WorkSpace workSpace = new WorkSpace(this);
+    private JDesktopPane desktop = new JDesktopPane();
+
     
     public Window(String str){
         super(str);
     }
     
-    public void main(){
+    public void init(){
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
-        this.setLayout(new BorderLayout(5, 5));
-        
-        stock.addActionListener(new EventStock());
-        cash.addActionListener(new EventCash());
-        back.addActionListener(new EventBack());
-        
-        loadMainMenu();
+        this.setLayout(new BorderLayout(0, 0));
+        this.add(getToolsBox(), BorderLayout.WEST);
+        this.add(menuBar, BorderLayout.NORTH);
+        this.add(getWorkSpace(), BorderLayout.CENTER);
+
+        this.setVisible(true);
         
     }
-
+    
     /**
      * @return the sizeX
      */
@@ -79,132 +72,30 @@ public class Window extends JFrame {
     }
 
     /**
-     * @return the mainMenu
+     * @return the toolsBox
      */
-    public MainMenu getMainMenu() {
-        return mainMenu;
+    public ToolsBox getToolsBox() {
+        return toolsBox;
     }
 
     /**
-     * @param mainMenu the mainMenu to set
+     * @param toolsBox the toolsBox to set
      */
-    public void setMainMenu(MainMenu mainMenu) {
-        this.mainMenu = mainMenu;
+    public void setToolsBox(ToolsBox toolsBox) {
+        this.toolsBox = toolsBox;
     }
 
     /**
-     * @return the stockMenu
+     * @return the workSpace
      */
-    public StockMenu getStockMenu() {
-        return stockMenu;
+    public WorkSpace getWorkSpace() {
+        return workSpace;
     }
 
     /**
-     * @param stockMenu the stockMenu to set
+     * @param workSpace the workSpace to set
      */
-    public void setStockMenu(StockMenu stockMenu) {
-        this.stockMenu = stockMenu;
+    public void setWorkSpace(WorkSpace workSpace) {
+        this.workSpace = workSpace;
     }
-
-    /**
-     * @return the cashMenu
-     */
-    public CashMenu getCashMenu() {
-        return cashMenu;
-    }
-
-    /**
-     * @param cashMenu the cashMenu to set
-     */
-    public void setCashMenu(CashMenu cashMenu) {
-        this.cashMenu = cashMenu;
-    }
-
-
-    /**
-     * @return the notification
-     */
-    public JButton getNotification() {
-        return notification;
-    }
-
-    /**
-     * @param notification the notification to set
-     */
-    public void setNotification(JButton notification) {
-        this.notification = notification;
-    }
-    
-    /*
-    * Retour au menu Principal
-    */
-    public class EventBack implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent clic){
-            Window.this.loadMainMenu();
-        }
-    }
-    
-    /*
-    * Chargement du menu des Stocks
-    */
-    public class EventStock implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent clic){
-            Window.this.loadStockMenu();
-        }
-    }
-    
-    /*
-    * Chargement du menu Trésorerie
-    */
-    public class EventCash implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent clic){
-            Window.this.loadCashMenu();
-        }
-    }
-    
-    public void loadCashMenu(){
-        cashMenu.add(menuBar, BorderLayout.NORTH);
-        cashMenu.add(stock, BorderLayout.CENTER);     
-        cashMenu.add(notification, BorderLayout.SOUTH);
-        
-        this.getContentPane().remove(mainMenu);
-        this.setContentPane(cashMenu);
-        this.getContentPane().validate();
-        this.setVisible(true);
-        
-        System.out.println("view.Window.loadStockMenu()");
-    }
-    
-    
-    
-    public void loadStockMenu(){
-        
-        stockMenu.add(menuBar, BorderLayout.NORTH);
-        stockMenu.add(cash, BorderLayout.CENTER);     
-        stockMenu.add(notification, BorderLayout.SOUTH);
-        
-        this.getContentPane().remove(mainMenu);
-        this.setContentPane(stockMenu);
-        this.getContentPane().validate();
-        this.setVisible(true);
-        
-        System.out.println("view.Window.loadStockMenu()");
-        
-    }
-    
-
-    public void loadMainMenu(){
-        
-        mainMenu.add(menuBar, BorderLayout.NORTH);
-        mainMenu.add(cash, BorderLayout.WEST);     
-        mainMenu.add(stock, BorderLayout.EAST);
-        mainMenu.add(notification, BorderLayout.SOUTH);
-        
-        this.setContentPane(mainMenu);
-        this.setVisible(true);
-    }
-    
 }

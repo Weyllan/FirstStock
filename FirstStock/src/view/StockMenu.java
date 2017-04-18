@@ -17,11 +17,10 @@ import javax.swing.JPanel;
  *
  * @author kieffersarah
  */
-public class StockMenu extends JPanel{
+public class StockMenu extends PluginStyle{
     
-    public StockMenu(){
-        this.setLayout(new BorderLayout());      
-        this.setVisible(true);
+    public StockMenu(String name, WorkSpace workSpace, Window window){
+        super(name, workSpace, window);
     }
 
     /**
@@ -52,17 +51,5 @@ public class StockMenu extends JPanel{
         this.cash = cash;
     }*/
     
-    private void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = x;
-        gc.gridy = y;
-        gc.gridwidth = width;
-        gc.gridheight = height;
-        gc.weightx = 100.0;
-        gc.weighty = 100.0;
-        gc.insets = new Insets(5, 5, 5, 5);
-        gc.anchor = align;
-        gc.fill = GridBagConstraints.NONE;
-        p.add(c, gc);
-    }
+    
 }

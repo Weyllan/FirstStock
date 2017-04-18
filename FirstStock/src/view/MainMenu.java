@@ -7,40 +7,61 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 
 /**
  *
  * @author kieffersarah
  */
-public class MainMenu extends JPanel {
+public class MainMenu extends PluginStyle {
     
-    public MainMenu(){
-        this.setLayout(new BorderLayout()); 
+    private StockMenu stockMenu = null;
+    private CashMenu cashMenu = null;
+    private JButton stock = new JButton("Stocks");
+    private JButton cash = new JButton("Trésorerie");
+    
+    public MainMenu(String name, WorkSpace workSpace, Window window){
+        super(name, workSpace, window);
+        this.cashMenu = new CashMenu("cash menu", workSpace, window);
+        this.stockMenu = new StockMenu("stock menu", workSpace, window);
+        this.initMainMenu();
+        this.addElements();
+        this.getWorkSpace().getContentPane().validate();
         this.setVisible(true);
     }
     
-    public void main(){
+    
+    public void initMainMenu(){
+        stock.addActionListener(new EventStock());
+        cash.addActionListener(new EventCash());
+    }
 
+    /*
+    * Chargement du menu des Stocks
+    */
+    public class EventStock implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            stockMenu.loadPlugin();
+        }
     }
     
-    private void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = x;
-        gc.gridy = y;
-        gc.gridwidth = width;
-        gc.gridheight = height;
-        gc.weightx = 100.0;
-        gc.weighty = 100.0;
-        gc.insets = new Insets(5, 5, 5, 5);
-        gc.anchor = align;
-        gc.fill = GridBagConstraints.NONE;
-        p.add(c, gc);
+    /*
+    * Chargement du menu Trésorerie
+    */
+    public class EventCash implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            cashMenu.loadPlugin();
+        }
+    }
+    
+    @Override
+    public void addElements(){
+        plugin.addItem(plugin, stock, 0, 0, 1, 1,GridBagConstraints.CENTER);
+        plugin.addItem(plugin, cash, 1, 0, 1, 1,GridBagConstraints.CENTER);
     }
 }
+
