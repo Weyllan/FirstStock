@@ -5,6 +5,7 @@
  */
 package firststock;
 
+import IA.*;
 import Models.*;
 import view.Window;
 
@@ -19,12 +20,21 @@ public class FirstStock {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        testIA IA = new testIA();
+        IA.makePrediction();
+        IA.makePrediction();
+        IA.makePrediction();
+        
+        /*
         Window win = new Window("FirstStock");
         win.main();
         /*Window win = new Window("ta maman");
         win.main();*/
+        /*
         Product [] p = {};
         Order o = new Order(p,"totoCorp", Transaction.VENTE);
+        */
     }
     
 }
