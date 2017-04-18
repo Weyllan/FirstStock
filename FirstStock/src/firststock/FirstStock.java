@@ -7,6 +7,8 @@ package firststock;
 
 import IA.*;
 import Models.*;
+import controller.DBAccess;
+import java.sql.SQLException;
 import view.Window;
 
 /**
@@ -20,20 +22,23 @@ public class FirstStock {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+      
         
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
+        try{
+            myDB.modifyRawStock("souris", 15);
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        
+        /* ZONE DE TEST IA
         testIA IA = new testIA();
         IA.makePrediction();
         IA.makePrediction();
         IA.makePrediction();
-        
-        /*
-        Window win = new Window("FirstStock");
-        win.main();
-        /*Window win = new Window("ta maman");
-        win.main();*/
-        /*
-        Product [] p = {};
-        Order o = new Order(p,"totoCorp", Transaction.VENTE);
         */
     }
     

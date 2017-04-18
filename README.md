@@ -43,3 +43,10 @@ Dans le navigateur, entrer: http://localhost/phpmyadmin
 Pour se connecter: de base:
 root
 mdp rentré dans la config de votre base mysql
+
+Installer BDD et JDBC:
+sudo apt-get install mysql-server
+sudo apt-get install mysql-client
+sudo apt-get install libmysql-java  -> JDBC
+
+Dans PhpMyAdmin : regarder en haut de la fenêtre pour les numéros de ports, et faire un import de la BDD sql mise dans le projet
