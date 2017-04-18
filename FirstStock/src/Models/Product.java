@@ -13,15 +13,17 @@ public class Product{
     private String name;
     private double price;
     private Product[] ingredients;
-    private int quantity;
+    private double quantity;
+    private Unit unit;
         
-    public Product(String name, double price, int quantity) throws Exception {
+    public Product(String name, double price, double quantity, Unit unit) throws Exception {
         this.name = name;
         try{
-            if(price < 0 || quantity < 1)
+            if(price < 0)
                throw new Exception();
             this.price = price;
             this.quantity = quantity;
+            this.unit = unit;
         }
         catch(Exception e){
            System.err.printf("Error on price/quantity number");
@@ -62,7 +64,12 @@ public class Product{
         return ingredients;
     }
     
-    public int getQuantity(){
-        return quantity;
+    public double getQuantity(){
+        
+        return quantity * Math.pow(10,this.getUnit().getPower());
+    }
+    
+    public Unit getUnit(){
+        return unit;
     }
 }
