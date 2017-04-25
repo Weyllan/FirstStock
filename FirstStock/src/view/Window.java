@@ -6,10 +6,13 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -21,7 +24,7 @@ public class Window extends JFrame {
     private int sizeY=500;
     
     private ToolsBox toolsBox = new ToolsBox();
-    private JMenuBar menuBar = new JMenuBar();
+    public JMenuBar menuBar = new JMenuBar();
     private WorkSpace workSpace = new WorkSpace(this);
     private JDesktopPane desktop = new JDesktopPane();
 
@@ -35,12 +38,16 @@ public class Window extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        this.add(getToolsBox(), BorderLayout.WEST);
+        JScrollPane scrollPane = new JScrollPane(getToolsBox());
+        this.add(scrollPane, BorderLayout.WEST);
         this.add(menuBar, BorderLayout.NORTH);
         this.add(getWorkSpace(), BorderLayout.CENTER);
 
-        this.setVisible(true);
-        
+        this.setVisible(true); 
+    }
+    
+    public void addJMenu(Component comp){
+        menuBar.add(comp);
     }
     
     /**
@@ -97,5 +104,12 @@ public class Window extends JFrame {
      */
     public void setWorkSpace(WorkSpace workSpace) {
         this.workSpace = workSpace;
+    }
+
+    /**
+     * @param menuBar the menuBar to set
+     */
+    public void setMenuBar(JMenuBar menuBar) {
+        this.menuBar = menuBar;
     }
 }
