@@ -24,7 +24,7 @@ public class FirstStock {
         // TODO code application logic here
       
         
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","mdp");
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
         try{
             myDB.modifyRawStock("souris", 15);
