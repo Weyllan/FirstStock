@@ -51,8 +51,11 @@ public class FirstStock {
 
         // TODO code application logic here
       
+
         //Partie de Valentin
+
         /*DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
         try{
             myDB.modifyRawStock("souris", 15);
@@ -62,7 +65,7 @@ public class FirstStock {
         }*/
         
         
-        //Partie de Mathieu ?
+        //Partie de Mathieu
         /* ZONE DE TEST IA
         testIA IA = new testIA();
         IA.makePrediction();

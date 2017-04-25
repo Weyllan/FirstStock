@@ -35,10 +35,7 @@ public class testIA {
     }   
     
     public void makePrediction(){
-        // RETIRER PREMIER POINT EN O O
-        // ON PEUT SE RESTREINDRE A UNE FENETRE DE 1 MOIS 
-        // VOIR MAGIC CARD MARKET
-        // ALGORITHME DE GAUSS NEWTON ?
+
         System.out.println(a);
         System.out.println(b);
         Scanner reader = new Scanner(System.in); 
