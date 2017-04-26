@@ -60,14 +60,22 @@ public class FirstStock {
       
         
         //Partie de Valentin
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","mdp");
+
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        
+        /*
+        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
+        try{
+            myDB.modifyRawStock("souris", 15);
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }*/
+
         
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
      
         
-        //String[] parts = a.split(":");                
-       // String b = parts[0];
-        //System.out.println(a);
 
         //Partie de Mathieu
         // ZONE DE TEST IA

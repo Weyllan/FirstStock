@@ -5,13 +5,8 @@
  */
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -19,37 +14,47 @@ import javax.swing.JPanel;
  */
 public class StockMenu extends PluginStyle{
     
+    private StockMenu stock = this;
+    
     public StockMenu(String name, WorkSpace workSpace, Window window){
         super(name, workSpace, window);
+        this.init();
     }
-
-    /**
-     * @return the back
-     */
-    /*public JButton getBack() {
-        return back;
+    
+    public void init(){
+        button.addActionListener(new EventAccess());
     }
-
-    /**
-     * @param back the back to set
-     */
-    /*public void setBack(JButton back) {
-        this.back = back;
+    
+    public class EventAccess implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            stock.loadMenu();
+        }
     }
-
-    /**
-     * @return the cash
-     */
-    /*public JButton getCash() {
-        return cash;
+    
+    public void loadMenu(){
+        plugin.addElements();
+        plugin.getWorkSpace().getContentPane().remove(0);
+        plugin.getWorkSpace().setContentPane(plugin);
+        plugin.getWorkSpace().getContentPane().validate();
+        plugin.getWorkSpace().setTitle(plugin.name);
+        plugin.setVisible(true);
+        plugin.getToolsBox().removeAll();
+        stock.loadPlugins();
+        plugin.getToolsBox().validate();
+        System.out.println("view.Window.load : " + name);
     }
-
-    /**
-     * @param cash the cash to set
-     */
-    /*public void setCash(JButton cash) {
-        this.cash = cash;
-    }*/
+    
+    public void loadPlugins(){
+        PluginStyle s1 = new PluginStyle("s1", workSpace, window);
+        PluginStyle s2 = new PluginStyle("s2", workSpace, window);
+        PluginStyle s3 = new PluginStyle("s3", workSpace, window);
+    }
+    
+    @Override
+    public void addToTools(){ 
+        this.getWindow().addJMenu(button);
+    }
     
     
 }

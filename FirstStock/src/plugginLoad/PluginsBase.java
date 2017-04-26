@@ -14,13 +14,18 @@ package plugginLoad;
 public interface PluginsBase {
     
     /**
+     * 
+     */
+    
+    /**
      * Obtient le libellé à afficher dans les menu ou autre pour le plugins
      * @return Le libellé sous forme de String. Ce libellé doit être clair et compréhensible facilement 
      */
     public String getLibelle();
     
     /**
-    * Fonction de traitement principale du plugins de manipulation de la BDD
+     * Obtient la catégorie du plugins. Cette catégorie est celle dans laquelle le menu du plugins sera ajouté une fois chargé
+     * @return
     */
-    public void actionOnClic();
+    public int getCategorie();
 }

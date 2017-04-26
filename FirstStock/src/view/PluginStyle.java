@@ -5,7 +5,6 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -32,33 +31,12 @@ public class PluginStyle extends JPanel{
         this.name = name;
         this.button = new JButton(name);
         this.setLayout(new GridBagLayout());
-        this.init();
         this.addToTools();
     }
     
-    public void init(){
-        button.addActionListener(new EventAccess());
-    }
-    
-    public class EventAccess implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent clic){
-            plugin.loadPlugin();
-        }
-    }
-    
-    public void loadPlugin(){
-        plugin.addElements();
-        plugin.getWorkSpace().getContentPane().remove(0);
-        plugin.getWorkSpace().setContentPane(plugin);
-        plugin.getWorkSpace().getContentPane().validate();
-        plugin.getWorkSpace().setTitle(plugin.name);
-        plugin.setVisible(true);
-        System.out.println("view.Window.load : " + name);
-    }
     
     public void addElements(){
-        this.addItem(this, new JButton("yeah"), 0, 0, 1, 1,GridBagConstraints.CENTER);
+        this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
     }
     
     public void addToTools(){

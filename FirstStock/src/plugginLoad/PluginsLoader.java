@@ -21,14 +21,16 @@ public class PluginsLoader {
 
 	private String[] files;
 	
-	private ArrayList classPlugins;
+	private ArrayList stockPlugins;
+        private ArrayList cashPlugins;
 	
 	/**
 	 * Constructeur par défaut
 	 *
 	 */
 	public PluginsLoader(){
-            this.classPlugins = new ArrayList();
+            this.stockPlugins = new ArrayList();
+            this.cashPlugins = new ArrayList();
 	}
 	
 	/**
@@ -53,17 +55,34 @@ public class PluginsLoader {
 	 * @return Une collection de PluginsBase contenant les instances des plugins
 	 * @throws Exception si file = null ou file.length = 0
 	 */
-	public PluginsBase[] loadAllBasePlugins() throws Exception {
+	public StockPlugin[] loadAllStockPlugins() throws Exception {
 		
 		this.initializeLoader();
 		
-		PluginsBase[] tmpPlugins = new PluginsBase[this.classPlugins.size()];
+		StockPlugin[] tmpPlugins = new StockPlugin[this.stockPlugins.size()];
 		
 		for(int index = 0 ; index < tmpPlugins.length; index ++ ){
 			
 			//On crée une nouvelle instance de l'objet contenu dans la liste grâce à newInstance() 
 			//et on le cast en PluginsBase. Vu que la classe implémente PluginsBase, le cast est toujours correct
-			tmpPlugins[index] = (PluginsBase)((Class)this.classPlugins.get(index)).newInstance() ;
+			tmpPlugins[index] = (StockPlugin)((Class)this.stockPlugins.get(index)).newInstance() ;
+			
+		}
+		
+		return tmpPlugins;
+	}
+        
+        public CashPlugin[] loadAllCashPlugins() throws Exception {
+		
+		this.initializeLoader();
+		
+		CashPlugin[] tmpPlugins = new CashPlugin[this.cashPlugins.size()];
+		
+		for(int index = 0 ; index < tmpPlugins.length; index ++ ){
+			
+			//On crée une nouvelle instance de l'objet contenu dans la liste grâce à newInstance() 
+			//et on le cast en PluginsBase. Vu que la classe implémente PluginsBase, le cast est toujours correct
+			tmpPlugins[index] = (CashPlugin)((Class)this.stockPlugins.get(index)).newInstance() ;
 			
 		}
 		
@@ -77,7 +96,7 @@ public class PluginsLoader {
 		}
 
 		//Pour eviter le double chargement des plugins
-		if(!this.classPlugins.isEmpty()){
+                if(this.cashPlugins.size() != 0 || this.stockPlugins.size() != 0 ){
 			return ;
 		}
 		
@@ -129,8 +148,12 @@ public class PluginsLoader {
 						//Une classe ne doit pas appartenir à deux catégories de plugins différents. 
 						//Si tel est le cas on ne la place que dans la catégorie de la première interface correct
 						// trouvée
-						if(tmpClass.getInterfaces()[i].getName().toString().equals("plugginLoad.PluginsBase") ) {
-							this.classPlugins.add(tmpClass);
+						if(tmpClass.getInterfaces()[i].getName().toString().equals("plugginLoad.CashPlugin") ) {
+							this.cashPlugins.add(tmpClass);
+						}else {
+							if( tmpClass.getInterfaces()[i].getName().toString().equals("tutoPlugins.plugins.StockPlugin") ) {
+								this.stockPlugins.add(tmpClass);
+							}
 						}
 					}
 					
