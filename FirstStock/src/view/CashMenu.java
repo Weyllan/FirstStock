@@ -5,8 +5,11 @@
  */
 package view;
 
+
+import Charts.PieChart;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 
 
@@ -25,6 +28,8 @@ public class CashMenu extends PluginStyle{
     
     public void init(){
         button.addActionListener(new EventAccess());
+        PieChart p = new PieChart();
+        workSpace.setContentPane(p.createPanel("Test"));
     }
     
     public class EventAccess implements ActionListener{
