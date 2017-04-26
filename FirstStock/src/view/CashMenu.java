@@ -7,6 +7,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import plugginLoad.CashPlugin;
 
 
 /**
@@ -41,15 +42,25 @@ public class CashMenu extends PluginStyle{
         plugin.getWorkSpace().setTitle(plugin.name);
         plugin.setVisible(true);
         plugin.getToolsBox().removeAll();
-        cash.loadPlugins();
+        //cash.loadPlugins();
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
+        if(this.window.files.size() > 0){
+            this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
+            try {
+                this.loadPlugins(this.window.pluginsLoader.loadAllCashPlugins());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
     }
     
-    public void loadPlugins(){
-        PluginStyle c1 = new PluginStyle("c1", workSpace, window);
-        PluginStyle c2 = new PluginStyle("c2", workSpace, window);
-        PluginStyle c3 = new PluginStyle("c3", workSpace, window);
+    public void loadPlugins(CashPlugin[] cashplugins){
+        for (int index = 0; index < cashplugins.length; index++) {
+            this.window.cashPlugins.add(cashplugins[index]);
+            PluginStyle c = new PluginStyle(cashplugins[index].getLibelle(), workSpace, window);
+        }
     }
     
     @Override
