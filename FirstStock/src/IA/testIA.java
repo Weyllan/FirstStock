@@ -7,6 +7,12 @@ package IA;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import controller.DBAccess;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 
 /**
  *
@@ -34,12 +40,49 @@ public class testIA {
         this.res = res;
     }   
     
-    public void makePrediction(){
-
+    public void makePrediction(DBAccess myDB){      
+        
+        Date newDate; 
+        
+           try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try{
+              newDate = dateFormat.parse("2017-04-09");
+              System.out.println(dateFormat.format(newDate));
+              System.out.println(myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));    
+                      System.out.print( "Enumerate the HashMap: " );
+              
+                      /* Les clés */
+              Enumeration e = myDB.getCmdForProduct("ordinateur").keys();  
+              while ( e.hasMoreElements() )
+                System.out.println( e.nextElement() + " ");
+              
+              /* Les valeurs */
+            /*    Enumeration e = myDB.getCmdForProduct("ordinateur").elements();
+                while ( e.hasMoreElements() )
+                System.out.print( e.nextElement() + " ");
+                System.out.println();
+            */
+            }
+              catch(ParseException e){
+            e.getMessage();  
+            }
+         
+          
+          
+            
+        }
+        catch(SQLException e){
+            e.getMessage();  
+        }
+           
+           
         System.out.println(a);
         System.out.println(b);
-        Scanner reader = new Scanner(System.in); 
+        Scanner reader = new Scanner(System.in);
+        
         System.out.print("Entrée le jour: ");
+
         stocktable.add(reader.nextDouble());
         if (i>0)
         System.out.println("Je pense que tu vas écouler " + (int)(stocktable.get(i)*a+b)  + " produits");
@@ -64,7 +107,9 @@ public class testIA {
         b = sum(ventetable)/ventetable.size()-a*(sum(stocktable)/stocktable.size());
         System.out.println(a);
         System.out.println(b);
-        i +=1;      
+       
+        i +=1;
+        
     }
     
     public double sum(ArrayList<Double> m){

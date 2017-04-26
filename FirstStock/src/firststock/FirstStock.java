@@ -5,8 +5,11 @@
  */
 package firststock;
 
+
 import IA.*;
 import Models.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
 import java.text.ParseException;
@@ -16,6 +19,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import controller.DBAccess;
 import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import view.Window;
 
 /**
@@ -29,7 +34,9 @@ public class FirstStock {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        
+         
+         
         //partie sarah
         //décommenter ça pour avoir le visu noir
         /*try
@@ -51,25 +58,24 @@ public class FirstStock {
 
         // TODO code application logic here
       
-
+        
         //Partie de Valentin
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","mdp");
+        
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        try{
-            myDB.modifyRawStock("souris", 15);
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
+     
         
-        
+        //String[] parts = a.split(":");                
+       // String b = parts[0];
+        //System.out.println(a);
+
         //Partie de Mathieu
-        /* ZONE DE TEST IA
+        // ZONE DE TEST IA
         testIA IA = new testIA();
-        IA.makePrediction();
-        IA.makePrediction();
-        IA.makePrediction();
+        IA.makePrediction(myDB);
+        /*
+        IA.makePrediction(DB);
+        IA.makePrediction(DB);
         */
     }
 
