@@ -30,7 +30,7 @@ public class Window extends JFrame implements ActionListener{
     private int sizeX=600;
     private int sizeY=500;
     
-    private ToolsBox toolsBox = new ToolsBox();
+    private ToolsBox toolsBox = new ToolsBox("Tools");
     public JMenuBar menuBar = new JMenuBar();
     private WorkSpace workSpace = null;
     private JDesktopPane desktop = new JDesktopPane();
