@@ -38,7 +38,7 @@ public class PluginStyle extends JPanel{
     
     
     public void addElements(){
-        this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
+        //this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
     }
     
     public void addToTools(){
