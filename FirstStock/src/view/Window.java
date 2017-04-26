@@ -23,7 +23,7 @@ public class Window extends JFrame {
     private int sizeX=600;
     private int sizeY=500;
     
-    private ToolsBox toolsBox = new ToolsBox();
+    private ToolsBox toolsBox = new ToolsBox("Tools");
     public JMenuBar menuBar = new JMenuBar();
     private WorkSpace workSpace = new WorkSpace(this);
     private JDesktopPane desktop = new JDesktopPane();

@@ -40,7 +40,7 @@ public class PluginStyle extends JPanel{
     }
     
     public void addToTools(){
-        this.getToolsBox().addItem(this.getToolsBox(), button, 0, this.getToolsBox().getComponentCount(), 1, 1,GridBagConstraints.CENTER);
+        this.getToolsBox().addItem(this.getToolsBox(), button, this.getToolsBox().getComponentCount()%2, this.getToolsBox().getComponentCount()/2, 1, 1,GridBagConstraints.CENTER);
     }
 
     /**
