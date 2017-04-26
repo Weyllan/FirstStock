@@ -14,7 +14,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
  
-public class PieChart{
+public class PieChart extends Chart{
    
    public PieChart() {
 
@@ -48,13 +48,13 @@ public class PieChart{
       return chart;
    }
    
-   public static JPanel createPanel( String title ) {
+   @Override
+   public JPanel createPanel( String title ) {
       JFreeChart chart = createChart(createDataset( ), title );  
       
       ChartPanel chartPanel = new ChartPanel( chart );
       chartPanel.setPreferredSize( new java.awt.Dimension( 600 , 350 ) );
       
-      // Panel à afficher dans une frame
       return chartPanel; 
    }
 }

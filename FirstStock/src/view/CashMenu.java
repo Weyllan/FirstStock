@@ -6,7 +6,7 @@
 package view;
 
 
-import Charts.PieChart;
+import Charts.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -28,7 +28,7 @@ public class CashMenu extends PluginStyle{
     
     public void init(){
         button.addActionListener(new EventAccess());
-        PieChart p = new PieChart();
+        Chart p = new LineChart();
         workSpace.setContentPane(p.createPanel("Test"));
     }
     
