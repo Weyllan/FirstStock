@@ -7,6 +7,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import plugginLoad.StockPlugin;
 
 /**
  *
@@ -34,21 +35,30 @@ public class StockMenu extends PluginStyle{
     
     public void loadMenu(){
         plugin.addElements();
-        plugin.getWorkSpace().getContentPane().remove(0);
+        plugin.getWorkSpace().getContentPane().removeAll();
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);
         plugin.setVisible(true);
         plugin.getToolsBox().removeAll();
-        stock.loadPlugins();
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
+        if(this.window.files.size() > 0){
+            this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
+            try {
+                this.loadPlugins(this.window.pluginsLoader.loadAllStockPlugins());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     
-    public void loadPlugins(){
-        PluginStyle s1 = new PluginStyle("s1", workSpace, window);
-        PluginStyle s2 = new PluginStyle("s2", workSpace, window);
-        PluginStyle s3 = new PluginStyle("s3", workSpace, window);
+    public void loadPlugins(StockPlugin[] stockplugins){
+
+        for (int index = 0; index < stockplugins.length; index++) {
+            this.window.stockPlugins.add(stockplugins[index]);
+            PluginStyle c = new PluginStyle(stockplugins[index].getLibelle(), workSpace, window);
+        }
     }
     
     @Override

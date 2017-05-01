@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 /**
@@ -30,17 +31,18 @@ public class PluginStyle extends JPanel{
         this.window = window;
         this.name = name;
         this.button = new JButton(name);
+        this.button.addActionListener(this.window);
         this.setLayout(new GridBagLayout());
         this.addToTools();
     }
     
     
     public void addElements(){
-        this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
+        //this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
     }
     
     public void addToTools(){
-        this.getToolsBox().addItem(this.getToolsBox(), button, 0, this.getToolsBox().getComponentCount(), 1, 1,GridBagConstraints.CENTER);
+        this.getToolsBox().addItem(this.getToolsBox(), button, this.getToolsBox().getComponentCount()%2, this.getToolsBox().getComponentCount()/2, 1, 1,GridBagConstraints.CENTER);
     }
 
     /**
@@ -88,4 +90,6 @@ public class PluginStyle extends JPanel{
         gc.fill = GridBagConstraints.NONE;
         p.add(c, gc);
     }
+    
+
 }

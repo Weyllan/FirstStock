@@ -151,7 +151,7 @@ public class PluginsLoader {
 						if(tmpClass.getInterfaces()[i].getName().toString().equals("plugginLoad.CashPlugin") ) {
 							this.cashPlugins.add(tmpClass);
 						}else {
-							if( tmpClass.getInterfaces()[i].getName().toString().equals("tutoPlugins.plugins.StockPlugin") ) {
+							if( tmpClass.getInterfaces()[i].getName().toString().equals("plugginLoad.StockPlugin") ) {
 								this.stockPlugins.add(tmpClass);
 							}
 						}

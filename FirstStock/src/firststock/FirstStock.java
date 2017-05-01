@@ -33,6 +33,11 @@ public class FirstStock {
     /**
      * @param args the command line arguments
      */
+    
+    private static String url = "jdbc:mysql://localhost:3306/StockData";
+    private static String username = "root";
+    private static String pwd = "CIR3JAVA";
+    
     public static void main(String[] args) {
         
          
@@ -61,11 +66,10 @@ public class FirstStock {
         
         //Partie de Valentin
 
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-        
-        /*
+        DBAccess myDB = new DBAccess(url,username,pwd);
+
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        try{
+        /*try{
             myDB.modifyRawStock("souris", 15);
         }
         catch(SQLException e){
@@ -85,6 +89,18 @@ public class FirstStock {
         IA.makePrediction(DB);
         IA.makePrediction(DB);
         */
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPwd() {
+        return pwd;
     }
 
 }
