@@ -8,17 +8,18 @@ package view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 /**
  *
  * @author kieffersarah
  */
-public class ToolsBox extends JPanel{
+public class ToolsBox extends JToolBar{
     
-    public ToolsBox(){
+    public ToolsBox(String str){
+        super(str);
         init();
     }
     
@@ -26,7 +27,7 @@ public class ToolsBox extends JPanel{
         this.setLayout(new GridBagLayout());
     }
         
-    public void addItem(JPanel p, JComponent c, int x, int y, int width, int height, int align) {
+    public void addItem(JToolBar t, JComponent c, int x, int y, int width, int height, int align) {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = x;
         gc.gridy = y;
@@ -37,6 +38,6 @@ public class ToolsBox extends JPanel{
         gc.insets = new Insets(5, 5, 5, 5);
         gc.anchor = align;
         gc.fill = GridBagConstraints.NONE;
-        p.add(c, gc);
+        t.add(c, gc);
     }
 }

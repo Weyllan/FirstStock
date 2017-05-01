@@ -41,7 +41,7 @@ public class CashMenu extends PluginStyle{
     
     public void loadMenu(){
         plugin.addElements();
-        plugin.getWorkSpace().getContentPane().remove(0);
+        plugin.getWorkSpace().getContentPane().removeAll();
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);
