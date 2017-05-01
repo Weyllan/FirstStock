@@ -70,7 +70,7 @@ public class LineChart extends Chart{
          series1.add(0, 8.0);
 
          final XYSeries series2 = new XYSeries("Secd");
-         series2.add(1.0, 5.0);
+         series2.add(-1.0, 5.0);
          series2.add(2.0, 7.0);
          series2.add(3.0, 6.0);
          series2.add(4.0, 8.0);

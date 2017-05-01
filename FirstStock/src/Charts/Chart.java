@@ -6,6 +6,8 @@
 package Charts;
 
 import java.awt.Container;
+import java.sql.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -13,6 +15,14 @@ import java.awt.Container;
  */
 public abstract class Chart {
 
+    public Vector<ArrayList<Double,Double>> d;
+    
+    public Chart(){
+        
+    }
+    
+    
+    
     public Container createPanel(String test) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
