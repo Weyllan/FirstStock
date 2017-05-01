@@ -13,14 +13,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map.Entry;
+import IA.MyPair;
 
 /**
  *
  * @author mathieu
  */
 public class testIA {
-    
-    ArrayList<Double> stocktable = new ArrayList<Double>();
+
+    ArrayList<Double> datetable = new ArrayList<Double>();
     ArrayList<Double> ventetable = new ArrayList<Double>();
     ArrayList<Double> res = new ArrayList<Double>();
     static int i = 0;
@@ -30,93 +34,115 @@ public class testIA {
     double a = 0;
     double b = 0;
 
-    public testIA(){
-        
+    public testIA() {
+
     }
-    
-    public testIA(ArrayList<Double> stocktable, ArrayList<Double> ventetable, ArrayList<Double> res) {
-        this.stocktable = stocktable;
+
+    public testIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res) {
+        this.datetable = datetable;
         this.ventetable = ventetable;
         this.res = res;
-    }   
-    
-    public void makePrediction(DBAccess myDB){      
-        
-        Date newDate; 
-        
-           try{
+    }
+
+    public void makePrediction(DBAccess myDB) {
+
+        try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            try{
-              newDate = dateFormat.parse("2017-04-09");
-              System.out.println(dateFormat.format(newDate));
-              System.out.println(myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));    
-                      System.out.print( "Enumerate the HashMap: " );
-              
-                      /* Les clés */
-              Enumeration e = myDB.getCmdForProduct("ordinateur").keys();  
-              while ( e.hasMoreElements() )
-                System.out.println( e.nextElement() + " ");
-              
-              /* Les valeurs */
-            /*    Enumeration e = myDB.getCmdForProduct("ordinateur").elements();
+
+            try {
+                
+                //TODO: LOUIS
+                //Récupérer les nuages de points: polyInterpol et tendancePlot
+                ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
+                ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
+                Date startDate = dateFormat.parse("2017-04-01"); // Date de début (a calculer)
+                Date endDate = dateFormat.parse("2017-04-05"); // Date de fin (actuel)
+                Calendar start = Calendar.getInstance();
+                start.setTime(startDate);
+                Calendar end = Calendar.getInstance();
+                end.setTime(endDate);
+                Integer i = 0;
+             
+
+                for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
+                   
+                    
+//System.out.print("Enumerate the HashMap: ");
+
+                    /* Les clés */
+                    //Enumeration e = myDB.getCmdForProduct("ordinateur").keys();
+                    //while (e.hasMoreElements()) {
+                    //  System.out.println(e.nextElement() + " ");
+                    //}
+
+                    /* Les valeurs */
+ /*    Enumeration e = myDB.getCmdForProduct("ordinateur").elements();
                 while ( e.hasMoreElements() )
                 System.out.print( e.nextElement() + " ");
                 System.out.println();
-            */
-            }
-              catch(ParseException e){
-            e.getMessage();  
-            }
-         
-          
-          
-            
-        }
-        catch(SQLException e){
-            e.getMessage();  
-        }
-           
-           
-        System.out.println(a);
-        System.out.println(b);
-        Scanner reader = new Scanner(System.in);
-        
-        System.out.print("Entrée le jour: ");
+                     */
+                       
+ 
+                    //System.out.println("bite " + dateFormat.format(newDate));
+                    datetable.add((double)i);
+                    
+                    if (i == 3) {  //i == 29
+                        System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
+                        tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
+                    }
+                     
+                    //System.out.print("Entrée vos ventes: ");
+                    //System.out.println(myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
+                    
+                    if (myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate))!=null) { // Pour le produit demandé
+                        ventetable.add((double)(Integer)myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
+                        polyInterpol.add(new MyPair(datetable.get(i),ventetable.get(i)));
+                    } else {
+                        ventetable.add(0.);
+                    }
 
-        stocktable.add(reader.nextDouble());
-        if (i>0)
-        System.out.println("Je pense que tu vas écouler " + (int)(stocktable.get(i)*a+b)  + " produits");
-        
-        System.out.print("Entrée vos ventes: ");
-        ventetable.add(reader.nextDouble());
-        
-        res.add((stocktable.get(i)-(sum(stocktable))/stocktable.size())*(ventetable.get(i)-(sum(ventetable))/ventetable.size()));
-        covariance = sum(res)/ventetable.size();
-        System.out.println(covariance);
-        ecartypest = 0;
-        ecartypevt = 0;
-        for (int j=0; j<=i; j++){
-            ecartypest += Math.pow((stocktable.get(j)-(sum(stocktable)/stocktable.size())),2);
-            ecartypevt += Math.pow((ventetable.get(j)-(sum(ventetable)/ventetable.size())),2);
-       }
-        ecartypest /=ventetable.size();
-        ecartypevt /=ventetable.size();
-        ecartypest = Math.pow(ecartypest,0.5);
-        ecartypevt = Math.pow(ecartypevt,0.5);
-        a = covariance/(ecartypest*ecartypest);
-        b = sum(ventetable)/ventetable.size()-a*(sum(stocktable)/stocktable.size());
-        System.out.println(a);
-        System.out.println(b);
-       
-        i +=1;
-        
+                    res.add((datetable.get(i) - (sum(datetable)) / datetable.size()) * (ventetable.get(i) - (sum(ventetable)) / ventetable.size()));
+                    covariance = sum(res) / ventetable.size();
+                    ecartypest = 0;
+                    ecartypevt = 0;
+                    for (int j = 0; j <= i; j++) {
+                        ecartypest += Math.pow((datetable.get(j) - (sum(datetable) / datetable.size())), 2);
+                        ecartypevt += Math.pow((ventetable.get(j) - (sum(ventetable) / ventetable.size())), 2);
+                    }
+                    ecartypest /= ventetable.size();
+                    ecartypevt /= ventetable.size();
+                    ecartypest = Math.pow(ecartypest, 0.5);
+                    ecartypevt = Math.pow(ecartypevt, 0.5);
+                    a = covariance / (ecartypest * ecartypest);
+                    b = sum(ventetable) / ventetable.size() - a * (sum(datetable) / datetable.size());
+                    
+                    
+                    i += 1;
+                }
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+
+        }
     }
-    
-    public double sum(ArrayList<Double> m){
+
+    public double sum(ArrayList<Double> m) {
         double sum = 0;
-        for(Double d : m)
+        for (Double d : m) {
             sum += d;
+        }
         return sum;
     }
-    
+
+    public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
+         ArrayList<MyPair> Points = new ArrayList<MyPair>();
+       for (double j = 0; j<=i; j++){
+           Points.add(new MyPair(j,a*j+b));
+       }
+       return Points;
+    }
+
 }
