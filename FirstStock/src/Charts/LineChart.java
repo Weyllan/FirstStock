@@ -5,7 +5,9 @@
  */
 package Charts;
 
+import IA.MyPair;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
@@ -54,8 +56,21 @@ public class LineChart extends Chart{
         return lineChart;
     }
    
-    private static XYSeriesCollection  createDataset( ) {
-      final XYSeries series1 = new XYSeries("First");
+    private XYSeriesCollection  createDataset( ) {
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        // Acces tableau
+        for(int i = 0 ; i < super.values.length ; i++){
+            final XYSeries serie = new XYSeries(i);
+            // Acces ArrayList
+            for(int j = 0 ; i < super.values[i].size() ; j++){
+                serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
+            }
+            dataset.addSeries(serie);
+        }
+        return dataset;
+        /*
+        
+        final XYSeries series1 = new XYSeries("First");
          series1.add(-11.0, 1.0);
          series1.add(-10.0, 4.0);
          series1.add(-9.0, 3.0);
@@ -82,8 +97,8 @@ public class LineChart extends Chart{
          final XYSeriesCollection dataset = new XYSeriesCollection();
          dataset.addSeries(series1);
          dataset.addSeries(series2);
-
-        return dataset;
+*/
+    //    return dataset;
     }
 
     @Override

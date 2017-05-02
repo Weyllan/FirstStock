@@ -5,11 +5,11 @@
  */
 package view;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+
 import java.awt.Insets;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 /**
@@ -24,7 +24,13 @@ public class ToolsBox extends JToolBar{
     }
     
     public void init(){
-        this.setLayout(new GridBagLayout());
+        Dimension dim = new Dimension(50,50);
+        
+        //this.setAutoscrolls(true);
+        //this.setMinimumSize(dim);
+        //this.setPreferredSize(dim);
+        
+        
     }
         
     public void addItem(JToolBar t, JComponent c, int x, int y, int width, int height, int align) {

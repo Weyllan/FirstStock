@@ -28,13 +28,9 @@ public class CashMenu extends PluginStyle{
     
     public void init(){
         button.addActionListener(new EventAccess());
-        // Init IA.getData(Chart)
-        //        IA.draw
-        // init chart
-        
-        
-        Chart p = new LineChart();
-        workSpace.setContentPane(p.createPanel("Test"));
+    //    Chart p = new LineChart();
+    //    workSpace.setContentPane(p.createPanel("Test"));
+    
     }
     
     public class EventAccess implements ActionListener{
@@ -53,6 +49,7 @@ public class CashMenu extends PluginStyle{
         plugin.setVisible(true);
         plugin.getToolsBox().removeAll();
         //cash.loadPlugins();
+        
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
         if(this.window.files.size() > 0){
