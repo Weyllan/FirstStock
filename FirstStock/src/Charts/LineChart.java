@@ -45,7 +45,7 @@ public class LineChart extends Chart{
         plot.setRangeGridlinePaint(Color.lightGray);
 
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-
+        renderer.setSeriesShapesVisible(0, false);
         plot.setRenderer(renderer);
         
         return lineChart;
