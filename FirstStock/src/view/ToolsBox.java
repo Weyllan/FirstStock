@@ -24,12 +24,6 @@ public class ToolsBox extends JToolBar{
     }
     
     public void init(){
-        Dimension dim = new Dimension(50,50);
-        
-        //this.setAutoscrolls(true);
-        //this.setMinimumSize(dim);
-        //this.setPreferredSize(dim);
-        
         
     }
         

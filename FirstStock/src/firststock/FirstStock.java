@@ -57,10 +57,10 @@ public class FirstStock {
 
         
         //accès pour sarah
-        //DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
 
 
-        DBAccess myDB = new DBAccess(url,username,pwd);
+        //DBAccess myDB = new DBAccess(url,username,pwd);
 
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble

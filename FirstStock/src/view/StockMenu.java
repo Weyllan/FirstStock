@@ -41,6 +41,9 @@ public class StockMenu extends PluginStyle{
         plugin.getWorkSpace().setTitle(plugin.name);
         plugin.setVisible(true);
         plugin.getToolsBox().removeAll();
+        PluginStyle s1= new PluginStyle("s1", workSpace, window);
+        PluginStyle s2= new PluginStyle("s2", workSpace, window);
+        PluginStyle s3= new PluginStyle("s3", workSpace, window);
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
         if(this.window.files.size() > 0){
