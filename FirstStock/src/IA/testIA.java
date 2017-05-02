@@ -55,18 +55,17 @@ public class testIA {
                 //Récupérer les nuages de points: polyInterpol et tendancePlot
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
-                Date startDate = dateFormat.parse("2017-04-01"); // Date de début (a calculer)
                 Date endDate = dateFormat.parse("2017-04-05"); // Date de fin (actuel)
-                Calendar start = Calendar.getInstance();
-                start.setTime(startDate);
                 Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
+                Calendar start = Calendar.getInstance();
+                //start.add(Calendar.DATE, -29);
                 Integer i = 0;
-             
-
+               // System.out.println(newDate2);
+                System.out.println(end.getTime());
+                //System.out.println(start.before(end));
                 for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
                    
-                    
 //System.out.print("Enumerate the HashMap: ");
 
                     /* Les clés */
@@ -86,7 +85,7 @@ public class testIA {
                     //System.out.println("bite " + dateFormat.format(newDate));
                     datetable.add((double)i);
                     
-                    if (i == 3) {  //i == 29
+                    if (i == 29) { 
                         System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
                         tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
                     }
