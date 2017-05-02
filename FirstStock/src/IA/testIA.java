@@ -157,7 +157,7 @@ public class testIA {
         c = new LineChart();
         c.setValues(curves);
       
-        return c.createPanel("BelleCourbe");  
+        return c.createPanel("BelleCourbe", "Jours", "Montant");  
     } 
 
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
