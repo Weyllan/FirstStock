@@ -5,6 +5,8 @@
  */
 package IA;
 
+import Charts.Chart;
+import Charts.LineChart;
 import java.util.ArrayList;
 import java.util.Scanner;
 import controller.DBAccess;
@@ -17,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
+import javax.swing.JPanel;
 
 /**
  *
@@ -44,7 +47,7 @@ public class testIA {
         this.res = res;
     }
 
-    public void makePrediction(DBAccess myDB) {
+    public JPanel makePrediction(DBAccess myDB) {
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -55,18 +58,22 @@ public class testIA {
                 //Récupérer les nuages de points: polyInterpol et tendancePlot
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
+
+                
+                
                 Date startDate = dateFormat.parse("2017-04-01"); // Date de début (a calculer)
+
                 Date endDate = dateFormat.parse("2017-04-05"); // Date de fin (actuel)
-                Calendar start = Calendar.getInstance();
-                start.setTime(startDate);
                 Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
+                Calendar start = Calendar.getInstance();
+                //start.add(Calendar.DATE, -29);
                 Integer i = 0;
-             
-
+               // System.out.println(newDate2);
+                System.out.println(end.getTime());
+                //System.out.println(start.before(end));
                 for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
                    
-                    
 //System.out.print("Enumerate the HashMap: ");
 
                     /* Les clés */
@@ -86,7 +93,7 @@ public class testIA {
                     //System.out.println("bite " + dateFormat.format(newDate));
                     datetable.add((double)i);
                     
-                    if (i == 3) {  //i == 29
+                    if (i == 29) { 
                         System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
                         tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
                     }
@@ -117,7 +124,10 @@ public class testIA {
                     b = sum(ventetable) / ventetable.size() - a * (sum(datetable) / datetable.size());
                     
                     
-                    i += 1;
+                    i += 1;                   
+                    
+                    // Affichage graphique
+                    return this.printAsChart(polyInterpol, tendancePlot);
                 }
             } catch (ParseException e) {
                 e.getMessage();
@@ -127,6 +137,7 @@ public class testIA {
             e.getMessage();
 
         }
+        return null;
     }
 
     public double sum(ArrayList<Double> m) {
@@ -136,6 +147,14 @@ public class testIA {
         }
         return sum;
     }
+    
+    public JPanel printAsChart(ArrayList ... curves){
+        LineChart c;
+        c = new LineChart();
+        c.setValues(curves);
+      
+        return c.createPanel("BelleCourbe");  
+    } 
 
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
          ArrayList<MyPair> Points = new ArrayList<MyPair>();
