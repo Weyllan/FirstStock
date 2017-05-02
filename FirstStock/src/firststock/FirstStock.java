@@ -60,8 +60,9 @@ public class FirstStock {
       
         
         //Partie de Valentin
-
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+        
+        //accès pour sarah
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
         /*try{
