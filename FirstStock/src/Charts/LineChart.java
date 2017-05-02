@@ -61,9 +61,13 @@ public class LineChart extends Chart{
         // Acces tableau
         for(int i = 0 ; i < super.values.length ; i++){
             final XYSeries serie = new XYSeries(i);
+            System.out.println("Courbe : " + i );
             // Acces ArrayList
-            for(int j = 0 ; i < super.values[i].size() ; j++){
+            for(int j = 0 ; j < super.values[i].size() ; j++){
+                
+                System.out.println("Point n°" + j );
                 serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
+                System.out.println("\t X = " + super.values[i].get(j).key() + "\t Y = "+ super.values[i].get(j).value());
             }
             dataset.addSeries(serie);
         }
