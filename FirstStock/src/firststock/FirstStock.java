@@ -7,20 +7,9 @@ package firststock;
 
 
 import IA.*;
-import Models.*;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import controller.DBAccess;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.ArrayList;
 import view.Window;
 
 /**
@@ -69,12 +58,14 @@ public class FirstStock {
         DBAccess myDB = new DBAccess(url,username,pwd);
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        /*try{
-            myDB.modifyRawStock("souris", 15);
+        System.out.println("testVal");
+        try{
+            ArrayList test = myDB.selectAllRaws();
+            System.out.println(test.get(0).toString());
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
-        }*/
+        }
 
         
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
