@@ -51,7 +51,7 @@ public class LineChart extends Chart{
         return lineChart;
     }
     
-    private void export(String path, String title , String x, String y){
+    public void export(String path, String title , String x, String y){
         File lineChart = new File( path ); 
         try{
             ChartUtilities.saveChartAsJPEG(lineChart ,this.makeJFreeChart(title, x, y), this.width , this.height);

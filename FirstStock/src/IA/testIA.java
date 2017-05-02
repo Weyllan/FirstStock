@@ -132,7 +132,7 @@ public class testIA {
                     // Affichage graphique
                     
                 }
-                return this.printAsChart(polyInterpol, tendancePlot);
+                return this.printAsChart(tendancePlot, polyInterpol);
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -156,7 +156,7 @@ public class testIA {
         LineChart c;
         c = new LineChart();
         c.setValues(curves);
-      
+        c.export("test.jpeg","BelleCourbe", "Jours", "Montant");
         return c.createPanel("BelleCourbe", "Jours", "Montant");  
     } 
 
