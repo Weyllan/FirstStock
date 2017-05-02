@@ -82,15 +82,15 @@ public class FirstStock {
         */
     }
 
-    public static String getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public static String getPwd() {
+    public String getPwd() {
         return pwd;
     }
 
