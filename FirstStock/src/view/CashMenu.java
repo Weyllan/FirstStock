@@ -49,6 +49,7 @@ public class CashMenu extends PluginStyle{
         plugin.setVisible(true);
         plugin.getToolsBox().removeAll();
         //cash.loadPlugins();
+        
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
         if(this.window.files.size() > 0){

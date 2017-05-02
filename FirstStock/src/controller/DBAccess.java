@@ -5,6 +5,7 @@
  */
 package controller;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
 /**
  *
@@ -26,7 +27,62 @@ public class DBAccess {
     
     /*  Getters sur la BDD  */
     
-    /*  TODO Find Map in JAVA  */
+    /*  Select All Products Name */
+    public ArrayList selectAllProduct() throws SQLException{
+        ArrayList myProducts = new ArrayList();
+        Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT product_name FROM product_type";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String productName = rs.getString("product_name");
+                myProducts.add(productName);
+                System.out.println(productName);          
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return myProducts;
+    }
+    
+    /* Select all raws names */
+    public ArrayList selectAllRaws() throws SQLException{
+        ArrayList myProducts = new ArrayList();
+        Connection dbConnection = null;
+	Statement statement = null; 
+	String selectTableSQL = "SELECT raw_name FROM raw_type";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String rawName = rs.getString("raw_name");
+                myProducts.add(rawName);
+                System.out.println(rawName);          
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return myProducts;
+    }
+    
     
     /*  Return Stock of ONE Product, wich is specified  */
     public int selectAProductStock(String product_type) throws SQLException {

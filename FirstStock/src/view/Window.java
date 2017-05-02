@@ -7,6 +7,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -55,9 +56,8 @@ public class Window extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        JScrollPane scrollPane = new JScrollPane(getToolsBox());
-        this.add(scrollPane, BorderLayout.WEST);
-        this.add(menuBar, BorderLayout.NORTH);
+        this.add(getToolsBox(), BorderLayout.PAGE_START);
+        this.setJMenuBar(menuBar);
         
         
         
@@ -82,6 +82,9 @@ public class Window extends JFrame implements ActionListener{
         
         this.workSpace = new WorkSpace(this);
         this.add(getWorkSpace(), BorderLayout.CENTER);
+        
+        Dimension dim = new Dimension(400,300);
+        this.setMinimumSize(dim);
 
         this.setVisible(true); 
     }
