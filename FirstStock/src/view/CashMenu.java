@@ -5,8 +5,11 @@
  */
 package view;
 
+
+import Charts.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 
 
@@ -25,6 +28,13 @@ public class CashMenu extends PluginStyle{
     
     public void init(){
         button.addActionListener(new EventAccess());
+        // Init IA.getData(Chart)
+        //        IA.draw
+        // init chart
+        
+        
+        Chart p = new LineChart();
+        workSpace.setContentPane(p.createPanel("Test"));
     }
     
     public class EventAccess implements ActionListener{
