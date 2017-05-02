@@ -7,10 +7,13 @@ package Charts;
 
 import IA.MyPair;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.ui.ApplicationFrame;
@@ -28,19 +31,11 @@ public class LineChart extends Chart{
 
     }
 
-    private static JFreeChart createChart( XYSeriesCollection dataset, String title ) {
-      final JFreeChart lineChart = ChartFactory.createXYLineChart(
-            "title",      // chart title
-            "X",                      // x axis label
-            "Y",                      // y axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL,
-            true,                     // include legend
-            true,                     // tooltips
-            false                     // urls
-        );
-    
-    // Custom chart..
+    private JFreeChart createChart( String title, String x, String y ) {
+        
+        JFreeChart lineChart = this.makeJFreeChart(title, x, y);
+        
+        // Custom chart..
         lineChart.setBackgroundPaint(Color.white);
 
         final XYPlot plot = lineChart.getXYPlot();
@@ -55,66 +50,54 @@ public class LineChart extends Chart{
         
         return lineChart;
     }
-   
+    
+    private void export(String path, String title , String x, String y){
+        File lineChart = new File( path ); 
+        try{
+            ChartUtilities.saveChartAsJPEG(lineChart ,this.makeJFreeChart(title, x, y), this.width , this.height);
+        }
+        catch(IOException e){
+             e.getMessage();
+        }
+    }
+    
+    private JFreeChart makeJFreeChart( String title, String x, String y ){
+        final JFreeChart lineChart = ChartFactory.createXYLineChart(
+            title,      // chart title
+            x,                      // x axis label
+            y,                      // y axis label
+            this.createDataset(),   // data
+            PlotOrientation.VERTICAL,
+            true,                     // include legend
+            true,                     // tooltips
+            false                     // urls
+        );
+        return lineChart;
+    }
+    
     private XYSeriesCollection  createDataset( ) {
         final XYSeriesCollection dataset = new XYSeriesCollection();
         // Acces tableau
         for(int i = 0 ; i < super.values.length ; i++){
             final XYSeries serie = new XYSeries(i);
-            System.out.println("Courbe : " + i );
             // Acces ArrayList
             for(int j = 0 ; j < super.values[i].size() ; j++){
-                
-                System.out.println("Point n°" + j );
                 serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
-                System.out.println("\t X = " + super.values[i].get(j).key() + "\t Y = "+ super.values[i].get(j).value());
             }
             dataset.addSeries(serie);
         }
         return dataset;
-        /*
-        
-        final XYSeries series1 = new XYSeries("First");
-         series1.add(-11.0, 1.0);
-         series1.add(-10.0, 4.0);
-         series1.add(-9.0, 3.0);
-         series1.add(-8.0, 5.0);
-         series1.add(-7.0, 5.0);
-         series1.add(-6.0, 7.0);
-         series1.add(-5.0, 7.0);
-         series1.add(-4.0, 8.0);
-         series1.add(-3.0, 5.0);
-         series1.add(-2.0, 10.0);
-         series1.add(-1.0, 1.0);
-         series1.add(0, 8.0);
-
-         final XYSeries series2 = new XYSeries("Secd");
-         series2.add(-1.0, 5.0);
-         series2.add(2.0, 7.0);
-         series2.add(3.0, 6.0);
-         series2.add(4.0, 8.0);
-         series2.add(5.0, 4.0);
-         series2.add(6.0, 4.0);
-         series2.add(7.0, 2.0);
-         series2.add(8.0, 1.0);
-
-         final XYSeriesCollection dataset = new XYSeriesCollection();
-         dataset.addSeries(series1);
-         dataset.addSeries(series2);
-*/
-    //    return dataset;
     }
 
     @Override
-    public JPanel createPanel( String title ) {
-      JFreeChart chart = createChart(createDataset( ), title );  
-      
-      ChartPanel chartPanel = new ChartPanel( chart );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 600 , 350 ) );
-      
-      return chartPanel; 
-   }
+    public JPanel createPanel( String title , String x, String y) {
+        JFreeChart chart = createChart(title, x, y );  
 
+        ChartPanel chartPanel = new ChartPanel( chart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( this.width , this.height ) );
+
+        return chartPanel; 
+   }
 }
 
 
