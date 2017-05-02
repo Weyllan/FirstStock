@@ -28,6 +28,11 @@ public class CashMenu extends PluginStyle{
     
     public void init(){
         button.addActionListener(new EventAccess());
+        // Init IA.getData(Chart)
+        //        IA.draw
+        // init chart
+        
+        
         Chart p = new LineChart();
         workSpace.setContentPane(p.createPanel("Test"));
     }

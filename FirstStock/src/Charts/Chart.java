@@ -6,7 +6,7 @@
 package Charts;
 
 import java.awt.Container;
-import java.sql.ArrayList;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Vector;
  */
 public abstract class Chart {
 
-    public Vector<ArrayList<Double,Double>> d;
+    //public Vector<ArrayList<Double,Double>> d;
     
     public Chart(){
         
