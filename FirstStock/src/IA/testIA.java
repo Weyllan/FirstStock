@@ -56,23 +56,23 @@ public class testIA {
 
             try {
                 
-                //TODO: LOUIS
-                //Récupérer les nuages de points: polyInterpol et tendancePlot
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
 
-                
-                
-                Date startDate = dateFormat.parse("2017-04-01"); // Date de début (a calculer)
+                Integer periodecalcul = 11;
 
-                Date endDate = dateFormat.parse("2017-04-05"); // Date de fin (actuel)
-                Calendar end = Calendar.getInstance();
+                Date endDate = dateFormat.parse("2017-04-12"); // Date de fin (actuel)
+                
+                Calendar end = Calendar.getInstance();     
                 end.setTime(endDate);
+                
                 Calendar start = Calendar.getInstance();
-                start.setTime(startDate);
-                //start.add(Calendar.DATE, -29);
+                start.setTime(endDate);
+                start.add(Calendar.DATE, -periodecalcul);
                 Integer i = 0;
-               // System.out.println(newDate2);
+                
+                System.out.println(start.getTime());
+                System.out.println(end.getTime());
                 //System.out.println(end.getTime());
                 //System.out.println(start.before(end));
                 for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
@@ -96,7 +96,7 @@ public class testIA {
                     //System.out.println("bite " + dateFormat.format(newDate));
                     datetable.add((double)i);
                     
-                    if (i == 3) { 
+                    if (i == periodecalcul-1) { 
                         System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
                         tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
                     }
