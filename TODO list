@@ -1,17 +1,18 @@
 Travail à faire pour mercredi 22/03/2017: 
 
 Valentin: 
-	Installer les packages nécessaire et faire un tuto pour l'installation de mySQL et phpmyadmin
+	Outils de supressions, outils d'achat et de ventes 
 
 Louis: 
-	Faire des recherches sur charts, nécessaire pour un module important
+	Création des charts cash menu, bouton export, bouton histogramme?
+
 
 Sarah: 
-	Finir de prévoir son visuel pour commencer à coder le visuel de l'application mercredi
+	Ajout de Scroller 
 
 Mathieu: 
-	Fixer LA METHODE et l'algorithme d'intelligence artificiel.
-	Tracer les courbes d'évolutions pour visuel.
+	JComboPox pour choisir le produit de ce qu'on veut évolution
+	IA de courbe d'évolution d'ordre supérieur?
 
 Objectif: 
 	Première fenetre réalisée et action des boutons dirigeant vers les suivantes implémentées

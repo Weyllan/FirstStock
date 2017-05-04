@@ -526,6 +526,27 @@ public class DBAccess {
     	}
     }
     
+    public void setMyCash(double newCash) throws SQLException {
+	Connection dbConnection = null;
+	Statement statement = null;
+        double mymonney = -1;
+	String selectTableSQL = "UPDATE `cash` SET `quantity_cash` = '"+newCash+"' ";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            statement.execute(selectTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+    }
+    
 
     /*  Modify product Price */
     public void modifyProductPrice(String product_name, double price) throws SQLException{

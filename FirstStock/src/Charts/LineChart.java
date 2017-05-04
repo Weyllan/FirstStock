@@ -72,6 +72,7 @@ public class LineChart extends Chart{
             final XYSeries serie = new XYSeries(i);
             // Acces ArrayList
             for(int j = 0 ; j < super.values[i].size() ; j++){
+
                 serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
             }
             dataset.addSeries(serie);
