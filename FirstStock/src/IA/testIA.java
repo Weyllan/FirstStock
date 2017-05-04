@@ -5,6 +5,7 @@
  */
 package IA;
 
+import Charts.BarChart;
 import Charts.Chart;
 import Charts.LineChart;
 import java.util.ArrayList;
@@ -153,11 +154,11 @@ public class testIA {
     }
     
     public JPanel printAsChart(ArrayList ... curves){
-        LineChart c;
-        c = new LineChart();
+        Chart c;
+        c = new BarChart();
         c.setValues(curves);
       
-        return c.createPanel("BelleCourbe", "Jours", "Montant");  
+        return (JPanel) c.createPanel("BelleCourbe", "Jours", "Montant");  
     } 
 
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){

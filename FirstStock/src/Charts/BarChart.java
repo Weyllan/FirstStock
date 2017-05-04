@@ -21,13 +21,14 @@ import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class LineChart extends Chart{
+public class BarChart extends Chart{
 
-    public LineChart() {
+    public BarChart() {
 
     }
 
@@ -50,9 +51,10 @@ public class LineChart extends Chart{
         
         return lineChart;
     }
+
     
     private JFreeChart makeJFreeChart( String title, String x, String y ){
-        final JFreeChart lineChart = ChartFactory.createXYLineChart(
+        final JFreeChart barChart = ChartFactory.createBarChart(
             title,      // chart title
             x,                      // x axis label
             y,                      // y axis label
@@ -62,21 +64,36 @@ public class LineChart extends Chart{
             true,                     // tooltips
             false                     // urls
         );
-        return lineChart;
+        return barChart;
     }
     
-    private XYSeriesCollection  createDataset( ) {
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        // Acces tableau
-        for(int i = 0 ; i < super.values.length ; i++){
-            final XYSeries serie = new XYSeries(i);
-            // Acces ArrayList
-            for(int j = 0 ; j < super.values[i].size() ; j++){
-                serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
-            }
-            dataset.addSeries(serie);
-        }
-        return dataset;
+    private CategoryDataset createDataset( ) {
+        final String fiat = "FIAT";        
+        final String audi = "AUDI";        
+        final String ford = "FORD";        
+        final String speed = "Speed";        
+        final String millage = "Millage";        
+        final String userrating = "User Rating";        
+        final String safety = "safety";        
+        final DefaultCategoryDataset dataset = 
+        new DefaultCategoryDataset( );  
+
+        dataset.addValue( 1.0 , fiat , speed );        
+        dataset.addValue( 3.0 , fiat , userrating );        
+        dataset.addValue( 5.0 , fiat , millage ); 
+        dataset.addValue( 5.0 , fiat , safety );           
+
+        dataset.addValue( 5.0 , audi , speed );        
+        dataset.addValue( 6.0 , audi , userrating );       
+        dataset.addValue( 10.0 , audi , millage );        
+        dataset.addValue( 4.0 , audi , safety );
+
+        dataset.addValue( 4.0 , ford , speed );        
+        dataset.addValue( 2.0 , ford , userrating );        
+        dataset.addValue( 3.0 , ford , millage );        
+        dataset.addValue( 6.0 , ford , safety );               
+
+        return dataset; 
     }
 
     @Override
