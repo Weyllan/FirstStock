@@ -34,22 +34,18 @@ public class BarChart extends Chart{
 
     private JFreeChart createChart( String title, String x, String y ) {
         
-        JFreeChart lineChart = this.makeJFreeChart(title, x, y);
+        JFreeChart barChart = this.makeJFreeChart(title, x, y);
         
         // Custom chart..
-        lineChart.setBackgroundPaint(Color.white);
+        barChart.setBackgroundPaint(Color.white);
 
-        final XYPlot plot = lineChart.getXYPlot();
+        final XYPlot plot = barChart.getXYPlot();
 
         plot.setBackgroundPaint(Color.white);
         plot.setDomainGridlinePaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.lightGray);
-
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesShapesVisible(0, false);
-        plot.setRenderer(renderer);
         
-        return lineChart;
+        return barChart;
     }
 
     
@@ -68,30 +64,32 @@ public class BarChart extends Chart{
     }
     
     private CategoryDataset createDataset( ) {
-        final String fiat = "FIAT";        
-        final String audi = "AUDI";        
-        final String ford = "FORD";        
-        final String speed = "Speed";        
-        final String millage = "Millage";        
-        final String userrating = "User Rating";        
-        final String safety = "safety";        
+        final String obj1 = "Banane";        
+        final String obj2 = "Smoothy";        
+        final String obj3 = "Aluminium";    
+        
+        final String mounth1 = "Avril";        
+        final String mounth2 = "Mai";        
+        final String mounth4 = "Juillet";        
+        final String mounth3 = "Juin";  
+        
         final DefaultCategoryDataset dataset = 
         new DefaultCategoryDataset( );  
 
-        dataset.addValue( 1.0 , fiat , speed );        
-        dataset.addValue( 3.0 , fiat , userrating );        
-        dataset.addValue( 5.0 , fiat , millage ); 
-        dataset.addValue( 5.0 , fiat , safety );           
+        dataset.addValue( 1.0 , obj1 , mounth1 );        
+        dataset.addValue( 5.0 , obj1 , mounth2 ); 
+        dataset.addValue( 5.0 , obj1 , mounth3 );          
+        dataset.addValue( 3.0 , obj1 , mounth4 );         
 
-        dataset.addValue( 5.0 , audi , speed );        
-        dataset.addValue( 6.0 , audi , userrating );       
-        dataset.addValue( 10.0 , audi , millage );        
-        dataset.addValue( 4.0 , audi , safety );
+        dataset.addValue( 5.0 , obj2 , mounth1 );       
+        dataset.addValue( 10.0 , obj2 , mounth2 );        
+        dataset.addValue( 4.0 , obj2 , mounth3 );      
+        dataset.addValue( 6.0 , obj2 , mounth4 );  
 
-        dataset.addValue( 4.0 , ford , speed );        
-        dataset.addValue( 2.0 , ford , userrating );        
-        dataset.addValue( 3.0 , ford , millage );        
-        dataset.addValue( 6.0 , ford , safety );               
+        dataset.addValue( 4.0 , obj3 , mounth1 );        
+        dataset.addValue( 3.0 , obj3 , mounth2 );        
+        dataset.addValue( 6.0 , obj3 , mounth3 );        
+        dataset.addValue( 2.0 , obj3 , mounth4 );               
 
         return dataset; 
     }
