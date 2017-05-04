@@ -82,7 +82,7 @@ public class PluginsLoader {
 			
 			//On crée une nouvelle instance de l'objet contenu dans la liste grâce à newInstance() 
 			//et on le cast en PluginsBase. Vu que la classe implémente PluginsBase, le cast est toujours correct
-			tmpPlugins[index] = (CashPlugin)((Class)this.stockPlugins.get(index)).newInstance() ;
+			tmpPlugins[index] = (CashPlugin)((Class)this.cashPlugins.get(index)).newInstance() ;
 			
 		}
 		

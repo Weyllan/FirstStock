@@ -64,14 +64,14 @@ public class FirstStock {
 
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        /*System.out.println("testVal");
+        System.out.println("testVal");
         try{
-            ArrayList test = myDB.selectAllRaws();
-            System.out.println(test.get(0).toString());
+            myDB.setBuy("2017-05-02", 20, "clavier");
+            myDB.setMyCash(100000);
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
-        }*/
+        }
 
         
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
