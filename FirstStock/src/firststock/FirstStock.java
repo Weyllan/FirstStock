@@ -80,8 +80,8 @@ public class FirstStock {
 
         //Partie de Mathieu
         // ZONE DE TEST IA
-        testIA IA = new testIA();
-        IA.makePrediction(myDB);
+        //testIA IA = new testIA();
+        //IA.makePrediction(myDB);
         /*
         IA.makePrediction(DB);
         IA.makePrediction(DB);
