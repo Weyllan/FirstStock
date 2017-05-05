@@ -6,31 +6,30 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import java.awt.Insets;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.ScrollPaneLayout;
 
 /**
  *
  * @author kieffersarah
  */
 public class ToolsBox extends JToolBar{
-    
+
     public ToolsBox(String str){
         super(str);
         init();
     }
     
     public void init(){
-        Dimension dim = new Dimension(50,50);
-        
-        //this.setAutoscrolls(true);
-        //this.setMinimumSize(dim);
-        //this.setPreferredSize(dim);
-        
-        
+    
     }
         
     public void addItem(JToolBar t, JComponent c, int x, int y, int width, int height, int align) {
