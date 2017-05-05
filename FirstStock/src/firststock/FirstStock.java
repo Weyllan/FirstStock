@@ -68,6 +68,8 @@ public class FirstStock {
         try{
             myDB.setBuy("2017-05-02", 20, "clavier");
             myDB.setMyCash(100000);
+            myDB.selectAllNecessaruRaw("ordinateur");
+            myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
