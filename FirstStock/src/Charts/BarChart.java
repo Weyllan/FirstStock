@@ -21,38 +21,36 @@ import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class LineChart extends Chart{
+public class BarChart extends Chart{
 
-    public LineChart() {
+    public BarChart() {
 
     }
 
     private JFreeChart createChart( String title, String x, String y ) {
         
-        JFreeChart lineChart = this.makeJFreeChart(title, x, y);
+        JFreeChart barChart = this.makeJFreeChart(title, x, y);
         
         // Custom chart..
-        lineChart.setBackgroundPaint(Color.white);
+        barChart.setBackgroundPaint(Color.white);
 
-        final XYPlot plot = lineChart.getXYPlot();
+        final XYPlot plot = barChart.getXYPlot();
 
         plot.setBackgroundPaint(Color.white);
         plot.setDomainGridlinePaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.lightGray);
-
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesShapesVisible(0, false);
-        plot.setRenderer(renderer);
         
-        return lineChart;
+        return barChart;
     }
+
     
     private JFreeChart makeJFreeChart( String title, String x, String y ){
-        final JFreeChart lineChart = ChartFactory.createXYLineChart(
+        final JFreeChart barChart = ChartFactory.createBarChart(
             title,      // chart title
             x,                      // x axis label
             y,                      // y axis label
@@ -62,22 +60,38 @@ public class LineChart extends Chart{
             true,                     // tooltips
             false                     // urls
         );
-        return lineChart;
+        return barChart;
     }
     
-    private XYSeriesCollection  createDataset( ) {
-        final XYSeriesCollection dataset = new XYSeriesCollection();
-        // Acces tableau
-        for(int i = 0 ; i < super.values.length ; i++){
-            final XYSeries serie = new XYSeries(i);
-            // Acces ArrayList
-            for(int j = 0 ; j < super.values[i].size() ; j++){
+    private CategoryDataset createDataset( ) {
+        final String obj1 = "Banane";        
+        final String obj2 = "Smoothy";        
+        final String obj3 = "Aluminium";    
+        
+        final String mounth1 = "Avril";        
+        final String mounth2 = "Mai";        
+        final String mounth4 = "Juillet";        
+        final String mounth3 = "Juin";  
+        
+        final DefaultCategoryDataset dataset = 
+        new DefaultCategoryDataset( );  
 
-                serie.add(super.values[i].get(j).key(), super.values[i].get(j).value());
-            }
-            dataset.addSeries(serie);
-        }
-        return dataset;
+        dataset.addValue( 1.0 , obj1 , mounth1 );        
+        dataset.addValue( 5.0 , obj1 , mounth2 ); 
+        dataset.addValue( 5.0 , obj1 , mounth3 );          
+        dataset.addValue( 3.0 , obj1 , mounth4 );         
+
+        dataset.addValue( 5.0 , obj2 , mounth1 );       
+        dataset.addValue( 10.0 , obj2 , mounth2 );        
+        dataset.addValue( 4.0 , obj2 , mounth3 );      
+        dataset.addValue( 6.0 , obj2 , mounth4 );  
+
+        dataset.addValue( 4.0 , obj3 , mounth1 );        
+        dataset.addValue( 3.0 , obj3 , mounth2 );        
+        dataset.addValue( 6.0 , obj3 , mounth3 );        
+        dataset.addValue( 2.0 , obj3 , mounth4 );               
+
+        return dataset; 
     }
 
     @Override
