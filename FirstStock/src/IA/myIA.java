@@ -108,7 +108,6 @@ public class myIA {
                      */
                        
  
-                    //System.out.println("bite " + dateFormat.format(newDate));
                     datetable.add((double)i);
                     
                     if (i == periodecalcul-1) { 
@@ -169,7 +168,8 @@ public class myIA {
     
     public JPanel printAsChart(ArrayList ... curves){
         Chart c;
-        c = new BarChart();
+       
+        c = new LineChart();
         c.setValues(curves);
 
       
@@ -183,7 +183,8 @@ public class myIA {
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
          ArrayList<MyPair> Points = new ArrayList<MyPair>();
        for (double j = 0; j<=i; j++){
-           Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
+           Points.add(new MyPair(j,a*6.1+112.4));
+           //Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
        }
        return Points;
     }
@@ -201,16 +202,15 @@ public void optimiseWithInitialValueOf1() throws NoSquareException {
     x[8][0] = 8;
     x[9][0] = 9;
     x[10][0] = 10;
-    double[] y = new double[] { 150, 100, 125, 200, 150, 100, 50,100,150,200,250 };
+    double[] y = new double[] { 150, 100, 125, 200, 150, 100, 50, 100, 150, 200, 250};
     GaussNewton gaussNewton = new GaussNewton() {
 
         @Override
         public double findY(double x, double[] b) {
             // y = (x * a1) / (a2 + x)
-            return b[2]*Math.pow(x,2)+x*b[1]+b[0];
+            return x*b[1]+b[0];
         }
     };
-    double[] b = gaussNewton.optimise(x, y, 3);
-    //Assert.assertArrayEquals(new double[]{0.36, 0.56}, b, 0.01);
+    double[] b = gaussNewton.optimise(x, y, 2);
 }
 }
