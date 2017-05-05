@@ -258,6 +258,65 @@ public class DBAccess {
         return ht;
     }
     
+    
+    /* Return all stocks of all products */
+    public ArrayList selectAllNecessaruRaw(String product_name) throws SQLException {
+	Connection dbConnection = null;
+	Statement statement = null;
+        ArrayList ht = new ArrayList();
+	String selectTableSQL = "SELECT `raw_id` FROM `product_raw` WHERE `product_id` LIKE '"+product_name+"' ";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String rawName = rs.getString("raw_id");
+		System.out.println("raw id : " + rawName);
+                ht.add(rawName);
+            }
+            return ht;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return ht;
+    }
+    
+    /* Return all stocks of all products */
+    public int selectNecessaruRawQuantity(String product_name, String raw_name) throws SQLException {
+	Connection dbConnection = null;
+	Statement statement = null;
+        int myQuantity = 0;
+	String selectTableSQL = "SELECT `quantity` FROM `product_raw` WHERE product_id = '"+product_name+"' AND raw_id = '"+raw_name+"' ";
+	try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            while (rs.next()) {
+                String quantity = rs.getString("quantity");
+                myQuantity = Integer.parseInt(quantity);
+		System.out.println("raw id : " + myQuantity);
+            }
+            return myQuantity;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+	} finally {
+            if (statement != null) {
+		statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+    	}
+        return myQuantity;
+    }
+      
     /* Return all stocks of all products */
     public Hashtable selectAllNecessaru(String product_name) throws SQLException {
 	Connection dbConnection = null;

@@ -10,6 +10,7 @@ import IA.*;
 import controller.DBAccess;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.UIManager;
 import view.Window;
 
 /**
@@ -25,7 +26,7 @@ public class FirstStock {
     
     private static String url = "jdbc:mysql://localhost:3306/StockData";
     private static String username = "root";
-    private static String pwd = "mdp";
+    private static String pwd = "isencir";
     
     public static void main(String[] args) {
         
@@ -57,10 +58,10 @@ public class FirstStock {
 
         
         //accès pour sarah
-        //DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
 
 
-        DBAccess myDB = new DBAccess(url,username,pwd);
+        //DBAccess myDB = new DBAccess(url,username,pwd);
 
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
@@ -68,6 +69,8 @@ public class FirstStock {
         try{
             myDB.setBuy("2017-05-02", 20, "clavier");
             myDB.setMyCash(100000);
+            myDB.selectAllNecessaruRaw("ordinateur");
+            myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
         }
         catch(SQLException e){
             System.out.println(e.getMessage());

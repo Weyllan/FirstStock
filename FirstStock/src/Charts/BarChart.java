@@ -7,24 +7,13 @@ package Charts;
 
 import IA.MyPair;
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 
 public class BarChart extends Chart{
 
@@ -32,7 +21,8 @@ public class BarChart extends Chart{
 
     }
 
-    private JFreeChart createChart( String title, String x, String y ) {
+    @Override
+    protected JFreeChart createChart( String title, String x, String y ) {
         
         JFreeChart barChart = this.makeJFreeChart(title, x, y);
         
@@ -87,16 +77,6 @@ public class BarChart extends Chart{
 
         return dataset; 
     }
-
-    @Override
-    public JPanel createPanel( String title , String x, String y) {
-        JFreeChart chart = createChart(title, x, y );  
-
-        ChartPanel chartPanel = new ChartPanel( chart );
-        chartPanel.setPreferredSize( new java.awt.Dimension( this.width , this.height ) );
-
-        return chartPanel; 
-   }
 }
 
 

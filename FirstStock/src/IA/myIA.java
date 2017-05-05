@@ -38,7 +38,8 @@ public class myIA {
     ArrayList<Double> datetable = new ArrayList<Double>();
     ArrayList<Double> ventetable = new ArrayList<Double>();
     ArrayList<Double> res = new ArrayList<Double>();
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","mdp");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     static int i = 0;
     double covariance = 0;
     double ecartypest = 0;

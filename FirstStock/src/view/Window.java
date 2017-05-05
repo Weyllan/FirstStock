@@ -10,7 +10,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -32,6 +34,7 @@ public class Window extends JFrame implements ActionListener{
     private int sizeY=500;
     
     private ToolsBox toolsBox = new ToolsBox("Tools");
+    private JScrollPane scroll = null;
     public JMenuBar menuBar = new JMenuBar();
     private WorkSpace workSpace = null;
     private JDesktopPane desktop = new JDesktopPane();
@@ -56,10 +59,14 @@ public class Window extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        this.add(getToolsBox(), BorderLayout.PAGE_START);
+        scroll = new JScrollPane(getToolsBox());
+        
+        this.add(scroll, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         
-        
+        // :D
+        ImageIcon icon = new ImageIcon("fav.jpg");
+        this.setIconImage(icon.getImage());
         
         this.fileMenu = new JMenu();
         this.exitMenuItem = new JMenuItem();
