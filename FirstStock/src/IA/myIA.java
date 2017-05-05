@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package IA;
+import Matrix.*;
 
+import Matrix.MatrixMathematics;
+import Matrix.Matrix;
 import Charts.Chart;
 import Charts.LineChart;
 import java.util.ArrayList;
@@ -20,17 +23,18 @@ import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
 import javax.swing.JPanel;
+import java.math.BigDecimal;
 
 /**
  *
  * @author mathieu
  */
-public class testIA {
+public class myIA {
 
     ArrayList<Double> datetable = new ArrayList<Double>();
     ArrayList<Double> ventetable = new ArrayList<Double>();
     ArrayList<Double> res = new ArrayList<Double>();
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","mdp");
     static int i = 0;
     double covariance = 0;
     double ecartypest = 0;
@@ -38,11 +42,11 @@ public class testIA {
     double a = 0;
     double b = 0;
     
-    public testIA() {
+    public myIA() {
         
     }
 
-    public testIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res, DBAccess myDB) {
+    public myIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res, DBAccess myDB) {
         this.db = myDB;
         this.datetable = datetable;
         this.ventetable = ventetable;
@@ -50,6 +54,13 @@ public class testIA {
     }
 
     public JPanel makePrediction() {
+        
+        try {
+            optimiseWithInitialValueOf1();
+        }
+        catch(NoSquareException e) {
+                e.getMessage();
+            }
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -163,9 +174,34 @@ public class testIA {
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
          ArrayList<MyPair> Points = new ArrayList<MyPair>();
        for (double j = 0; j<=i; j++){
-           Points.add(new MyPair(j,a*j+b));
+           Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
        }
        return Points;
     }
 
+public void optimiseWithInitialValueOf1() throws NoSquareException {
+    double[][] x = new double[11][1];
+    x[0][0] = 0;
+    x[1][0] = 1;
+    x[2][0] = 2;
+    x[3][0] = 3;
+    x[4][0] = 4;
+    x[5][0] = 5;
+    x[6][0] = 6;
+    x[7][0] = 7;
+    x[8][0] = 8;
+    x[9][0] = 9;
+    x[10][0] = 10;
+    double[] y = new double[] { 150, 100, 125, 200, 150, 100, 50,100,150,200,250 };
+    GaussNewton gaussNewton = new GaussNewton() {
+
+        @Override
+        public double findY(double x, double[] b) {
+            // y = (x * a1) / (a2 + x)
+            return b[2]*Math.pow(x,2)+x*b[1]+b[0];
+        }
+    };
+    double[] b = gaussNewton.optimise(x, y, 3);
+    //Assert.assertArrayEquals(new double[]{0.36, 0.56}, b, 0.01);
+}
 }

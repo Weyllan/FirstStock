@@ -6,7 +6,7 @@
 package view;
 
 import Charts.*;
-import IA.testIA;
+import IA.myIA;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -29,7 +29,7 @@ public class CashMenu extends PluginStyle {
     public void init() {
         button.addActionListener(new EventAccess());
         //    Chart p = new LineChart();
-        testIA IA = new testIA();
+        myIA IA = new myIA();
         workSpace.setContentPane(IA.makePrediction());
 
     }
