@@ -5,42 +5,44 @@
  */
 package view;
 
-
 import Charts.*;
+import IA.myIA;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
-
+import controller.DBAccess;
 
 /**
  *
  * @author kieffersarah
  */
-public class CashMenu extends PluginStyle{
-    
+public class CashMenu extends PluginStyle {
+
     private CashMenu cash = this;
-    
-    public CashMenu(String name, WorkSpace workSpace, Window window){
+
+    public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
         this.init();
     }
-    
-    public void init(){
+
+    public void init() {
         button.addActionListener(new EventAccess());
-    //    Chart p = new LineChart();
-    //    workSpace.setContentPane(p.createPanel("Test"));
-    
+        //    Chart p = new LineChart();
+        myIA IA = new myIA();
+        workSpace.setContentPane(IA.makePrediction());
+
     }
-    
-    public class EventAccess implements ActionListener{
+
+    public class EventAccess implements ActionListener {
+
         @Override
-        public void actionPerformed(ActionEvent clic){
+        public void actionPerformed(ActionEvent clic) {
             cash.loadMenu();
         }
     }
-    
-    public void loadMenu(){
+
+    public void loadMenu() {
         plugin.addElements();
         plugin.getWorkSpace().getContentPane().removeAll();
         plugin.getWorkSpace().setContentPane(plugin);
@@ -54,7 +56,7 @@ public class CashMenu extends PluginStyle{
         PluginStyle c3= new PluginStyle("c3", workSpace, window);
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
-        if(this.window.files.size() > 0){
+        if (this.window.files.size() > 0) {
             this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
             try {
                 this.loadPlugins(this.window.pluginsLoader.loadAllCashPlugins());
@@ -62,18 +64,18 @@ public class CashMenu extends PluginStyle{
                 e.printStackTrace();
             }
         }
-        
+
     }
-    
-    public void loadPlugins(CashPlugin[] cashplugins){
+
+    public void loadPlugins(CashPlugin[] cashplugins) {
         for (int index = 0; index < cashplugins.length; index++) {
             this.window.cashPlugins.add(cashplugins[index]);
             PluginStyle c = new PluginStyle(cashplugins[index].getLibelle(), workSpace, window);
         }
     }
-    
+
     @Override
-    public void addToTools(){ 
+    public void addToTools() {
         this.getWindow().addJMenu(button);
     }
 }

@@ -26,7 +26,7 @@ public class FirstStock {
     
     private static String url = "jdbc:mysql://localhost:3306/StockData";
     private static String username = "root";
-    private static String pwd = "CIR3JAVA";
+    private static String pwd = "mdp";
     
     public static void main(String[] args) {
         
@@ -65,14 +65,16 @@ public class FirstStock {
 
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        /*System.out.println("testVal");
+        System.out.println("testVal");
         try{
-            ArrayList test = myDB.selectAllRaws();
-            System.out.println(test.get(0).toString());
+            myDB.setBuy("2017-05-02", 20, "clavier");
+            myDB.setMyCash(100000);
+            myDB.selectAllNecessaruRaw("ordinateur");
+            myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
         }
         catch(SQLException e){
             System.out.println(e.getMessage());
-        }*/
+        }
 
         
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
@@ -81,8 +83,8 @@ public class FirstStock {
 
         //Partie de Mathieu
         // ZONE DE TEST IA
-        testIA IA = new testIA();
-        IA.makePrediction(myDB);
+        //testIA IA = new testIA();
+        //IA.makePrediction(myDB);
         /*
         IA.makePrediction(DB);
         IA.makePrediction(DB);

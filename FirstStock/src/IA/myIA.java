@@ -4,6 +4,13 @@
  * and open the template in the editor.
  */
 package IA;
+import Matrix.*;
+
+
+import Matrix.MatrixMathematics;
+import Matrix.Matrix;
+
+import Charts.BarChart;
 
 import Charts.Chart;
 import Charts.LineChart;
@@ -20,57 +27,68 @@ import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
 import javax.swing.JPanel;
+import java.math.BigDecimal;
 
 /**
  *
  * @author mathieu
  */
-public class testIA {
+public class myIA {
 
     ArrayList<Double> datetable = new ArrayList<Double>();
     ArrayList<Double> ventetable = new ArrayList<Double>();
     ArrayList<Double> res = new ArrayList<Double>();
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     static int i = 0;
     double covariance = 0;
     double ecartypest = 0;
     double ecartypevt = 0;
     double a = 0;
     double b = 0;
-
-    public testIA() {
-
+    
+    public myIA() {
+        
     }
 
-    public testIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res) {
+    public myIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res, DBAccess myDB) {
+        this.db = myDB;
         this.datetable = datetable;
         this.ventetable = ventetable;
         this.res = res;
     }
 
-    public JPanel makePrediction(DBAccess myDB) {
+    public JPanel makePrediction() {
+        
+        try {
+            optimiseWithInitialValueOf1();
+        }
+        catch(NoSquareException e) {
+                e.getMessage();
+            }
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             try {
                 
-                //TODO: LOUIS
-                //Récupérer les nuages de points: polyInterpol et tendancePlot
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
 
-                
-                
-                Date startDate = dateFormat.parse("2017-04-01"); // Date de début (a calculer)
+                Integer periodecalcul = 11;
 
-                Date endDate = dateFormat.parse("2017-04-05"); // Date de fin (actuel)
-                Calendar end = Calendar.getInstance();
+                Date endDate = dateFormat.parse("2017-04-12"); // Date de fin (actuel)
+                
+                Calendar end = Calendar.getInstance();     
                 end.setTime(endDate);
+                
                 Calendar start = Calendar.getInstance();
-                //start.add(Calendar.DATE, -29);
+                start.setTime(endDate);
+                start.add(Calendar.DATE, -periodecalcul);
                 Integer i = 0;
-               // System.out.println(newDate2);
+                
+                System.out.println(start.getTime());
                 System.out.println(end.getTime());
+                //System.out.println(end.getTime());
                 //System.out.println(start.before(end));
                 for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
                    
@@ -93,7 +111,7 @@ public class testIA {
                     //System.out.println("bite " + dateFormat.format(newDate));
                     datetable.add((double)i);
                     
-                    if (i == 29) { 
+                    if (i == periodecalcul-1) { 
                         System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
                         tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
                     }
@@ -101,8 +119,8 @@ public class testIA {
                     //System.out.print("Entrée vos ventes: ");
                     //System.out.println(myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
                     
-                    if (myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate))!=null) { // Pour le produit demandé
-                        ventetable.add((double)(Integer)myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
+                    if (db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate))!=null) { // Pour le produit demandé
+                        ventetable.add((double)(Integer)db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
                         polyInterpol.add(new MyPair(datetable.get(i),ventetable.get(i)));
                     } else {
                         ventetable.add(0.);
@@ -127,8 +145,9 @@ public class testIA {
                     i += 1;                   
                     
                     // Affichage graphique
-                    return this.printAsChart(polyInterpol, tendancePlot);
+                    
                 }
+                return this.printAsChart(tendancePlot, polyInterpol);
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -149,19 +168,49 @@ public class testIA {
     }
     
     public JPanel printAsChart(ArrayList ... curves){
-        LineChart c;
-        c = new LineChart();
+        Chart c;
+        c = new BarChart();
         c.setValues(curves);
+
       
-        return c.createPanel("BelleCourbe");  
+        return (JPanel) c.createPanel("BelleCourbe", "Jours", "Montant");  
+/*  Tests de Louis
+        c.export("test.jpeg","BelleCourbe", "Jours", "Montant");
+        return c.createPanel("BelleCourbe", "Jours", "Montant");  
+*/
     } 
 
     public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
          ArrayList<MyPair> Points = new ArrayList<MyPair>();
        for (double j = 0; j<=i; j++){
-           Points.add(new MyPair(j,a*j+b));
+           Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
        }
        return Points;
     }
 
+public void optimiseWithInitialValueOf1() throws NoSquareException {
+    double[][] x = new double[11][1];
+    x[0][0] = 0;
+    x[1][0] = 1;
+    x[2][0] = 2;
+    x[3][0] = 3;
+    x[4][0] = 4;
+    x[5][0] = 5;
+    x[6][0] = 6;
+    x[7][0] = 7;
+    x[8][0] = 8;
+    x[9][0] = 9;
+    x[10][0] = 10;
+    double[] y = new double[] { 150, 100, 125, 200, 150, 100, 50,100,150,200,250 };
+    GaussNewton gaussNewton = new GaussNewton() {
+
+        @Override
+        public double findY(double x, double[] b) {
+            // y = (x * a1) / (a2 + x)
+            return b[2]*Math.pow(x,2)+x*b[1]+b[0];
+        }
+    };
+    double[] b = gaussNewton.optimise(x, y, 3);
+    //Assert.assertArrayEquals(new double[]{0.36, 0.56}, b, 0.01);
+}
 }
