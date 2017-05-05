@@ -10,6 +10,7 @@ import IA.*;
 import controller.DBAccess;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.UIManager;
 import view.Window;
 
 /**
