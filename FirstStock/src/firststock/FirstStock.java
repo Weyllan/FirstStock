@@ -25,7 +25,7 @@ public class FirstStock {
     
     private static String url = "jdbc:mysql://localhost:3306/StockData";
     private static String username = "root";
-    private static String pwd = "CIR3JAVA";
+    private static String pwd = "mdp";
     
     public static void main(String[] args) {
         
