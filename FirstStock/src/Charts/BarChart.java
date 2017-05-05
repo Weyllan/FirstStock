@@ -38,12 +38,6 @@ public class BarChart extends Chart{
         
         // Custom chart..
         barChart.setBackgroundPaint(Color.white);
-
-        final XYPlot plot = barChart.getXYPlot();
-
-        plot.setBackgroundPaint(Color.white);
-        plot.setDomainGridlinePaint(Color.lightGray);
-        plot.setRangeGridlinePaint(Color.lightGray);
         
         return barChart;
     }
