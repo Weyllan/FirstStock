@@ -12,11 +12,14 @@ Sarah:
 
 Mathieu: 
 	JComboPox pour choisir le produit de ce qu'on veut évolution
-	IA de courbe d'évolution d'ordre supérieur?
+	Terminer IA courbe d'évolution d'ordre supérieur
+	Bouton changement de type de courbe d'approximation
+	Bouton changement de type de graphique
+	Changer la courbe
 
 Objectif: 
 	Première fenetre réalisée et action des boutons dirigeant vers les suivantes implémentées
-	Début de l'IA?
+	Pouvoir passer a une prochaine date?
 	Finir la base de donnée à son état de départ
 
 Préparation séance suivante: 
