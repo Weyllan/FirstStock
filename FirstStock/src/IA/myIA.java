@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package IA;
-import Matrix.*;
 
+import Matrix.*;
 
 import Matrix.MatrixMathematics;
 import Matrix.Matrix;
@@ -38,61 +38,56 @@ public class myIA {
     ArrayList<Double> datetable = new ArrayList<Double>();
     ArrayList<Double> ventetable = new ArrayList<Double>();
     ArrayList<Double> res = new ArrayList<Double>();
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     static int i = 0;
     double covariance = 0;
     double ecartypest = 0;
     double ecartypevt = 0;
     double a = 0;
     double b = 0;
-    
+    int degre = 2;
+
     public myIA() {
-        
+
     }
 
-    public myIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res, DBAccess myDB) {
+    public myIA(ArrayList<Double> datetable, ArrayList<Double> ventetable, ArrayList<Double> res, DBAccess myDB, int degre) {
         this.db = myDB;
         this.datetable = datetable;
         this.ventetable = ventetable;
         this.res = res;
+        this.degre = degre;
     }
 
     public JPanel makePrediction() {
-        
-        try {
-            optimiseWithInitialValueOf1();
-        }
-        catch(NoSquareException e) {
-                e.getMessage();
-            }
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             try {
-                
+
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
 
                 Integer periodecalcul = 11;
 
                 Date endDate = dateFormat.parse("2017-04-12"); // Date de fin (actuel)
-                
-                Calendar end = Calendar.getInstance();     
+
+                Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
-                
+
                 Calendar start = Calendar.getInstance();
                 start.setTime(endDate);
                 start.add(Calendar.DATE, -periodecalcul);
                 Integer i = 0;
-                
+
                 System.out.println(start.getTime());
                 System.out.println(end.getTime());
                 //System.out.println(end.getTime());
                 //System.out.println(start.before(end));
                 for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
-                   
+
 //System.out.print("Enumerate the HashMap: ");
 
                     /* Les clés */
@@ -107,25 +102,31 @@ public class myIA {
                 System.out.print( e.nextElement() + " ");
                 System.out.println();
                      */
-                       
- 
-                    datetable.add((double)i);
-                    
-                    if (i == periodecalcul-1) { 
-                        System.out.println("Je pense que tu vas écouler " + (int)(datetable.get(i) * a + b) + " produits");
-                        tendancePlot = makePointsWithEq(a, b, i); // renvoie une liste de points de la courbe calculée 
+                    datetable.add((double) i);
+
+                    if (i == periodecalcul - 1) {
+                        double coef[] = {0, 0};
+                        try {
+                            coef = optimiseWithInitialValueOf1(polyInterpol, degre);
+                        } catch (NoSquareException e) {
+                            e.getMessage();
+                        }
+                        //System.out.println("Je pense que tu vas écouler " + (int) (datetable.get(i) * a + b) + " produits");
+                        tendancePlot = makePointsWithEq(coef, i, degre); // renvoie une liste de points de la courbe calculée 
                     }
-                     
+
                     //System.out.print("Entrée vos ventes: ");
                     //System.out.println(myDB.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
                     
-                    if (db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate))!=null) { // Pour le produit demandé
-                        ventetable.add((double)(Integer)db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
-                        polyInterpol.add(new MyPair(datetable.get(i),ventetable.get(i)));
+                    if (db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
+                        
+                        ventetable.add((double) (Integer) db.getCmdForProduct("ordinateur").get(dateFormat.format(newDate)));
+                        polyInterpol.add(new MyPair(datetable.get(i), ventetable.get(i)));
                     } else {
                         ventetable.add(0.);
                     }
-
+                    
+                    /*
                     res.add((datetable.get(i) - (sum(datetable)) / datetable.size()) * (ventetable.get(i) - (sum(ventetable)) / ventetable.size()));
                     covariance = sum(res) / ventetable.size();
                     ecartypest = 0;
@@ -140,14 +141,13 @@ public class myIA {
                     ecartypevt = Math.pow(ecartypevt, 0.5);
                     a = covariance / (ecartypest * ecartypest);
                     b = sum(ventetable) / ventetable.size() - a * (sum(datetable) / datetable.size());
-                    
-                    
-                    i += 1;                   
-                    
-                    // Affichage graphique
-                    
+                    */
+                    i += 1;
+
                 }
+
                 return this.printAsChart(tendancePlot, polyInterpol);
+
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -156,6 +156,9 @@ public class myIA {
             e.getMessage();
 
         }
+
+
+        /*Calcul de la courbe de regression*/
         return null;
     }
 
@@ -166,52 +169,56 @@ public class myIA {
         }
         return sum;
     }
-    
-    public JPanel printAsChart(ArrayList ... curves){
+
+    public JPanel printAsChart(ArrayList... curves) {
         Chart c;
-       
+
         c = new LineChart();
         c.setValues(curves);
 
-      
-        return (JPanel) c.createPanel("BelleCourbe", "Jours", "Montant");  
-/*  Tests de Louis
+        return (JPanel) c.createPanel("BelleCourbe", "Jours", "Montant");
+        /*  Tests de Louis
         c.export("test.jpeg","BelleCourbe", "Jours", "Montant");
         return c.createPanel("BelleCourbe", "Jours", "Montant");  
-*/
-    } 
-
-    public ArrayList<MyPair> makePointsWithEq(double a, double b, int i){
-         ArrayList<MyPair> Points = new ArrayList<MyPair>();
-       for (double j = 0; j<=i; j++){
-           Points.add(new MyPair(j,a*6.1+112.4));
-           //Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
-       }
-       return Points;
+         */
     }
 
-public void optimiseWithInitialValueOf1() throws NoSquareException {
-    double[][] x = new double[11][1];
-    x[0][0] = 0;
-    x[1][0] = 1;
-    x[2][0] = 2;
-    x[3][0] = 3;
-    x[4][0] = 4;
-    x[5][0] = 5;
-    x[6][0] = 6;
-    x[7][0] = 7;
-    x[8][0] = 8;
-    x[9][0] = 9;
-    x[10][0] = 10;
-    double[] y = new double[] { 150, 100, 125, 200, 150, 100, 50, 100, 150, 200, 250};
-    GaussNewton gaussNewton = new GaussNewton() {
-
-        @Override
-        public double findY(double x, double[] b) {
-            // y = (x * a1) / (a2 + x)
-            return x*b[1]+b[0];
+    public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
+        ArrayList<MyPair> Points = new ArrayList<MyPair>();
+        for (double j = 0; j <= i; j++) {
+            if (degre==2)
+                Points.add(new MyPair(j, coef[2] * Math.pow(j, 2) + coef[1] * j + coef[0]));
+            if (degre==1)
+                Points.add(new MyPair(j, coef[1] * j + coef[0]));
+            //Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
         }
-    };
-    double[] b = gaussNewton.optimise(x, y, 2);
-}
+        return Points;
+    }
+
+    public double[] optimiseWithInitialValueOf1(ArrayList<MyPair> polyInterpol, int degre) throws NoSquareException {
+        double[] y = new double[polyInterpol.size()];
+        double[][] x = new double[polyInterpol.size()][1];
+        for (int i = 0; i < polyInterpol.size(); i++) {
+            x[i][0] = polyInterpol.get(i).key();
+            y[i] = polyInterpol.get(i).value();
+        }
+        GaussNewton gaussNewton = new GaussNewton() {
+
+            @Override
+            public double findY(double x, double[] b) {
+                // y = (x * a1) / (a2 + x)
+                if (degre == 2) {
+                    return b[2] * Math.pow(x, 2) + x * b[1] + b[0];
+                }
+                else if (degre == 1) {
+                    return x * b[1] + b[0];
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+        double[] b = gaussNewton.optimise(x, y, degre + 1);
+        return b;
+    }
 }
