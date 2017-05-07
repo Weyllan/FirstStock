@@ -438,6 +438,7 @@ public class DBAccess {
         return ht;
     }
     
+    
     /*  Add a Product_Type to BDD */
     public void setProduct(String product_name, double price, int quantity) throws SQLException{
 	Connection dbConnection = null;
