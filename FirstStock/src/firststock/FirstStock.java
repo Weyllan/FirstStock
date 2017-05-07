@@ -65,9 +65,11 @@ public class FirstStock {
 
 
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
+        
+        /*
         System.out.println("testVal");
         try{
-            myDB.setBuy("2017-05-02", 20, "clavier");
+            myDB.setBuy("2017-05-12", 20, "clavier");
             myDB.setMyCash(100000);
             myDB.selectAllNecessaruRaw("ordinateur");
             myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
@@ -75,7 +77,7 @@ public class FirstStock {
         catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
+        */
         
         // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
      
