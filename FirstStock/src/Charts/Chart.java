@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
@@ -45,11 +47,22 @@ public abstract class Chart {
     public Container createPanel(String test) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public Container createPanel(String test, String x, String y) {
+    
+    public JPanel createPanel( String title , String x, String y) {
+        JFreeChart chart = createChart(title, x, y );  
+
+        ChartPanel chartPanel = new ChartPanel( chart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( this.width , this.height ) );
+
+        return chartPanel; 
+   }
+
+    private JFreeChart makeJFreeChart(String title, String x, String y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private JFreeChart makeJFreeChart(String title, String x, String y) {
+    
+    protected JFreeChart createChart(String title, String x, String y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
