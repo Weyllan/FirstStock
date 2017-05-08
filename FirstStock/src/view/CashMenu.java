@@ -30,7 +30,7 @@ public class CashMenu extends PluginStyle {
         button.addActionListener(new EventAccess());
         //    Chart p = new LineChart();
         myIA IA = new myIA();
-        workSpace.setContentPane(IA.makePrediction());
+        workSpace.setContentPane(IA.makePredictionVente("ordinateur"));
 
     }
 
