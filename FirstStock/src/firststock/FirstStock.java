@@ -63,23 +63,12 @@ public class FirstStock {
 
 
         DBAccess myDB = new DBAccess(url,username,pwd);
-
-
-        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        /*
-        System.out.println("testVal");
-        try{
-            myDB.setBuy("2017-05-12", 20, "clavier");
-            myDB.setMyCash(100000);
-            myDB.selectAllNecessaruRaw("ordinateur");
-            myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }*/
         
-        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-     
+        /*try{
+            myDB.setMyCash(500);
+        }catch(SQLException e){
+            
+        }*/
         
 
         //Partie de Mathieu
