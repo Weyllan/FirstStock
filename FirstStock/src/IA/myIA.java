@@ -115,7 +115,7 @@ public class myIA {
       
               
 
-                return this.printAsChart(tendancePlot, polyInterpol);
+                return this.printVente(tendancePlot, polyInterpol);
 
             } catch (ParseException e) {
                 e.getMessage();
@@ -137,17 +137,32 @@ public class myIA {
         return sum;
     }
 
-    public JPanel printAsChart(ArrayList... curves) {
+    public JPanel printVente(ArrayList... curves) {
         Chart c;
 
         c = new LineChart();
         c.setValues(curves);
 
-        return (JPanel) c.createPanel("BelleCourbe", "Jours", "Montant");
-        /*  Tests de Louis
-        c.export("test.jpeg","BelleCourbe", "Jours", "Montant");
-        return c.createPanel("BelleCourbe", "Jours", "Montant");  
-         */
+        return (JPanel) c.createPanel("Ventes", "Mois", "Montant");
+
+    }
+    public JPanel printTresorerie(ArrayList... curves) {
+        Chart c;
+
+        c = new LineChart();
+        c.setValues(curves);
+
+        return (JPanel) c.createPanel("Trésorerie", "Mois", "Montant");
+  
+    }
+    public JPanel printStock(ArrayList... curves) {
+        Chart c;
+
+        c = new BarChart();
+        c.setValues(curves);
+
+        return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
+
     }
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
@@ -292,7 +307,7 @@ public class myIA {
                 
                 
 
-                return this.printAsChart(tendancePlot, polyInterpol);
+                return this.printStock(tendancePlot, polyInterpol);
 
             } catch (ParseException e) {
                 e.getMessage();
@@ -372,7 +387,7 @@ public class myIA {
                     i += 1;
                 }
 
-                return this.printAsChart(tendancePlot, polyInterpol);
+                return this.printTresorerie(tendancePlot, polyInterpol);
 
             } catch (ParseException e) {
                 e.getMessage();
