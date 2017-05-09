@@ -79,8 +79,8 @@ public class StockMenu extends PluginStyle implements ActionListener {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
                 System.out.println(fileToSave.getAbsolutePath());
-                myIA IA = new myIA();
-                IA.setPath(fileToSave.getAbsolutePath());
+                myIA IA = new myIA();                
+                IA.setFile(fileToSave);
                 
                 IA.makePredictionStock(newProduct);
                 

@@ -60,7 +60,7 @@ public class CashMenu extends PluginStyle {
                 File fileToSave = fileChooser.getSelectedFile();
                 System.out.println(fileToSave.getAbsolutePath());
                 myIA IA = new myIA();
-                IA.setPath(fileToSave.getAbsolutePath());
+                IA.setFile(fileToSave);
                 
                 IA.makePredictionTresorerie();
             }

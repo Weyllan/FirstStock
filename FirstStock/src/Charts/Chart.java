@@ -35,8 +35,9 @@ public abstract class Chart {
         values = v;
     }
         
-    public void export(String path, String title , String x, String y){
-        File file = new File( path ); 
+    public void export(File file, String title , String x, String y){
+        //File file = new File( path ); 
+        
         try{
             ChartUtilities.saveChartAsJPEG(file ,this.makeJFreeChart(title, x, y), this.width , this.height);
         }
