@@ -228,10 +228,10 @@ public class DBAccess {
     }
     
     /* Return all stocks of all raws */
-    public Hashtable selectAllRawsStocks() throws SQLException {
+    public ArrayList selectAllRawsStocks() throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
-        Hashtable ht = new Hashtable();
+               ArrayList ht = new ArrayList();
 	String selectTableSQL = "SELECT * from raw_type";
 	try {
             dbConnection = getDBConnection();
@@ -242,7 +242,7 @@ public class DBAccess {
                 String rawStock = rs.getString("raw_stock");
 		System.out.println("raw name : " + rawName);
                 System.out.println("raw stock : " + rawStock);
-                ht.put(rawName, Integer.parseInt(rawStock)); 
+                ht.add(rawName); 
             }
             return ht;
         } catch (SQLException e) {

@@ -6,7 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 import java.awt.BorderLayout;
+import java.io.File;
+import java.awt.GridBagConstraints;
+import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 
 public class CashMenu extends PluginStyle {
@@ -15,6 +20,7 @@ public class CashMenu extends PluginStyle {
     private JPanel pane = null;
     private JButton exporter = new JButton("Exporter");
     private JButton choix = new JButton("Choix");
+    private JPanel bottom = new JPanel();
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
@@ -24,8 +30,7 @@ public class CashMenu extends PluginStyle {
     public void init() {
         button.addActionListener(new CashMenu.EventAccess());
         myIA IA = new myIA();
-
-        JPanel bottom = new JPanel();
+        exporter.addActionListener(new CashMenu.EventExport());
         bottom.add(exporter);
         bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
@@ -41,12 +46,35 @@ public class CashMenu extends PluginStyle {
             cash.loadMenu();
         }
     }
+    
+    public class EventExport implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent clic) {
+            JFrame parentFrame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export du graphique de la trésorerie");   
+            
+            int userSelection = fileChooser.showSaveDialog(parentFrame);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                System.out.println(fileToSave.getPath());
+                myIA IA = new myIA();
+
+                IA.setFile(fileToSave);
+
+                
+                IA.makePredictionTresorerie();
+            }
+        }
+    }
 
     public void loadMenu() {        
         plugin.getWorkSpace().getPlugin().button.setEnabled(true);
         plugin.getWorkSpace().setPlugin(plugin);
         plugin.button.setEnabled(false);
         plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.add (bottom, BorderLayout.SOUTH);
         plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
@@ -79,4 +107,5 @@ public class CashMenu extends PluginStyle {
         this.getWindow().addJMenu(button);
 
     }
+        
 }

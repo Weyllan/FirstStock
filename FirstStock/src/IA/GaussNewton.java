@@ -24,7 +24,7 @@ public abstract class GaussNewton {
 		for (int i = 0; i < maxIteration; i++) {
 			double[][] res = calculateResiduals(x, y, b2);
 			double error = calculateError(res);
-			System.out.println("Iteration : " + i + ", Error-diff: " + (Math.abs(oldError - error)) + ", b = "+ Arrays.toString(b2));
+			//System.out.println("Iteration : " + i + ", Error-diff: " + (Math.abs(oldError - error)) + ", b = "+ Arrays.toString(b2));
 			if (Math.abs(oldError - error) <= precision) {
 				break;
 			} 

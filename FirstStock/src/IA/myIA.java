@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
+import java.io.File;
 import javax.swing.JPanel;
 import java.math.BigDecimal;
 
@@ -41,11 +42,16 @@ public class myIA {
     ArrayList<Double> res = new ArrayList<Double>();
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
+
+   // DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
 
     static int i = 0;
     int degre = 2;
+    
+    File fileToExport = null;
 
     public myIA() {
 
@@ -58,7 +64,7 @@ public class myIA {
         this.res = res;
         this.degre = degre;
     }
-
+    
     public JPanel makePredictionVente(String product) {
 
  
@@ -142,6 +148,8 @@ public class myIA {
         c = new LineChart();
         c.setValues(curves);
 
+        if (fileToExport != null)
+                c.export(fileToExport,"Ventes", "Mois", "Montant");
         return (JPanel) c.createPanel("Ventes", "Mois", "Montant");
 
     }
@@ -150,7 +158,8 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-
+        if (fileToExport != null)
+                c.export(fileToExport,"Trésorerie", "Mois", "Montant");
         return (JPanel) c.createPanel("Trésorerie", "Mois", "Montant");
   
     }
@@ -159,9 +168,14 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-
+        if (fileToExport != null)
+                c.export(fileToExport,"Stock", "Produits", "Quantités");
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
 
+    }
+    
+    public void setFile(File file){
+        fileToExport = file;
     }
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
