@@ -6,7 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 import java.awt.BorderLayout;
+import java.io.File;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 
 public class CashMenu extends PluginStyle {
@@ -39,6 +42,26 @@ public class CashMenu extends PluginStyle {
         @Override
         public void actionPerformed(ActionEvent clic) {
             cash.loadMenu();
+        }
+    }
+    
+    public class EventExport implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent clic) {
+            JFrame parentFrame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export du graphique de la trésorerie");   
+            
+            int userSelection = fileChooser.showSaveDialog(parentFrame);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
+                /* 
+                    Création d'un graph similaire et l'imprimer
+                */
+                
+            }
         }
     }
 

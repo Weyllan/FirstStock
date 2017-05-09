@@ -4,6 +4,9 @@ import IA.myIA;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import plugginLoad.StockPlugin;
 
@@ -30,6 +33,25 @@ public class StockMenu extends PluginStyle{
         @Override
         public void actionPerformed(ActionEvent clic){
             stock.loadMenu();
+        }
+    }
+    public class EventExport implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent clic) {
+            JFrame parentFrame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export du graphique des stocks");   
+            
+            int userSelection = fileChooser.showSaveDialog(parentFrame);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
+                /* 
+                    Création d'un graph similaire et l'imprimer
+                */
+                
+            }
         }
     }
     
