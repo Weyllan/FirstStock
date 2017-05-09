@@ -1,38 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import java.awt.Insets;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 
-/**
- *
- * @author kieffersarah
- */
+
 public class ToolsBox extends JToolBar{
     //here
     public JPanel pane = new JPanel();
     public JScrollPane scroll = null;
+    
     public ToolsBox(String str){
         super(str);
         init();
     }
     
-    public void init(){
+    public void init(){        
         scroll = new JScrollPane(pane);
         pane.setLayout(new GridBagLayout());
         this.add(scroll);
@@ -55,6 +45,7 @@ public class ToolsBox extends JToolBar{
                 }
             }
         });
+        
         pane.setVisible(true);
         this.setFloatable(true);
     }

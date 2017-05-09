@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.BorderLayout;
@@ -10,24 +5,18 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
 import plugginLoad.CashPlugin;
 import plugginLoad.PluginsLoader;
 import plugginLoad.StockPlugin;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class Window extends JFrame implements ActionListener{
     
     private int sizeX=600;
@@ -57,7 +46,6 @@ public class Window extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        
         this.add(toolsBox, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         
@@ -86,7 +74,7 @@ public class Window extends JFrame implements ActionListener{
         this.workSpace = new WorkSpace(this);
         this.add(getWorkSpace(), BorderLayout.CENTER);
         
-        Dimension dim = new Dimension(400,300);
+        Dimension dim = new Dimension(500,300);
         this.setMinimumSize(dim);
 
         this.setVisible(true); 
@@ -171,22 +159,7 @@ public class Window extends JFrame implements ActionListener{
                     this.files.add(f.getSelectedFile().getAbsolutePath());
                 }
             } else {
-                /*if (this.runPluginsMenuItem == arg0.getSource()) {
-                    this.pluginsLoader.setFiles(this.convertArrayListToArrayString(this.files));
-                    try {
-                        this.fillStringPlugins(this.pluginsLoader.loadAllStockPlugins());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        this.fillStringPlugins(this.pluginsLoader.loadAllStringPlugins());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {*/
                 this.ActionFromPlugins(arg0);
-                /*}*/
             }
         }
     }

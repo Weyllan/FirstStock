@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import IA.myIA;
@@ -11,6 +6,7 @@ import firststock.FirstStock;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -27,7 +23,9 @@ import plugginLoad.StockPlugin;
 public class StockMenu extends PluginStyle implements ActionListener {
      private final FirstStock appli = new FirstStock();
     private final DBAccess dbAccess = new DBAccess(appli.getUrl(), appli.getUsername(), appli.getPwd());
+
     private StockMenu stock = this;
+    private JPanel pane = null;
     
     private JButton exporter = new JButton("Exporter");
     private JButton choix = new JButton("Choix");
@@ -49,8 +47,13 @@ public class StockMenu extends PluginStyle implements ActionListener {
         bottom.add(exporter);
         bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
+
                 this.add(bottom, BorderLayout.SOUTH );
         this.add(IA.makePredictionStock(newProduct), BorderLayout.CENTER);
+
+        pane = IA.makePredictionStock("clavier");
+        this.add(pane, BorderLayout.CENTER);
+
     }
     
     public class EventAccess implements ActionListener{
@@ -97,6 +100,10 @@ public class StockMenu extends PluginStyle implements ActionListener {
     
     public void loadMenu(){
         plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.getWorkSpace().getPlugin().button.setEnabled(true);
+        plugin.getWorkSpace().setPlugin(plugin);
+        plugin.button.setEnabled(false);
+        plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);
