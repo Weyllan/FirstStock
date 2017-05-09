@@ -46,7 +46,6 @@ public class Window extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        
         this.add(toolsBox, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         

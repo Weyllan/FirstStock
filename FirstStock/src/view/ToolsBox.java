@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 
 import java.awt.Insets;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
@@ -15,12 +16,13 @@ public class ToolsBox extends JToolBar{
     //here
     public JPanel pane = new JPanel();
     public JScrollPane scroll = null;
+    
     public ToolsBox(String str){
         super(str);
         init();
     }
     
-    public void init(){
+    public void init(){        
         scroll = new JScrollPane(pane);
         pane.setLayout(new GridBagLayout());
         this.add(scroll);
@@ -43,6 +45,7 @@ public class ToolsBox extends JToolBar{
                 }
             }
         });
+        
         pane.setVisible(true);
         this.setFloatable(true);
     }
