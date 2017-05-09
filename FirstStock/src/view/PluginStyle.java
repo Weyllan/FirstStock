@@ -1,25 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class PluginStyle extends JPanel{
     protected WorkSpace workSpace = null;
     protected Window window = null;
@@ -40,7 +29,7 @@ public class PluginStyle extends JPanel{
     
     
     public void addElements(){
-        //this.addItem(this, new JButton(name), 0, 0, 1, 1,GridBagConstraints.CENTER);
+        
     }
     
     public void addToTools(){

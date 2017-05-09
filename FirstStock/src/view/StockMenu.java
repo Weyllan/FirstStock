@@ -1,23 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import IA.myIA;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 import plugginLoad.StockPlugin;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class StockMenu extends PluginStyle{
     
     private StockMenu stock = this;
+    private JPanel pane = null;
     
     public StockMenu(String name, WorkSpace workSpace, Window window){
         super(name, workSpace, window);
@@ -28,7 +22,8 @@ public class StockMenu extends PluginStyle{
         button.addActionListener(new EventAccess());
         myIA IA = new myIA();
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionStock("2016-04-15"), BorderLayout.CENTER);
+        pane = IA.makePredictionStock("clavier");
+        this.add(pane, BorderLayout.CENTER);
     }
     
     public class EventAccess implements ActionListener{
@@ -40,6 +35,7 @@ public class StockMenu extends PluginStyle{
     
     public void loadMenu(){
         plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);

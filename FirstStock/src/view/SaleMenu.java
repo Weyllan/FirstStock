@@ -1,33 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import IA.myIA;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class SaleMenu extends PluginStyle{
     private SaleMenu sale = this;
-
+    private JPanel pane = null;
+    
     public SaleMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
-        this.init();
-        
+        this.init(); 
     }
 
     public void init() {
-        button.addActionListener(new EventAccess());
+        button.addActionListener(new SaleMenu.EventAccess());
         myIA IA = new myIA();
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);
+        pane = IA.makePredictionVente("ordinateur");
+        this.add(pane, BorderLayout.CENTER);
 
     }
 
@@ -41,10 +35,7 @@ public class SaleMenu extends PluginStyle{
 
     public void loadMenu() {
         plugin.getWorkSpace().getContentPane().removeAll();
-        //myIA IA = new myIA();
-        //sale.setContentPane(IA.makePrediction());
-        //plugin.addItem(plugin, IA.makePrediction(), 1, 0, 50, 50,GridBagConstraints.CENTER);
-        //plugin.add(IA.makePrediction());
+        plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);

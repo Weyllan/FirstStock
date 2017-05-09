@@ -1,39 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-import Charts.*;
 import IA.myIA;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
-import controller.DBAccess;
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class CashMenu extends PluginStyle {
 
     private CashMenu cash = this;
+    private JPanel pane = null;
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
         this.init();
-        
     }
 
     public void init() {
-        button.addActionListener(new EventAccess());
+        button.addActionListener(new CashMenu.EventAccess());
         myIA IA = new myIA();
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionTresorerie(), BorderLayout.CENTER);
+        pane = IA.makePredictionTresorerie();
+        this.add(pane, BorderLayout.CENTER);
 
     }
 
@@ -47,10 +37,7 @@ public class CashMenu extends PluginStyle {
 
     public void loadMenu() {
         plugin.getWorkSpace().getContentPane().removeAll();
-        //myIA IA = new myIA();
-        //cash.setContentPane(IA.makePrediction());
-        //plugin.addItem(plugin, IA.makePrediction(), 1, 0, 50, 50,GridBagConstraints.CENTER);
-        //plugin.add(IA.makePrediction());
+        plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);
