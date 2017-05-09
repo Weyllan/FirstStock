@@ -35,13 +35,15 @@ public class CashMenu extends PluginStyle {
     public void init() {
         button.addActionListener(new EventAccess());
         myIA IA = new myIA();
+
         JPanel bottom = new JPanel();
         bottom.add(exporter);
         bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
                 this.add(bottom, BorderLayout.SOUTH );
-        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);
+        this.add(IA.makePredictionStock("clavier"), BorderLayout.CENTER);
         
+
 
     }
 

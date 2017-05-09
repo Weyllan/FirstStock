@@ -45,7 +45,7 @@ public class myIA {
     DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
 
 
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","mdp");
     static int i = 0;
     int degre = 2;
 
@@ -159,7 +159,7 @@ public class myIA {
     public JPanel printStock(ArrayList... curves) {
         Chart c;
 
-        c = new BarChart();
+        c = new LineChart();
         c.setValues(curves);
 
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
@@ -259,7 +259,7 @@ public class myIA {
                  Date oldDate=start.getTime();
                 for (Date newDate = end.getTime(); end.after(start); end.add(Calendar.DATE, -1), newDate = end.getTime()) {
                     
-                    datetable.add((double) i);
+                    datetable.add(-(double) i);
                     if (i==0){
 
                         ordtable.add((double) (Integer) db.selectARawStock(raw));
