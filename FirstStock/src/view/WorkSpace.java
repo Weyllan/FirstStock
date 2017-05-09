@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class WorkSpace extends JInternalFrame{
 
     private MainMenu mainMenu = null;
     public Window window = null;
+    private PluginStyle plugin = null;
 
     public WorkSpace(Window window){
         super("main Menu");
@@ -31,5 +22,13 @@ public class WorkSpace extends JInternalFrame{
     
     public void init(){
         mainMenu = new MainMenu("main menu", this, window);
+    }
+    
+    public void setPlugin(PluginStyle plugin){
+        this.plugin= plugin;
+    }
+    
+    public PluginStyle getPlugin(){
+        return plugin;
     }
 }

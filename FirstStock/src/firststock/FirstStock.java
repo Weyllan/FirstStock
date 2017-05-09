@@ -26,15 +26,19 @@ import view.Window;
  */
 public class FirstStock {
 
-    // TODO : Add button action
+    
     /**
      * @param args the command line arguments
      */
     /*
     private static String url = "jdbc:mysql://localhost:3306/mysql";
     private static String username = "root";
-
+    //private static String pwd = "CIR3JAVA";
+    //private static String url = "jdbc:mysql://localhost:3306/mysql";
+    //private static String url = "jdbc:mysql://localhost:3306/StockData";
+    //private static String pwd = "mdp";
     private static String pwd = "isencir";
+
     */
     private static String url ;
     private static String username ;
