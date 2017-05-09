@@ -50,6 +50,7 @@ public class CashMenu extends PluginStyle {
     public class EventExport implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent clic) {
+            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique de la trésorerie");   
@@ -62,12 +63,13 @@ public class CashMenu extends PluginStyle {
                 myIA IA = new myIA();
 
                 //IA.setFile(fileToSave);
-                
-                File file = new File("cash.jpeg");
-                IA.setFile(file);
-                
+
                 IA.makePredictionTresorerie();
-            }
+            }*/
+            myIA IA = new myIA();        
+            File file = new File("cash.jpeg");
+            IA.setFile(file);
+            IA.makePredictionTresorerie();
         }
     }
 

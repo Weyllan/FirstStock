@@ -57,6 +57,7 @@ public class SaleMenu extends PluginStyle implements ActionListener {
     public class EventExport implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent clic) {
+            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique des ventes");   
@@ -74,6 +75,11 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 IA.makePredictionVente(newProduct);
                 
             }
+            */
+            myIA IA = new myIA();        
+            File file = new File("vente.jpeg");
+            IA.setFile(file);
+            IA.makePredictionVente(newProduct);
         }
     }
 
