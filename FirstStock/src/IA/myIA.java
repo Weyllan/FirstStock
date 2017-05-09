@@ -40,13 +40,10 @@ public class myIA {
     ArrayList<Double> ordtable = new ArrayList<Double>(); //Ordonnée
     ArrayList<Double> res = new ArrayList<Double>();
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","CIR3JAVA");
     DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
 
-
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     static int i = 0;
     int degre = 2;
 
@@ -91,7 +88,7 @@ public class myIA {
 
                     datetable.add((double) i);
 
-                    if (i == periodecalcul - 1 ) {
+                    if (i == periodecalcul -1 ) {
                         double coef[] = {0, 0};
                         try {
                             coef = optimiseWithInitialValueOf1(polyInterpol, degre);
@@ -160,7 +157,7 @@ public class myIA {
     public JPanel printStock(ArrayList... curves) {
         Chart c;
 
-        c = new BarChart();
+        c = new LineChart();
         c.setValues(curves);
 
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
@@ -169,7 +166,7 @@ public class myIA {
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
         ArrayList<MyPair> Points = new ArrayList<MyPair>();
-        for (double j = 0; j <= i; j++) {
+        for (double j = 0; j <= i; j+=0.3) {
             if (degre == 2) {
                 Points.add(new MyPair(j, coef[2] * Math.pow(j, 2) + coef[1] * j + coef[0]));
             }
@@ -260,7 +257,7 @@ public class myIA {
                  Date oldDate=start.getTime();
                 for (Date newDate = end.getTime(); end.after(start); end.add(Calendar.DATE, -1), newDate = end.getTime()) {
                     
-                    datetable.add((double) i);
+                    datetable.add(-(double) i);
                     if (i==0){
 
                         ordtable.add((double) (Integer) db.selectARawStock(raw));
