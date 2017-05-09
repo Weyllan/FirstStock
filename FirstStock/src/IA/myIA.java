@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JPanel;
 import java.math.BigDecimal;
 
@@ -40,21 +43,64 @@ public class myIA {
     ArrayList<Double> datetable = new ArrayList<Double>(); //Abscisse
     ArrayList<Double> ordtable = new ArrayList<Double>(); //Ordonnée
     ArrayList<Double> res = new ArrayList<Double>();
+
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
+    DBAccess db;
 
-   // DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+    // DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
-
     static int i = 0;
     int degre = 2;
-    
+    String url = "";
+    String pwd = "";
+    String username ="";
     File fileToExport = null;
 
-    public myIA() {
+  
 
+    public myIA() {
+        File file = new File("log.txt");
+        FileReader fr;
+
+        try {
+            //Création de l'objet de lecture
+            fr = new FileReader(file);
+            String str = "";
+            int i = 0, j = 0;
+            //Lecture des données
+            while ((i = fr.read()) != -1) {
+                if ((char) i == ('\n')) {
+                    switch (j) {
+                        case 0:
+                            this.url = str;
+                            break;
+                        case 1:
+                            this.username = str;
+                            break;
+                        case 2:
+                            this.pwd = str;
+                            break;
+                    }
+                    j++;
+                    str = "";
+                } else {
+                    str += (char) i;
+                }
+            }
+            //Affichage
+            System.out.println(str);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(url);
+        System.out.println(username);
+        System.out.println(pwd);
+        this.db = new DBAccess(this.url, this.username, this.pwd);
     }
 
     public myIA(ArrayList<Double> datetable, ArrayList<Double> ordtable, ArrayList<Double> res, DBAccess myDB, int degre) {
@@ -63,68 +109,95 @@ public class myIA {
         this.ordtable = ordtable;
         this.res = res;
         this.degre = degre;
+
+        File file = new File("log.txt");
+        FileReader fr;
+
+        try {
+            //Création de l'objet de lecture
+            fr = new FileReader(file);
+            String str = "";
+            int i = 0, j = 0;
+            //Lecture des données
+            while ((i = fr.read()) != -1) {
+                if ((char) i == ('\n')) {
+                    switch (j) {
+                        case 0:
+                            this.url = str;
+                            break;
+                        case 1:
+                            this.username = str;
+                            break;
+                        case 2:
+                            this.pwd = str;
+                            break;
+                    }
+                    j++;
+                    str = "";
+                } else {
+                    str += (char) i;
+                }
+            }
+            //Affichage
+            System.out.println(str);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.db = new DBAccess(this.url, this.username, this.pwd);
     }
-    
+
     public JPanel makePredictionVente(String product) {
 
- 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-            try {
+        try {
 
-                ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
-                ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
-                java.util.Date endDate = new java.util.Date(); 
-                Integer periodecalcul = 11;
-                dateFormat.format( endDate );
-                //Date endDate = dateFormat.parse("2017-04-11"); // Date de fin (actuel)
+            ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
+            ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
+            java.util.Date endDate = new java.util.Date();
+            Integer periodecalcul = 11;
+            dateFormat.format(endDate);
+            //Date endDate = dateFormat.parse("2017-04-11"); // Date de fin (actuel)
 
-                Calendar end = Calendar.getInstance();
-                end.setTime(endDate);
+            Calendar end = Calendar.getInstance();
+            end.setTime(endDate);
 
-                Calendar start = Calendar.getInstance();
-                start.setTime(endDate);
-                start.add(Calendar.DATE, -periodecalcul);
-                Integer i = 0;
+            Calendar start = Calendar.getInstance();
+            start.setTime(endDate);
+            start.add(Calendar.DATE, -periodecalcul);
+            Integer i = 0;
 
+            for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
 
-               
+                datetable.add((double) i);
 
-                for (Date newDate = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), newDate = start.getTime()) {
-
-                    datetable.add((double) i);
-
-                    if (i == periodecalcul -1 ) {
-                        double coef[] = {0, 0};
-                        try {
-                            coef = optimiseWithInitialValueOf1(polyInterpol, degre);
-                        } catch (NoSquareException e) {
-                            e.getMessage();
-                        }
-                        //System.out.println("Je pense que tu vas écouler " + (int) (datetable.get(i) * a + b) + " produits");
-                        tendancePlot = makePointsWithEq(coef, i, degre); // renvoie une liste de points de la courbe calculée 
+                if (i == periodecalcul - 1) {
+                    double coef[] = {0, 0};
+                    try {
+                        coef = optimiseWithInitialValueOf1(polyInterpol, degre);
+                    } catch (NoSquareException e) {
+                        e.getMessage();
                     }
-
-                    // Trésorerie différent: pas besoin de produit
-                    if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
-                        ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
-                    } else {
-                        ordtable.add(0.);
-                    }
-                                            polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
-
-         
-
-                    i += 1;
-
+                    //System.out.println("Je pense que tu vas écouler " + (int) (datetable.get(i) * a + b) + " produits");
+                    tendancePlot = makePointsWithEq(coef, i, degre); // renvoie une liste de points de la courbe calculée 
                 }
-                 
-      
-              
 
-                return this.printVente(tendancePlot, polyInterpol);
+                // Trésorerie différent: pas besoin de produit
+                if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
+                    ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
+                } else {
+                    ordtable.add(0.);
+                }
+                polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
 
-    
+                i += 1;
+
+            }
+
+            return this.printVente(tendancePlot, polyInterpol);
 
         } catch (SQLException e) {
             e.getMessage();
@@ -148,39 +221,44 @@ public class myIA {
         c = new LineChart();
         c.setValues(curves);
 
-        if (fileToExport != null)
-                c.export(fileToExport,"Ventes", "Mois", "Montant");
+        if (fileToExport != null) {
+            c.export(fileToExport, "Ventes", "Mois", "Montant");
+        }
         return (JPanel) c.createPanel("Ventes", "Mois", "Montant");
 
     }
+
     public JPanel printTresorerie(ArrayList... curves) {
         Chart c;
 
         c = new LineChart();
         c.setValues(curves);
-        if (fileToExport != null)
-                c.export(fileToExport,"Trésorerie", "Mois", "Montant");
+        if (fileToExport != null) {
+            c.export(fileToExport, "Trésorerie", "Mois", "Montant");
+        }
         return (JPanel) c.createPanel("Trésorerie", "Mois", "Montant");
-  
+
     }
+
     public JPanel printStock(ArrayList... curves) {
         Chart c;
 
         c = new LineChart();
         c.setValues(curves);
-        if (fileToExport != null)
-                c.export(fileToExport,"Stock", "Produits", "Quantités");
+        if (fileToExport != null) {
+            c.export(fileToExport, "Stock", "Produits", "Quantités");
+        }
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
 
     }
-    
-    public void setFile(File file){
+
+    public void setFile(File file) {
         fileToExport = file;
     }
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
         ArrayList<MyPair> Points = new ArrayList<MyPair>();
-        for (double j = 0; j <= i; j+=0.3) {
+        for (double j = 0; j <= i; j += 0.3) {
             if (degre == 2) {
                 Points.add(new MyPair(j, coef[2] * Math.pow(j, 2) + coef[1] * j + coef[0]));
             }
@@ -267,12 +345,11 @@ public class myIA {
 
                 // stock: courbe a lire à l'envers!
                 //Collections.reverse(ordtable);
-                
-                 Date oldDate=start.getTime();
+                Date oldDate = start.getTime();
                 for (Date newDate = end.getTime(); end.after(start); end.add(Calendar.DATE, -1), newDate = end.getTime()) {
-                    
+
                     datetable.add(-(double) i);
-                    if (i==0){
+                    if (i == 0) {
 
                         ordtable.add((double) (Integer) db.selectARawStock(raw));
                         polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
@@ -284,41 +361,38 @@ public class myIA {
                             } catch (NoSquareException e) {
                                 e.getMessage();
                             }
-                            
+
                             tendancePlot = makePointsWithEq(coef, i, degre); // renvoie une liste de points de la courbe calculée 
                         }
                         // Stock   
                         if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
                             //stock actuel = stock du jours precedent en debut de journe - commande du jours precedent
                             //stock du jour pre ( en début de jour) = commande du jour prec + stock actuel 
-                           
-                            ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)) +ordtable.get(i-1)-(double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)));
+
+                            ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)) + ordtable.get(i - 1) - (double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)));
                             polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
                         }
-                        
+
                         if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) == null) {
-                        
-                            ordtable.add(ordtable.get(i - 1)+(double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
+
+                            ordtable.add(ordtable.get(i - 1) + (double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
                             polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
                         }
                         if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) == null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) != null) {
-                        
-                            ordtable.add(ordtable.get(i - 1)-(double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)));
+
+                            ordtable.add(ordtable.get(i - 1) - (double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)));
                             polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
                         }
                         if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) == null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) == null) {
-                        
+
                             ordtable.add(ordtable.get(i - 1));
                             polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
                         }
                     }
-                 
+
                     i += 1;
                     oldDate = newDate;
                 }
-
-                
-                
 
                 return this.printStock(tendancePlot, polyInterpol);
 
@@ -333,7 +407,7 @@ public class myIA {
 
         return null;
     }
-    
+
     public JPanel makePredictionTresorerie() {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -358,7 +432,6 @@ public class myIA {
                 System.out.println(start.getTime());
                 System.out.println(end.getTime());
 
-              
                 for (Date newDate = end.getTime(); end.after(start); end.add(Calendar.DATE, -1), newDate = end.getTime()) {
 
                     datetable.add((double) i);
@@ -395,7 +468,7 @@ public class myIA {
 
                         }
                         polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
-        
+
                     }
                     i += 1;
                 }
