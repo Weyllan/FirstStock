@@ -46,6 +46,7 @@ public class StockMenu extends PluginStyle implements ActionListener {
     public void init(){
         button.addActionListener(new EventAccess());
         myIA IA = new myIA();
+        exporter.addActionListener(new StockMenu.EventExport());
     JPanel bottom = new JPanel();
         choix.addActionListener(this);
         bottom.add(exporter);

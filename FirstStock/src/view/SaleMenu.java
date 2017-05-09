@@ -39,6 +39,7 @@ public class SaleMenu extends PluginStyle implements ActionListener {
         button.addActionListener(new SaleMenu.EventAccess());
         myIA IA = new myIA();
 
+        exporter.addActionListener(new SaleMenu.EventExport());
 
         this.setLayout(new BorderLayout(0,0));
         pane = IA.makePredictionVente("ordinateur");
