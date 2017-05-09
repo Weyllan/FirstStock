@@ -34,10 +34,8 @@ public class Window extends JFrame implements ActionListener{
     private int sizeY=500;
     
     private ToolsBox toolsBox = new ToolsBox("Tools");
-    private JScrollPane scroll = null;
     public JMenuBar menuBar = new JMenuBar();
     private WorkSpace workSpace = null;
-    private JDesktopPane desktop = new JDesktopPane();
     
     private JMenu fileMenu;
     private JMenuItem exitMenuItem;
@@ -59,9 +57,8 @@ public class Window extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(getSizeX(), getSizeY());
         this.setLayout(new BorderLayout(0, 0));
-        scroll = new JScrollPane(getToolsBox());
         
-        this.add(scroll, BorderLayout.PAGE_START);
+        this.add(toolsBox, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         
         // :D

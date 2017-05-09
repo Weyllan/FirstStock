@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 /**
  *
@@ -32,6 +33,7 @@ public class PluginStyle extends JPanel{
         this.name = name;
         this.button = new JButton(name);
         this.button.addActionListener(this.window);
+        this.button.setToolTipText(name);
         this.setLayout(new GridBagLayout());
         this.addToTools();
     }
@@ -42,7 +44,12 @@ public class PluginStyle extends JPanel{
     }
     
     public void addToTools(){
-        this.getToolsBox().add(button);
+        int i = this.getToolsBox().pane.getComponentCount();
+        if(this.getToolsBox().getOrientation()==JToolBar.HORIZONTAL){
+            this.getToolsBox().addItem(this.getToolsBox().pane, button, i, 0, 1, 1, GridBagConstraints.CENTER);
+        }else{
+            this.getToolsBox().addItem(this.getToolsBox().pane, button, 0, i, 1, 1, GridBagConstraints.CENTER);
+        }
     }
 
     /**
