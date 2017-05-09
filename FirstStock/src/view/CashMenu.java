@@ -30,7 +30,7 @@ public class CashMenu extends PluginStyle {
     public void init() {
         button.addActionListener(new CashMenu.EventAccess());
         myIA IA = new myIA();
-
+        exporter.addActionListener(new CashMenu.EventExport());
         bottom.add(exporter);
         bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
@@ -62,6 +62,7 @@ public class CashMenu extends PluginStyle {
                 /* 
                     Création d'un graph similaire et l'imprimer
                 */
+                System.out.println("HEY !!!");
                 
             }
         }
