@@ -49,6 +49,8 @@ public class myIA {
 
     static int i = 0;
     int degre = 2;
+    
+    String pathToExport = null;
 
     public myIA() {
 
@@ -61,7 +63,7 @@ public class myIA {
         this.res = res;
         this.degre = degre;
     }
-
+    
     public JPanel makePredictionVente(String product) {
 
  
@@ -145,6 +147,8 @@ public class myIA {
         c = new LineChart();
         c.setValues(curves);
 
+        if (pathToExport != null)
+                c.export(pathToExport,"Ventes", "Mois", "Montant");
         return (JPanel) c.createPanel("Ventes", "Mois", "Montant");
 
     }
@@ -153,7 +157,8 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-
+        if (pathToExport != null)
+                c.export(pathToExport,"Trésorerie", "Mois", "Montant");
         return (JPanel) c.createPanel("Trésorerie", "Mois", "Montant");
   
     }
@@ -162,9 +167,14 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-
+        if (pathToExport != null)
+                c.export(pathToExport,"Stock", "Produits", "Quantités");
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
 
+    }
+    
+    public void setPath(String path){
+        pathToExport = path;
     }
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {

@@ -63,7 +63,10 @@ public class CashMenu extends PluginStyle {
                     Création d'un graph similaire et l'imprimer
                 */
                 System.out.println("HEY !!!");
+                myIA IA = new myIA();
+                IA.setPath(fileToSave.getAbsolutePath());
                 
+                IA.makePredictionTresorerie();
             }
         }
     }
