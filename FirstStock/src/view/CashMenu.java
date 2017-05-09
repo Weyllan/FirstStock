@@ -20,6 +20,7 @@ public class CashMenu extends PluginStyle {
     private JPanel pane = null;
     private JButton exporter = new JButton("Exporter");
     private JButton choix = new JButton("Choix");
+    private JPanel bottom = new JPanel();
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
@@ -30,7 +31,6 @@ public class CashMenu extends PluginStyle {
         button.addActionListener(new CashMenu.EventAccess());
         myIA IA = new myIA();
 
-        JPanel bottom = new JPanel();
         bottom.add(exporter);
         bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
@@ -72,6 +72,7 @@ public class CashMenu extends PluginStyle {
         plugin.getWorkSpace().setPlugin(plugin);
         plugin.button.setEnabled(false);
         plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.add (bottom, BorderLayout.SOUTH);
         plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
