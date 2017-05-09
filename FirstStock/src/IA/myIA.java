@@ -90,7 +90,7 @@ public class myIA {
 
                     datetable.add((double) i);
 
-                    if (i == periodecalcul - 1 ) {
+                    if (i == periodecalcul -1 ) {
                         double coef[] = {0, 0};
                         try {
                             coef = optimiseWithInitialValueOf1(polyInterpol, degre);
@@ -168,7 +168,7 @@ public class myIA {
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
         ArrayList<MyPair> Points = new ArrayList<MyPair>();
-        for (double j = 0; j <= i; j++) {
+        for (double j = 0; j <= i; j+=0.3) {
             if (degre == 2) {
                 Points.add(new MyPair(j, coef[2] * Math.pow(j, 2) + coef[1] * j + coef[0]));
             }

@@ -14,6 +14,7 @@ import plugginLoad.CashPlugin;
 import controller.DBAccess;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import javax.swing.JButton;
 
 /**
  *
@@ -22,6 +23,8 @@ import java.awt.GridBagConstraints;
 public class CashMenu extends PluginStyle {
 
     private CashMenu cash = this;
+    private JButton exporter = new JButton("Exporter");
+    private JButton choix = new JButton("Choix");
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
@@ -31,9 +34,14 @@ public class CashMenu extends PluginStyle {
 
     public void init() {
         button.addActionListener(new EventAccess());
-        /*myIA IA = new myIA();
+        myIA IA = new myIA();
+        JPanel bottom = new JPanel();
+        bottom.add(exporter);
+        bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);*/
+                this.add(bottom, BorderLayout.SOUTH );
+        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);
+        
 
     }
 
@@ -80,5 +88,6 @@ public class CashMenu extends PluginStyle {
     @Override
     public void addToTools() {
         this.getWindow().addJMenu(button);
+
     }
 }
