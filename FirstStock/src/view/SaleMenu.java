@@ -66,9 +66,11 @@ public class SaleMenu extends PluginStyle implements ActionListener {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
                 // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
-                /* 
-                    Création d'un graph similaire et l'imprimer
-                */
+                System.out.println(fileToSave.getAbsolutePath());
+                myIA IA = new myIA();
+                IA.setPath(fileToSave.getAbsolutePath());
+                
+                IA.makePredictionVente(newProduct);
                 
             }
         }
