@@ -53,7 +53,7 @@ public class MainMenu extends PluginStyle {
         plugin.getWorkSpace().getContentPane().validate();
         plugin.getWorkSpace().setTitle(plugin.name);
         plugin.setVisible(true);
-        plugin.getToolsBox().removeAll();
+        plugin.getToolsBox().pane.removeAll();
         plugin.getToolsBox().validate();
         System.out.println("view.Window.load : " + name);
     }
