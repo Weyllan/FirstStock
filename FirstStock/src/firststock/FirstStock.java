@@ -36,6 +36,9 @@ public class FirstStock {
     //private static String pwd = "CIR3JAVA";
     //private static String url = "jdbc:mysql://localhost:3306/mysql";
     //private static String url = "jdbc:mysql://localhost:3306/StockData";
+<<<<<<< HEAD
+    private static String pwd = "mdp";
+=======
     //private static String pwd = "mdp";
     private static String pwd = "isencir";
 
