@@ -88,7 +88,7 @@ public class StockMenu extends PluginStyle implements ActionListener {
     
     public void personnalProducts() {
         try {
-            ArrayList myExistProducts = this.dbAccess.selectAllProduct();
+            ArrayList myExistProducts = this.dbAccess.selectAllRawsStocks();
             Vector myProducts = new Vector();
             
             for (int i = 0; i < myExistProducts.size(); i++) {
