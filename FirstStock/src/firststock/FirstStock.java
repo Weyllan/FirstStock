@@ -27,10 +27,10 @@ public class FirstStock {
     private static String url = "jdbc:mysql://localhost:3306/StockData";
     //private static String url = "jdbc:mysql://localhost:3306/mysql";
     private static String username = "root";
-    private static String pwd = "CIR3JAVA";
+    //private static String pwd = "CIR3JAVA";
     //private static String url = "jdbc:mysql://localhost:3306/mysql";
     //private static String url = "jdbc:mysql://localhost:3306/StockData";
-    //private static String pwd = "mdp";
+    private static String pwd = "mdp";
     //private static String pwd = "isencir";
     //private static String pwd = "mdp";
     

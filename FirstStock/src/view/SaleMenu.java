@@ -9,25 +9,42 @@ import IA.myIA;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 /**
  *
  * @author kieffersarah
  */
-public class SaleMenu extends PluginStyle{
+public class SaleMenu extends PluginStyle implements ActionListener {
+
+    JDialog chooseProduct;
     private SaleMenu sale = this;
+    private JButton exporter = new JButton("Exporter");
+    private JButton choix = new JButton("Choix");
+    private JComboBox productList; 
+    private JButton selectProduct, cancel;
+    String newProduct;
 
     public SaleMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
         this.init();
-        
+
     }
 
     public void init() {
         button.addActionListener(new EventAccess());
         myIA IA = new myIA();
-        this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);
+        JPanel bottom = new JPanel();
+        bottom.add(exporter);
+        bottom.add(choix);
+        this.setLayout(new BorderLayout(0, 0));
+        
+        this.add(bottom, BorderLayout.SOUTH);
+        this.add(IA.makePredictionStock("clavier"), BorderLayout.CENTER);
+        
 
     }
 
@@ -36,6 +53,19 @@ public class SaleMenu extends PluginStyle{
         @Override
         public void actionPerformed(ActionEvent clic) {
             sale.loadMenu();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == this.cancel) {
+            chooseProduct.dispose();
+        }
+
+        if (e.getSource() == this.selectProduct) {
+            chooseProduct.dispose();
+            newProduct = productList.getSelectedItem().toString();
         }
     }
 
@@ -50,7 +80,7 @@ public class SaleMenu extends PluginStyle{
         plugin.getWorkSpace().setTitle(plugin.name);
         plugin.setVisible(true);
         plugin.getToolsBox().pane.removeAll();
-        
+
         System.out.println("view.Window.load : " + name);
         /*if (this.window.files.size() > 0) {
             this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
@@ -70,7 +100,6 @@ public class SaleMenu extends PluginStyle{
             PluginStyle c = new PluginStyle(saleplugins[index].getLibelle(), workSpace, window);
         }
     }*/
-
     @Override
     public void addToTools() {
         this.getWindow().addJMenu(button);

@@ -14,6 +14,7 @@ import plugginLoad.CashPlugin;
 import controller.DBAccess;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
@@ -54,6 +55,7 @@ public class CashMenu extends PluginStyle {
             cash.loadMenu();
         }
     }
+    
 
     public void loadMenu() {
         plugin.getWorkSpace().getContentPane().removeAll();
@@ -92,4 +94,5 @@ public class CashMenu extends PluginStyle {
         this.getWindow().addJMenu(button);
 
     }
+        
 }

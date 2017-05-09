@@ -40,9 +40,9 @@ public class myIA {
     ArrayList<Double> ordtable = new ArrayList<Double>(); //Ordonnée
     ArrayList<Double> res = new ArrayList<Double>();
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
 
     static int i = 0;
     int degre = 2;
