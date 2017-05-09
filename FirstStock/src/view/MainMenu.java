@@ -19,14 +19,17 @@ public class MainMenu extends PluginStyle {
     
     private StockMenu stockMenu = null;
     private CashMenu cashMenu = null;
+    private SaleMenu saleMenu = null;
     private JButton stock = new JButton("Stocks");
     private JButton cash = new JButton("Trésorerie");
+    private JButton sale = new JButton("Ventes");
     private MainMenu main = this;
     
     public MainMenu(String name, WorkSpace workSpace, Window window){
         super(name, workSpace, window);
         this.cashMenu = new CashMenu("cash menu", workSpace, window);
         this.stockMenu = new StockMenu("stock menu", workSpace, window);
+        this.saleMenu = new SaleMenu("sale menu", workSpace, window);
         this.init();
         this.initMainMenu();
         this.addElements();
@@ -67,6 +70,7 @@ public class MainMenu extends PluginStyle {
     public void initMainMenu(){
         stock.addActionListener(new EventStock());
         cash.addActionListener(new EventCash());
+        sale.addActionListener(new EventSale());
     }
 
     /*
@@ -89,10 +93,21 @@ public class MainMenu extends PluginStyle {
         }
     }
     
+    /*
+    * Chargement du menu Ventes
+    */
+    public class EventSale implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent clic){
+            saleMenu.loadMenu();
+        }
+    }
+    
     @Override
     public void addElements(){
         plugin.addItem(plugin, stock, 0, 0, 1, 1,GridBagConstraints.CENTER);
         plugin.addItem(plugin, cash, 1, 0, 1, 1,GridBagConstraints.CENTER);
+        plugin.addItem(plugin, sale, 2, 0, 1, 1,GridBagConstraints.CENTER);
     }
 }
 

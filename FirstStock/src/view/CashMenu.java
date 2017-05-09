@@ -31,9 +31,9 @@ public class CashMenu extends PluginStyle {
 
     public void init() {
         button.addActionListener(new EventAccess());
-        /*myIA IA = new myIA();
+        myIA IA = new myIA();
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);*/
+        this.add(IA.makePredictionTresorerie(), BorderLayout.CENTER);
 
     }
 
