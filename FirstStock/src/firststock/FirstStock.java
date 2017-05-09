@@ -26,8 +26,8 @@ public class FirstStock {
     
     private static String url = "jdbc:mysql://localhost:3306/StockData";
     private static String username = "root";
-    private static String pwd = "CIR3JAVA";
-    //private static String pwd = "mdp";
+    //private static String pwd = "CIR3JAVA";
+    private static String pwd = "mdp";
     
     public static void main(String[] args) {
         
@@ -71,14 +71,7 @@ public class FirstStock {
         }*/
         
 
-        //Partie de Mathieu
-        // ZONE DE TEST IA
-        //testIA IA = new testIA();
-        //IA.makePrediction(myDB);
-        /*
-        IA.makePrediction(DB);
-        IA.makePrediction(DB);
-        */
+  
     }
 
     public String getUrl() {

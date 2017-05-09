@@ -40,8 +40,8 @@ public class myIA {
     ArrayList<Double> ordtable = new ArrayList<Double>(); //Ordonnée
     ArrayList<Double> res = new ArrayList<Double>();
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","CIR3JAVA");
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
+    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","CIR3JAVA");
+    DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
     //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     static int i = 0;
     int degre = 2;
@@ -60,16 +60,17 @@ public class myIA {
 
     public JPanel makePredictionVente(String product) {
 
-        try {
+ 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             try {
 
                 ArrayList<MyPair> polyInterpol = new ArrayList<MyPair>();
                 ArrayList<MyPair> tendancePlot = new ArrayList<MyPair>();
-
+                java.util.Date endDate = new java.util.Date(); 
                 Integer periodecalcul = 11;
-                Date endDate = dateFormat.parse("2017-04-11"); // Date de fin (actuel)
+                dateFormat.format( endDate );
+                //Date endDate = dateFormat.parse("2017-04-11"); // Date de fin (actuel)
 
                 Calendar end = Calendar.getInstance();
                 end.setTime(endDate);
@@ -86,7 +87,7 @@ public class myIA {
 
                     datetable.add((double) i);
 
-                    if (i == periodecalcul - 1) {
+                    if (i == periodecalcul - 1 ) {
                         double coef[] = {0, 0};
                         try {
                             coef = optimiseWithInitialValueOf1(polyInterpol, degre);
@@ -99,12 +100,11 @@ public class myIA {
 
                     // Trésorerie différent: pas besoin de produit
                     if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
-
                         ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
-                        polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
                     } else {
                         ordtable.add(0.);
                     }
+                                            polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
 
          
 
@@ -117,9 +117,7 @@ public class myIA {
 
                 return this.printVente(tendancePlot, polyInterpol);
 
-            } catch (ParseException e) {
-                e.getMessage();
-            }
+    
 
         } catch (SQLException e) {
             e.getMessage();
