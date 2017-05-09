@@ -27,7 +27,7 @@ import plugginLoad.StockPlugin;
 public class StockMenu extends PluginStyle implements ActionListener {
      private final FirstStock appli = new FirstStock();
     private final DBAccess dbAccess = new DBAccess(appli.getUrl(), appli.getUsername(), appli.getPwd());
-
+    
     private StockMenu stock = this;
     private JPanel pane = null;
     
@@ -37,6 +37,7 @@ public class StockMenu extends PluginStyle implements ActionListener {
     private JButton selectProduct, cancel;
     String newProduct;
     JDialog chooseProduct;
+            myIA IA = new myIA();
     
     public StockMenu(String name, WorkSpace workSpace, Window window){
         super(name, workSpace, window);
@@ -45,7 +46,6 @@ public class StockMenu extends PluginStyle implements ActionListener {
     
     public void init(){
         button.addActionListener(new EventAccess());
-        myIA IA = new myIA();
         exporter.addActionListener(new StockMenu.EventExport());
     JPanel bottom = new JPanel();
         choix.addActionListener(this);
@@ -55,8 +55,8 @@ public class StockMenu extends PluginStyle implements ActionListener {
 
                 this.add(bottom, BorderLayout.SOUTH );
         this.add(IA.makePredictionStock(newProduct), BorderLayout.CENTER);
-
-        pane = IA.makePredictionStock("clavier");
+//newProduct
+        pane = IA.makePredictionStock(newProduct);
         this.add(pane, BorderLayout.CENTER);
 
     }
@@ -173,7 +173,10 @@ public class StockMenu extends PluginStyle implements ActionListener {
       
         if (e.getSource() == this.selectProduct) {
             chooseProduct.dispose();           
-            newProduct = productList.getSelectedItem().toString();            
+            newProduct = productList.getSelectedItem().toString(); 
+            pane = null;
+            pane = IA.makePredictionStock(newProduct);
+                this.add(pane, BorderLayout.CENTER);
         }
     }
     

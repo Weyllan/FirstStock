@@ -58,9 +58,9 @@ public class CashMenu extends PluginStyle {
             
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
-                System.out.println(fileToSave.getAbsolutePath());
+                System.out.println(fileToSave.getPath());
                 myIA IA = new myIA();
-                IA.setPath(fileToSave.getAbsolutePath());
+                IA.setPath(fileToSave.getPath());
                 
                 IA.makePredictionTresorerie();
             }
