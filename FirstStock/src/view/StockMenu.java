@@ -79,8 +79,8 @@ public class StockMenu extends PluginStyle implements ActionListener {
             if (userSelection == JFileChooser.APPROVE_OPTION) {
                 File fileToSave = fileChooser.getSelectedFile();
                 System.out.println(fileToSave.getAbsolutePath());
-                myIA IA = new myIA();
-                IA.setPath(fileToSave.getAbsolutePath());
+                myIA IA = new myIA();                
+                IA.setFile(fileToSave);
                 
                 IA.makePredictionStock(newProduct);
                 
@@ -174,9 +174,8 @@ public class StockMenu extends PluginStyle implements ActionListener {
         if (e.getSource() == this.selectProduct) {
             chooseProduct.dispose();           
             newProduct = productList.getSelectedItem().toString(); 
-            pane = null;
-            pane = IA.makePredictionStock(newProduct);
-                this.add(pane, BorderLayout.CENTER);
+            this.pane = null;
+            this.pane = IA.makePredictionStock(newProduct);
         }
     }
     

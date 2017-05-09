@@ -68,7 +68,7 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
                 System.out.println(fileToSave.getAbsolutePath());
                 myIA IA = new myIA();
-                IA.setPath(fileToSave.getAbsolutePath());
+                IA.setFile(fileToSave);
                 
                 IA.makePredictionVente(newProduct);
                 

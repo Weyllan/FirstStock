@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import IA.MyPair;
+import java.io.File;
 import javax.swing.JPanel;
 import java.math.BigDecimal;
 
@@ -50,7 +51,7 @@ public class myIA {
     static int i = 0;
     int degre = 2;
     
-    String pathToExport = null;
+    File fileToExport = null;
 
     public myIA() {
 
@@ -147,8 +148,8 @@ public class myIA {
         c = new LineChart();
         c.setValues(curves);
 
-        if (pathToExport != null)
-                c.export(pathToExport,"Ventes", "Mois", "Montant");
+        if (fileToExport != null)
+                c.export(fileToExport,"Ventes", "Mois", "Montant");
         return (JPanel) c.createPanel("Ventes", "Mois", "Montant");
 
     }
@@ -157,8 +158,8 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-        if (pathToExport != null)
-                c.export(pathToExport,"Trésorerie", "Mois", "Montant");
+        if (fileToExport != null)
+                c.export(fileToExport,"Trésorerie", "Mois", "Montant");
         return (JPanel) c.createPanel("Trésorerie", "Mois", "Montant");
   
     }
@@ -167,14 +168,14 @@ public class myIA {
 
         c = new LineChart();
         c.setValues(curves);
-        if (pathToExport != null)
-                c.export(pathToExport,"Stock", "Produits", "Quantités");
+        if (fileToExport != null)
+                c.export(fileToExport,"Stock", "Produits", "Quantités");
         return (JPanel) c.createPanel("Stock", "Produits", "Quantités");
 
     }
     
-    public void setPath(String path){
-        pathToExport = path;
+    public void setFile(File file){
+        fileToExport = file;
     }
 
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
