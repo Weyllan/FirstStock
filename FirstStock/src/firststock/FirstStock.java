@@ -43,8 +43,7 @@ public class FirstStock {
     //private static String pwd = "isencir";
     //private static String pwd = "mdp";
     
-    public static void main(String[] args) {
-
+    public FirstStock(){
         File file = new File("log.txt");
         FileReader fr;
 
@@ -81,6 +80,11 @@ public class FirstStock {
         } catch (IOException e) {
           e.printStackTrace();
         }
+    }
+    
+    public static void main(String[] args) {
+
+     
          
         //partie sarah
         //décommenter ça pour avoir le visu noir
