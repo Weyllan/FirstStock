@@ -50,7 +50,6 @@ public class Window extends JFrame implements ActionListener{
         this.add(toolsBox, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         
-        // :D
         ImageIcon icon = new ImageIcon("fav.jpg");
         this.setIconImage(icon.getImage());
         

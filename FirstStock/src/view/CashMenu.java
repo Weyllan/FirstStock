@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 import java.awt.BorderLayout;
+import javax.swing.JButton;
 
 
 public class CashMenu extends PluginStyle {
 
     private CashMenu cash = this;
     private JPanel pane = null;
+    private JButton exporter = new JButton("Exporter");
+    private JButton choix = new JButton("Choix");
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
         super(name, workSpace, window);
@@ -21,10 +24,14 @@ public class CashMenu extends PluginStyle {
     public void init() {
         button.addActionListener(new CashMenu.EventAccess());
         myIA IA = new myIA();
+
+        JPanel bottom = new JPanel();
+        bottom.add(exporter);
+        bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
         pane = IA.makePredictionTresorerie();
         this.add(pane, BorderLayout.CENTER);
-
+        this.add(bottom, BorderLayout.SOUTH );
     }
 
     public class EventAccess implements ActionListener {
@@ -35,7 +42,10 @@ public class CashMenu extends PluginStyle {
         }
     }
 
-    public void loadMenu() {
+    public void loadMenu() {        
+        plugin.getWorkSpace().getPlugin().button.setEnabled(true);
+        plugin.getWorkSpace().setPlugin(plugin);
+        plugin.button.setEnabled(false);
         plugin.getWorkSpace().getContentPane().removeAll();
         plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
@@ -67,5 +77,6 @@ public class CashMenu extends PluginStyle {
     @Override
     public void addToTools() {
         this.getWindow().addJMenu(button);
+
     }
 }

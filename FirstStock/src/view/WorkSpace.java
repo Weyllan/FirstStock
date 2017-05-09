@@ -8,6 +8,7 @@ public class WorkSpace extends JInternalFrame{
 
     private MainMenu mainMenu = null;
     public Window window = null;
+    private PluginStyle plugin = null;
 
     public WorkSpace(Window window){
         super("main Menu");
@@ -21,5 +22,13 @@ public class WorkSpace extends JInternalFrame{
     
     public void init(){
         mainMenu = new MainMenu("main menu", this, window);
+    }
+    
+    public void setPlugin(PluginStyle plugin){
+        this.plugin= plugin;
+    }
+    
+    public PluginStyle getPlugin(){
+        return plugin;
     }
 }

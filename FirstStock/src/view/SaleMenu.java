@@ -34,7 +34,10 @@ public class SaleMenu extends PluginStyle{
     }
 
     public void loadMenu() {
-        plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.getWorkSpace().getContentPane().removeAll();        
+        plugin.getWorkSpace().getPlugin().button.setEnabled(true);
+        plugin.getWorkSpace().setPlugin(plugin);
+        plugin.button.setEnabled(false);
         plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();
