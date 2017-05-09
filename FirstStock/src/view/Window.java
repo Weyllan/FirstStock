@@ -49,7 +49,7 @@ public class Window extends JFrame implements ActionListener{
         this.add(toolsBox, BorderLayout.PAGE_START);
         this.setJMenuBar(menuBar);
         
-        ImageIcon icon = new ImageIcon("fav.jpg");
+        ImageIcon icon = new ImageIcon("fav.png");
         this.setIconImage(icon.getImage());
         
         this.fileMenu = new JMenu();
