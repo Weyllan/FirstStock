@@ -31,12 +31,9 @@ public class CashMenu extends PluginStyle {
 
     public void init() {
         button.addActionListener(new EventAccess());
-        //    Chart p = new LineChart();
-        myIA IA = new myIA();
-        //cash.setContentPane(IA.makePrediction());
-        //plugin.addItem(cash, IA.makePrediction(), 1, 0, 1, 1,GridBagConstraints.CENTER);
+        /*myIA IA = new myIA();
         this.setLayout(new BorderLayout(0,0));
-        this.add(IA.makePrediction(), BorderLayout.CENTER);
+        this.add(IA.makePredictionVente("ordinateur"), BorderLayout.CENTER);*/
 
     }
 

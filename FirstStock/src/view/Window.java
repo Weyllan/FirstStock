@@ -79,7 +79,7 @@ public class Window extends JFrame implements ActionListener{
 	this.exitMenuItem.addActionListener(this);
 		
 	//loadMenuItem
-	this.loadMenuItem.setText("Charger un plugins");
+	this.loadMenuItem.setText("Charger un plugin");
 	this.loadMenuItem.addActionListener(this);
         
         menuBar.add(fileMenu);

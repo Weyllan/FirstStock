@@ -24,9 +24,10 @@ public class FirstStock {
      * @param args the command line arguments
      */
     
-    private static String url = "jdbc:mysql://localhost:3306/StockData";
+    private static String url = "jdbc:mysql://localhost:3306/mysql";
     private static String username = "root";
     private static String pwd = "isencir";
+    //private static String pwd = "mdp";
     
     public static void main(String[] args) {
         
@@ -58,27 +59,16 @@ public class FirstStock {
 
         
         //accès pour sarah
-        DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
+       // DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
 
 
-        //DBAccess myDB = new DBAccess(url,username,pwd);
-
-
-        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-        System.out.println("testVal");
-        try{
-            myDB.setBuy("2017-05-02", 20, "clavier");
-            myDB.setMyCash(100000);
-            myDB.selectAllNecessaruRaw("ordinateur");
-            myDB.selectNecessaruRawQuantity("ordinateur", "processeur");
-        }
-        catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-
+        DBAccess myDB = new DBAccess(url,username,pwd);
         
-        // Ne jamais oublier le try catch avant une requète, j'ai sécurisé l'ensemble
-     
+        /*try{
+            myDB.setMyCash(500);
+        }catch(SQLException e){
+            
+        }*/
         
 
         //Partie de Mathieu

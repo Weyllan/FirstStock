@@ -69,17 +69,5 @@ public class Matrix {
 		}
 		return mat;
 	}
-	public Matrix insertColumnWithValue1() {
-		Matrix X_ = new Matrix(this.getNrows(), this.getNcols()+1);
-		for (int i=0;i<X_.getNrows();i++) {
-			for (int j=0;j<X_.getNcols();j++) {
-				if (j==0)
-					X_.setValueAt(i, j, 1.0);
-				else 
-					X_.setValueAt(i, j, this.getValueAt(i, j-1));
-				
-			}
-		}
-		return X_;
-	}
+
 }
