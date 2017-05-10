@@ -8,6 +8,8 @@ import plugginLoad.CashPlugin;
 import java.awt.BorderLayout;
 import java.io.File;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 
 public class CashMenu extends PluginStyle {
@@ -44,7 +46,6 @@ public class CashMenu extends PluginStyle {
     public class EventExport implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent clic) {
-            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique de la trésorerie");   
@@ -56,14 +57,10 @@ public class CashMenu extends PluginStyle {
                 System.out.println(fileToSave.getPath());
                 myIA IA = new myIA();
 
-                //IA.setFile(fileToSave);
+                IA.setFile(fileToSave);
 
                 IA.makePredictionTresorerie();
-            }*/
-            myIA IA = new myIA();        
-            File file = new File("cash.jpeg");
-            IA.setFile(file);
-            IA.makePredictionTresorerie();
+            }
         }
     }
 

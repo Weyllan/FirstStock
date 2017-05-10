@@ -13,6 +13,8 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import plugginLoad.StockPlugin;
 
@@ -68,7 +70,6 @@ public class StockMenu extends PluginStyle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent clic) {
-            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique des stocks");   
@@ -79,15 +80,10 @@ public class StockMenu extends PluginStyle implements ActionListener {
                 File fileToSave = fileChooser.getSelectedFile();
                 System.out.println(fileToSave.getAbsolutePath());
                 myIA IA = new myIA();                
-                //IA.setFile(fileToSave);
+                IA.setFile(fileToSave);
                 IA.makePredictionStock(newProduct);
                 
             }
-             */
-            myIA IA = new myIA();
-            File file = new File("stock.jpeg");
-            IA.setFile(file);
-            IA.makePredictionStock(newProduct);
         }
     }
 

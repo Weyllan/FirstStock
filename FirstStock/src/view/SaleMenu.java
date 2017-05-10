@@ -8,6 +8,8 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -58,7 +60,6 @@ public class SaleMenu extends PluginStyle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent clic) {
-            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique des ventes");   
@@ -70,17 +71,10 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
                 System.out.println(fileToSave.getAbsolutePath());
                 myIA IA = new myIA();
-                //IA.setFile(fileToSave);
-                File file = new File("vente.jpeg");
-                IA.setFile(file);
+                IA.setFile(fileToSave);
                 IA.makePredictionVente(newProduct);
                 
             }
-             */
-            myIA IA = new myIA();
-            File file = new File("vente.jpeg");
-            IA.setFile(file);
-            IA.makePredictionVente(newProduct);
         }
     }
 
