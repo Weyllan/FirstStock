@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4deb1
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Jeu 06 Avril 2017 à 09:16
--- Version du serveur :  5.7.17-0ubuntu0.16.10.1
--- Version de PHP :  7.0.15-0ubuntu0.16.10.4
+-- Généré le :  Mer 10 Mai 2017 à 20:16
+-- Version du serveur :  10.1.22-MariaDB-
+-- Version de PHP :  7.0.16-3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,6 +33,15 @@ CREATE TABLE `buy` (
   `raw_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `buy`
+--
+
+INSERT INTO `buy` (`id_buy`, `date_buy`, `quantity_buy`, `raw_name`) VALUES
+(96, '2017-04-01', 150, 'clavier'),
+(97, '2017-04-01', 150, 'clavier'),
+(98, '2017-04-01', 600, 'clavier');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +51,13 @@ CREATE TABLE `buy` (
 CREATE TABLE `cash` (
   `quantity_cash` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `cash`
+--
+
+INSERT INTO `cash` (`quantity_cash`) VALUES
+(98100);
 
 -- --------------------------------------------------------
 
@@ -56,6 +72,26 @@ CREATE TABLE `commande` (
   `product_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`id_commande`, `date`, `quantity_sold`, `product_name`) VALUES
+(3, '2017-04-28', 150, 'ordinateur'),
+(4, '2017-04-29', 100, 'ordinateur'),
+(6, '2017-04-30', 125, 'ordinateur'),
+(7, '2017-05-01', 200, 'ordinateur'),
+(12, '2017-05-02', 150, 'ordinateur'),
+(13, '2017-05-03', 100, 'ordinateur'),
+(15, '2017-05-04', 50, 'ordinateur'),
+(16, '2017-05-05', 100, 'ordinateur'),
+(17, '2017-05-06', 150, 'ordinateur'),
+(18, '2017-05-07', 200, 'ordinateur'),
+(19, '2017-05-08', 250, 'ordinateur'),
+(20, '2017-05-09', 230, 'ordinateur'),
+(21, '2017-05-10', 30, 'Webcam'),
+(22, '2017-05-10', 20, 'chaise');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +104,13 @@ CREATE TABLE `production_order` (
   `quantity` int(11) NOT NULL,
   `product_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `production_order`
+--
+
+INSERT INTO `production_order` (`id_production`, `production_date`, `quantity`, `product_name`) VALUES
+(1, '2017-05-10', 30, 'Webcam');
 
 -- --------------------------------------------------------
 
@@ -88,7 +131,9 @@ CREATE TABLE `product_raw` (
 INSERT INTO `product_raw` (`product_id`, `raw_id`, `quantity`) VALUES
 ('ordinateur', 'processeur', 1),
 ('ordinateur', 'clavier', 1),
-('ordinateur', 'ecran', 1);
+('ordinateur', 'ecran', 1),
+('Webcam', 'Lentille', 1),
+('chaise', 'bois', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +152,9 @@ CREATE TABLE `product_type` (
 --
 
 INSERT INTO `product_type` (`product_name`, `price`, `product_stock`) VALUES
-('ordinateur', 1500, 0);
+('chaise', 10, 10),
+('ordinateur', 200, 50),
+('Webcam', 30, 10);
 
 -- --------------------------------------------------------
 
@@ -126,8 +173,10 @@ CREATE TABLE `raw_type` (
 --
 
 INSERT INTO `raw_type` (`raw_name`, `price_buy`, `raw_stock`) VALUES
-('clavier', 20, 0),
+('bois', 5, 5),
+('clavier', 20, 1650),
 ('ecran', 100, 0),
+('Lentille', 10, 20),
 ('processeur', 200, 0);
 
 -- --------------------------------------------------------
@@ -142,6 +191,13 @@ CREATE TABLE `use_raw` (
   `raw_name` varchar(20) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `use_raw`
+--
+
+INSERT INTO `use_raw` (`id_using`, `product_name`, `raw_name`, `date`) VALUES
+(1, 'Webcam', 'Lentille', '2017-05-10');
 
 --
 -- Index pour les tables exportées
@@ -203,22 +259,22 @@ ALTER TABLE `use_raw`
 -- AUTO_INCREMENT pour la table `buy`
 --
 ALTER TABLE `buy`
-  MODIFY `id_buy` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_buy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT pour la table `production_order`
 --
 ALTER TABLE `production_order`
-  MODIFY `id_production` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_production` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `use_raw`
 --
 ALTER TABLE `use_raw`
-  MODIFY `id_using` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_using` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Contraintes pour les tables exportées
 --
