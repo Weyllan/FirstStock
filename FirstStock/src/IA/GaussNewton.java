@@ -9,13 +9,13 @@ public abstract class GaussNewton {
 
 	private static final double alpha = 1e-6;
 
-	public double[] optimise(double[][] x, double[] y, int numberOfParameters) throws NoSquareException {
+	public double[] optimise(double[][] x, double[] y, int numberOfParameters) throws NonCarreException {
 		double[] b = new double[numberOfParameters];
 		IntStream.range(0, b.length).forEach(i -> b[i] = 1.);
 		return optimise(x, y, b);
 	}
 	
-	public double[] optimise(double[][] x, double[] y, double[] b) throws NoSquareException {
+	public double[] optimise(double[][] x, double[] y, double[] b) throws NonCarreException {
 		int maxIteration = 1000;
 		double oldError = 100;
 		double precision = 1e-6;
@@ -56,7 +56,7 @@ public abstract class GaussNewton {
 	}
 
 
-	public double[][] transjacob(double[][] JArray, double[][] res) throws NoSquareException {
+	public double[][] transjacob(double[][] JArray, double[][] res) throws NonCarreException {
 		Matrix r = new Matrix(res); // r
 		Matrix J = new Matrix(JArray); // J
 		Matrix JT = MatrixMathematics.transpose(J); // JT

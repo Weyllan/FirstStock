@@ -4,10 +4,10 @@ public class Matrix {
 
 	private int nrows;
 	private int ncols;
-	private double[][] data;
+	private double[][] table;
 
 	public Matrix(double[][] dat) {
-		this.data = dat;
+		this.table = dat;
 		this.nrows = dat.length;
 		this.ncols = dat[0].length;
 	}
@@ -15,7 +15,7 @@ public class Matrix {
 	public Matrix(int nrow, int ncol) {
 		this.nrows = nrow;
 		this.ncols = ncol;
-		data = new double[nrow][ncol];
+		table = new double[nrow][ncol];
 	}
 
 	public int getNrows() {
@@ -35,19 +35,19 @@ public class Matrix {
 	}
 
 	public double[][] getValues() {
-		return data;
+		return table;
 	}
 
 	public void setValues(double[][] values) {
-		this.data = values;
+		this.table = values;
 	}
 
 	public void setValueAt(int row, int col, double value) {
-		data[row][col] = value;
+		table[row][col] = value;
 	}
 
 	public double getValueAt(int row, int col) {
-		return data[row][col];
+		return table[row][col];
 	}
 
 	public boolean isSquare() {
@@ -60,11 +60,11 @@ public class Matrix {
 		return -1;
 	}
 
-	public Matrix multiplyByConstant(double constant) {
+	public Matrix multiplyByNumber(double constant) {
 		Matrix mat = new Matrix(nrows, ncols);
 		for (int i = 0; i < nrows; i++) {
 			for (int j = 0; j < ncols; j++) {
-				mat.setValueAt(i, j, data[i][j] * constant);
+				mat.setValueAt(i, j, table[i][j] * constant);
 			}
 		}
 		return mat;

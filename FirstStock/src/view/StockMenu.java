@@ -73,22 +73,6 @@ public class StockMenu extends PluginStyle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent clic) {
-            /*
-            JFrame parentFrame = new JFrame();
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Export du graphique des stocks");   
-            
-            int userSelection = fileChooser.showSaveDialog(parentFrame);
-            
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File fileToSave = fileChooser.getSelectedFile();
-                System.out.println(fileToSave.getAbsolutePath());
-                myIA IA = new myIA();                
-                //IA.setFile(fileToSave);
-                IA.makePredictionStock(newProduct);
-                
-            }
-             */
             myIA IA = new myIA();
             File file = new File("stock.jpeg");
             IA.setFile(file);

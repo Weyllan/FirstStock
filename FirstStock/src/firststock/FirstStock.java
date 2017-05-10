@@ -78,7 +78,7 @@ public class FirstStock {
     
     public static void main(String[] args) {
 
-        try
+        /*try
 
 	{
 	  UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel");
@@ -87,7 +87,7 @@ public class FirstStock {
 	{
 	  e.printStackTrace();
 	}
-
+        */
         Window win = new Window("FirstStock");
         win.init();
 

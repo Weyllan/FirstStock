@@ -7,50 +7,34 @@ package IA;
 
 import Matrix.*;
 
-import Matrix.MatrixMathematics;
-import Matrix.Matrix;
 
-import Charts.BarChart;
 
 import Charts.Chart;
 import Charts.LineChart;
 import java.util.ArrayList;
-import java.util.Scanner;
 import controller.DBAccess;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map.Entry;
-import IA.MyPair;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JPanel;
-import java.math.BigDecimal;
 
 /**
  *
  * @author mathieu
  */
+
 public class myIA {
 
     ArrayList<Double> datetable = new ArrayList<Double>(); //Abscisse
     ArrayList<Double> ordtable = new ArrayList<Double>(); //Ordonnée
-    ArrayList<Double> res = new ArrayList<Double>();
 
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData","root","CIR3JAVA");
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
     DBAccess db;
 
-    // DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
-    //DBAccess db = new DBAccess("jdbc:mysql://localhost:3306/StockData", "root", "mdp");
     static int i = 0;
     int degre = 2;
     String url = "";
@@ -101,11 +85,10 @@ public class myIA {
         this.db = new DBAccess(this.url, this.username, this.pwd);
     }
 
-    public myIA(ArrayList<Double> datetable, ArrayList<Double> ordtable, ArrayList<Double> res, DBAccess myDB, int degre) {
+    public myIA(ArrayList<Double> datetable, ArrayList<Double> ordtable, DBAccess myDB, int degre) {
         this.db = myDB;
         this.datetable = datetable;
         this.ordtable = ordtable;
-        this.res = res;
         this.degre = degre;
 
         File file = new File("log.txt");
@@ -146,7 +129,8 @@ public class myIA {
         }
         this.db = new DBAccess(this.url, this.username, this.pwd);
     }
-
+    
+    //Courbe des ventes
     public JPanel makePredictionVente(String product) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -175,15 +159,13 @@ public class myIA {
                     double coef[] = {0, 0};
                     try {
                         coef = optimiseWithInitialValueOf1(polyInterpol, degre);
-                    } catch (NoSquareException e) {
+                    } catch (NonCarreException e) {
                         e.getMessage();
                     }
-                    //System.out.println("Je pense que tu vas écouler " + (int) (datetable.get(i) * a + b) + " produits");
                     tendancePlot = makePointsWithEq(coef, i, degre); // renvoie une liste de points de la courbe calculée 
                 }
 
-                // Trésorerie différent: pas besoin de produit
-                if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
+                if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null) {
                     ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)));
                 } else {
                     ordtable.add(0.);
@@ -253,6 +235,7 @@ public class myIA {
         fileToExport = file;
     }
 
+     // On place les points du polynome de régression
     public ArrayList<MyPair> makePointsWithEq(double coef[], int i, int degre) {
         ArrayList<MyPair> Points = new ArrayList<MyPair>();
         for (double j = 0; j <= i; j += 0.3) {
@@ -262,11 +245,11 @@ public class myIA {
             if (degre == 1) {
                 Points.add(new MyPair(j, coef[1] * j + coef[0]));
             }
-            //Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
         }
         return Points;
     }
     
+    // On place les points du polynome régression dans le sens inverse
       public ArrayList<MyPair> makePointsWithEq2(double coef[], int i, int degre) {
         ArrayList<MyPair> Points = new ArrayList<MyPair>();
         for (double j = 0; j <= i; j += 0.3) {
@@ -276,12 +259,11 @@ public class myIA {
             if (degre == 1) {
                 Points.add(new MyPair(-j, coef[1] * -j + coef[0]));
             }
-            //Points.add(new MyPair(j,3.4*Math.pow(j,2)+-27.9*j+163.5828945314922));
         }
         return Points;
     }
 
-    public double[] optimiseWithInitialValueOf1(ArrayList<MyPair> polyInterpol, int degre) throws NoSquareException {
+    public double[] optimiseWithInitialValueOf1(ArrayList<MyPair> polyInterpol, int degre) throws NonCarreException {
         double[] y = new double[polyInterpol.size()];
         double[][] x = new double[polyInterpol.size()][1];
         for (int i = 0; i < polyInterpol.size(); i++) {
@@ -306,7 +288,7 @@ public class myIA {
         return b;
     }
 
-    public double[] optimiseWithInitialValueOf1Stock(ArrayList<MyPair> polyInterpol, int degre) throws NoSquareException {
+    public double[] optimiseWithInitialValueOf1Stock(ArrayList<MyPair> polyInterpol, int degre) throws NonCarreException {
         double[] y = new double[polyInterpol.size()];
         double[][] x = new double[polyInterpol.size()][1];
         for (int i = 0; i < polyInterpol.size(); i++) {
@@ -354,8 +336,7 @@ public class myIA {
                 System.out.println(start.getTime());
                 System.out.println(end.getTime());
 
-                // stock: courbe a lire à l'envers!
-                //Collections.reverse(ordtable);
+  
                 Date oldDate = start.getTime();
                 for (Date newDate = end.getTime(); end.after(start); end.add(Calendar.DATE, -1), newDate = end.getTime()) {
 
@@ -369,16 +350,13 @@ public class myIA {
                             double coef[] = {0, 0};
                             try {
                                 coef = optimiseWithInitialValueOf1(polyInterpol, degre);
-                            } catch (NoSquareException e) {
+                            } catch (NonCarreException e) {
                                 e.getMessage();
                             }
 
-                            tendancePlot = makePointsWithEq2(coef, i, degre); // renvoie une liste de points de la courbe calculée 
+                            tendancePlot = makePointsWithEq2(coef, i, degre); 
                         }
-                        // Stock   
-                        if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) != null) { // Pour le produit demandé
-                            //stock actuel = stock du jours precedent en debut de journe - commande du jours precedent
-                            //stock du jour pre ( en début de jour) = commande du jour prec + stock actuel 
+                        if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) != null) { 
 
                             ordtable.add((double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)) + ordtable.get(i - 1) + (double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)));
                             polyInterpol.add(new MyPair(datetable.get(i), ordtable.get(i)));
@@ -417,6 +395,7 @@ public class myIA {
         return null;
     }
 
+    // Courbe de la trésorerie
     public JPanel makePredictionTresorerie() {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -454,15 +433,13 @@ public class myIA {
                             double coef[] = {0, 0};
                             try {
                                 coef = optimiseWithInitialValueOf1(polyInterpol, degre);
-                            } catch (NoSquareException e) {
+                            } catch (NonCarreException e) {
                                 e.getMessage();
                             }
-                            //System.out.println("Je pense que tu vas écouler " + (int) (datetable.get(i) * a + b) + " produits");
-                            tendancePlot = makePointsWithEq2(coef, i, degre); // renvoie une liste de points de la courbe calculée 
+                            tendancePlot = makePointsWithEq2(coef, i, degre);
                         }
 
                          
-                        //trésorerie actuel =  trésorerie précédente + commande - achat
                         if (db.getCmdForProduct(product).get(dateFormat.format(newDate)) != null && db.getBuyForRaw(raw).get(dateFormat.format(newDate)) != null) {
                             ordtable.add(ordtable.get(i - 1) + (double) (Integer) db.getBuyForRaw(raw).get(dateFormat.format(newDate)) * 20 + (double) (Integer) db.getCmdForProduct(product).get(dateFormat.format(newDate)) * 20);
                         }

@@ -1,6 +1,6 @@
 package Matrix;
 
-import Matrix.NoSquareException;
+import Matrix.NonCarreException;
 
 
 public class MatrixMathematics {
@@ -31,10 +31,10 @@ public class MatrixMathematics {
 	 * Only square matrices have inverse and the following method will throw exception if the matrix is not square.
 	 * @param matrix
 	 * @return
-	 * @throws NoSquareException
+	 * @throws NonCarreException
 	 */
-	public static Matrix inverse(Matrix matrix) throws NoSquareException {
-		return (transpose(cofactor(matrix)).multiplyByConstant(1.0/determinant(matrix)));
+	public static Matrix inverse(Matrix matrix) throws NonCarreException {
+		return (transpose(cofactor(matrix)).multiplyByNumber(1.0/determinant(matrix)));
 	}
 	
 	/**
@@ -42,11 +42,11 @@ public class MatrixMathematics {
 	 * The following function find the determinant in a recursively. 
 	 * @param matrix
 	 * @return
-	 * @throws NoSquareException
+	 * @throws NonCarreException
 	 */
-	public static double determinant(Matrix matrix) throws NoSquareException {
+	public static double determinant(Matrix matrix) throws NonCarreException {
 		if (!matrix.isSquare())
-			throw new NoSquareException("matrix need to be square.");
+			throw new NonCarreException("matrix need to be square.");
 		if (matrix.size() == 1){
 			return matrix.getValueAt(0, 0);
 		}
@@ -99,9 +99,9 @@ public class MatrixMathematics {
 	 * The cofactor of a matrix
 	 * @param matrix
 	 * @return
-	 * @throws NoSquareException
+	 * @throws NonCarreException
 	 */
-	public static Matrix cofactor(Matrix matrix) throws NoSquareException {
+	public static Matrix cofactor(Matrix matrix) throws NonCarreException {
 		Matrix mat = new Matrix(matrix.getNrows(), matrix.getNcols());
 		for (int i=0;i<matrix.getNrows();i++) {
 			for (int j=0; j<matrix.getNcols();j++) {
@@ -119,9 +119,9 @@ public class MatrixMathematics {
 	 * @return
 	 * @throws IllegalDimensionException
 	 */
-	public static Matrix add(Matrix matrix1, Matrix matrix2) throws IllegalDimensionException {
+	public static Matrix add(Matrix matrix1, Matrix matrix2) throws InvalideDimensionException {
 		if (matrix1.getNcols() != matrix2.getNcols() || matrix1.getNrows() != matrix2.getNrows())
-			throw new IllegalDimensionException("Two matrices should be the same dimension.");
+			throw new InvalideDimensionException("Les deux matrices doivent être de taille identique");
 		Matrix sumMatrix = new Matrix(matrix1.getNrows(), matrix1.getNcols());
 		for (int i=0; i<matrix1.getNrows();i++) {
 			for (int j=0;j<matrix1.getNcols();j++) 
@@ -138,8 +138,8 @@ public class MatrixMathematics {
 	 * @return
 	 * @throws IllegalDimensionException
 	 */
-	public static Matrix subtract(Matrix matrix1, Matrix matrix2) throws IllegalDimensionException {
-		return add(matrix1,matrix2.multiplyByConstant(-1));
+	public static Matrix subtract(Matrix matrix1, Matrix matrix2) throws InvalideDimensionException {
+		return add(matrix1,matrix2.multiplyByNumber(-1));
 	}
 	
 	/**
