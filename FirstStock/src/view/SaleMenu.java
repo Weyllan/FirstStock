@@ -10,10 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class SaleMenu extends PluginStyle implements ActionListener {
 
     JDialog chooseProduct;

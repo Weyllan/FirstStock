@@ -103,7 +103,6 @@ public class CashMenu extends PluginStyle {
     @Override
     public void addToTools() {
         this.getWindow().addJMenu(button);
-
     }
         
 }
