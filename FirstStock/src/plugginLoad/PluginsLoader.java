@@ -51,8 +51,8 @@ public class PluginsLoader {
 	}
 	
 	/**
-	 * Fonction de chargement de tout les plugins de type PluginsBase
-	 * @return Une collection de PluginsBase contenant les instances des plugins
+	 * Fonction de chargement de tout les plugins de type StockPlugins
+	 * @return Une collection de StockPlugins contenant les instances des plugins
 	 * @throws Exception si file = null ou file.length = 0
 	 */
 	public StockPlugin[] loadAllStockPlugins() throws Exception {
@@ -72,6 +72,11 @@ public class PluginsLoader {
 		return tmpPlugins;
 	}
         
+        /**
+	 * Fonction de chargement de tout les plugins de type CashPlugins
+	 * @return Une collection de CashPlugins contenant les instances des plugins
+	 * @throws Exception si file = null ou file.length = 0
+	 */
         public CashPlugin[] loadAllCashPlugins() throws Exception {
 		
 		this.initializeLoader();
@@ -88,6 +93,8 @@ public class PluginsLoader {
 		
 		return tmpPlugins;
 	}
+        
+        /*  Fonction d'initialisation et de lecture du .jar  */
 	
 	private void initializeLoader() throws Exception{
 		//On vérifie que la liste des plugins à charger à été initialisé
@@ -155,15 +162,10 @@ public class PluginsLoader {
 								this.stockPlugins.add(tmpClass);
 							}
 						}
-					}
-					
+					}					
 				}
-			}
-			
-		
-		}
-		
-	}
-	
+			}					
+		}		
+	}	
 	
 }

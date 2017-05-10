@@ -11,10 +11,10 @@ import java.util.Hashtable;
  *
  * @author valentin
  */
-/* REMEMBER VAL : CHANGE NECESSARY WITH DELETE AND UPDATE, AND SET CASH  */
 
 public class DBAccess {
     
+    /*  Sauvegarde des éléments de connection à la BDD  */
     private static String DB_URL;
     private static String DB_USER;
     private static String DB_PWD;
@@ -259,7 +259,7 @@ public class DBAccess {
     }
     
     
-    /* Return all stocks of all products */
+    /* Return all necessary raws for a product */
     public ArrayList selectAllNecessaruRaw(String product_name) throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -288,7 +288,7 @@ public class DBAccess {
         return ht;
     }
     
-    /* Return all stocks of all products */
+    /* Return the necessary quantity of one raw for one product */
     public int selectNecessaruRawQuantity(String product_name, String raw_name) throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -317,7 +317,7 @@ public class DBAccess {
         return myQuantity;
     }
       
-    /* Return all stocks of all products */
+    /* Return all raws and their quantities necessary for a product */
     public Hashtable selectAllNecessaru(String product_name) throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -408,6 +408,7 @@ public class DBAccess {
         return ht;
     }
     
+    /*  Return all buying for one raw wich is specified  */
     public Hashtable getBuyForRaw(String raw_name) throws SQLException{
         Hashtable ht = new Hashtable();
 	Connection dbConnection = null;
@@ -438,6 +439,7 @@ public class DBAccess {
         return ht;
     }
     
+    /*  Setters for the BDD  */
     
     /*  Add a Product_Type to BDD */
     public void setProduct(String product_name, double price, int quantity) throws SQLException{
@@ -586,6 +588,7 @@ public class DBAccess {
     	}
     }
     
+    /*  Set a new value for the cash of the user  */
     public void setMyCash(double newCash) throws SQLException {
 	Connection dbConnection = null;
 	Statement statement = null;
@@ -706,7 +709,6 @@ public class DBAccess {
 	}      
         try {
             dbConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PWD);
-            System.out.println("Connection Succesfull");
             return dbConnection;
         } catch (Exception e) {
             System.out.println(e.getMessage());

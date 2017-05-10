@@ -6,18 +6,11 @@
 package firststock;
 
 
-import IA.*;
 import controller.DBAccess;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.swing.UIManager;
 import view.Window;
 
 /**
@@ -78,16 +71,6 @@ public class FirstStock {
     
     public static void main(String[] args) {
 
-        /*try
-
-	{
-	  UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel");
-	}
-	catch (Exception e)
-	{
-	  e.printStackTrace();
-	}
-        */
         Window win = new Window("FirstStock");
         win.init();
 

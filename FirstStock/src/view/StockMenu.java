@@ -6,17 +6,15 @@ import firststock.FirstStock;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import plugginLoad.StockPlugin;
 
@@ -52,7 +50,6 @@ public class StockMenu extends PluginStyle implements ActionListener {
         choix.addActionListener(this);
         bottom.add(exporter);
         bottom.add(choix);
-//newProduct
         this.setLayout(new BorderLayout(0, 0));
         pane = IA.makePredictionStock(newProduct);
         this.add(pane, BorderLayout.CENTER);
@@ -73,10 +70,22 @@ public class StockMenu extends PluginStyle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent clic) {
-            myIA IA = new myIA();
-            File file = new File("stock.jpeg");
-            IA.setFile(file);
-            IA.makePredictionStock(newProduct);
+
+            JFrame parentFrame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export du graphique des stocks");   
+            
+            int userSelection = fileChooser.showSaveDialog(parentFrame);
+            
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                System.out.println(fileToSave.getAbsolutePath());
+                myIA IA = new myIA();                
+                IA.setFile(fileToSave);
+                IA.makePredictionStock(newProduct);
+                
+            }
+
         }
     }
 
@@ -128,7 +137,7 @@ public class StockMenu extends PluginStyle implements ActionListener {
         plugin.setVisible(true);
         plugin.getToolsBox().pane.removeAll();
 
-        System.out.println("view.Window.load : " + name);
+        /*  Fontion pour lire les fichiers jar et appeler la fonction pour charger les plugins dans la barre d'outils  */
         if (this.window.files.size() > 0) {
             this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
             try {
@@ -137,9 +146,11 @@ public class StockMenu extends PluginStyle implements ActionListener {
                 e.printStackTrace();
             }
         }
+        
         plugin.getToolsBox().pane.validate();
     }
 
+    /*  Fonction pour charger les plugins dans le barre d'outils  */
     public void loadPlugins(StockPlugin[] stockplugins) {
 
         for (int index = 0; index < stockplugins.length; index++) {

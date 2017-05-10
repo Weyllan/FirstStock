@@ -3,22 +3,16 @@ package view;
 import IA.myIA;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.JPanel;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class SaleMenu extends PluginStyle implements ActionListener {
 
     JDialog chooseProduct;
@@ -63,7 +57,6 @@ public class SaleMenu extends PluginStyle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent clic) {
-            /*
             JFrame parentFrame = new JFrame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Export du graphique des ventes");   
@@ -75,17 +68,10 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 // fileToSave.getAbsolutePath() renvoit un String indiquant le chemin
                 System.out.println(fileToSave.getAbsolutePath());
                 myIA IA = new myIA();
-                //IA.setFile(fileToSave);
-                File file = new File("vente.jpeg");
-                IA.setFile(file);
+                IA.setFile(fileToSave);
                 IA.makePredictionVente(newProduct);
                 
             }
-             */
-            myIA IA = new myIA();
-            File file = new File("vente.jpeg");
-            IA.setFile(file);
-            IA.makePredictionVente(newProduct);
         }
     }
 
@@ -115,7 +101,7 @@ public class SaleMenu extends PluginStyle implements ActionListener {
         plugin.setVisible(true);
         plugin.getToolsBox().pane.removeAll();
 
-        System.out.println("view.Window.load : " + name);
+        /*  Partie qui charge les plugins dans le menu  */
         /*if (this.window.files.size() > 0) {
             this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
             try {
@@ -124,16 +110,20 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 e.printStackTrace();
             }
         }*/
+        
         plugin.getToolsBox().pane.validate();
 
     }
 
+    /*  Préparation pour les plugins de vente  */
+    
     /*public void loadPlugins(SalePlugin[] saleplugins) {
         for (int index = 0; index < saleplugins.length; index++) {
             this.window.salePlugins.add(saleplugins[index]);
             PluginStyle c = new PluginStyle(saleplugins[index].getLibelle(), workSpace, window);
         }
     }*/
+    
     @Override
     public void addToTools() {
         this.getWindow().addJMenu(button);
