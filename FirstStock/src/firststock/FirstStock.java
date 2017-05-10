@@ -30,19 +30,6 @@ public class FirstStock {
     /**
      * @param args the command line arguments
      */
-    /*
-    private static String url = "jdbc:mysql://localhost:3306/mysql";
-    private static String username = "root";
-    //private static String pwd = "CIR3JAVA";
-    //private static String url = "jdbc:mysql://localhost:3306/mysql";
-    //private static String url = "jdbc:mysql://localhost:3306/StockData";
-<<<<<<< HEAD
-    private static String pwd = "mdp";
-=======
-    //private static String pwd = "mdp";
-    private static String pwd = "isencir";
-
-    */
     private static String url ;
     private static String username ;
 
@@ -91,11 +78,7 @@ public class FirstStock {
     
     public static void main(String[] args) {
 
-     
-         
-        //partie sarah
-        //décommenter ça pour avoir le visu noir
-        /*try
+        try
 
 	{
 	  UIManager.setLookAndFeel("de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel");
@@ -103,35 +86,13 @@ public class FirstStock {
 	catch (Exception e)
 	{
 	  e.printStackTrace();
-	}*/
+	}
 
         Window win = new Window("FirstStock");
         win.init();
-        
-        //partie de ?
-        //Product[] p = {};
-        //Order o = new Order(p, Transaction.VENTE);
-
-        // TODO code application logic here
-      
-        
-        //Partie de Valentin
-
-        
-        //accès pour sarah
-       // DBAccess myDB = new DBAccess("jdbc:mysql://localhost:3306/mysql","root","isencir");
-
 
         DBAccess myDB = new DBAccess(url,username,pwd);
-        
-        /*try{
-            myDB.setMyCash(500);
-        }catch(SQLException e){
-            
-        }*/
-        
 
-  
     }
 
     public String getUrl() {
