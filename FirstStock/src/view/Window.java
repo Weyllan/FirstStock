@@ -149,15 +149,17 @@ public class Window extends JFrame implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent arg0) {
-
+        // Quitte l'application
         if (arg0.getSource() == this.exitMenuItem) {
             System.exit(0);
         } else {
+            // Charge les fichier jar
             if (arg0.getSource() == this.loadMenuItem) {
                 JFileChooser f = new JFileChooser();
                 if (f.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                     this.files.add(f.getSelectedFile().getAbsolutePath());
                 }
+            // Si ce n'est pas l'un des deux précédents, c'est un plugin
             } else {
                 this.ActionFromPlugins(arg0);
             }
@@ -174,6 +176,7 @@ public class Window extends JFrame implements ActionListener{
         return tmp;
     }
     
+    /*  Fonction de détection de l'action d'un plugin, en comparant le nom du bouton avec les libelle de plugin  */
     private void ActionFromPlugins(ActionEvent e) {
         for (int index = 0; index < this.stockPlugins.size(); index++) {
             if (e.getActionCommand().equals(((StockPlugin) this.stockPlugins.get(index)).getLibelle())) {

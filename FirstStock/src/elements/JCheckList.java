@@ -20,14 +20,17 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
+/*  Cette classe est un élément graphique JAVA. Il s'agit d'une Jlist de JCheckBox, utile pour les plugins, dans un cadre de multisélection  */
+
 public class JCheckList{
 
     public ArrayList checkArray = new ArrayList();
     public Vector<CheckListItem> vect = new Vector();
     public boolean empty = false;
     public JList list;
+    
+    /*  Initialisation de l'élément  */
     public JCheckList(ArrayList array) {
-
         if (array.size() > 0) {
             for (int i = 0; i < array.size(); i++) {
                 vect.addElement(new CheckListItem(array.get(i).toString()));
@@ -52,6 +55,7 @@ public class JCheckList{
         }
     }
     
+    /*  Retourne une collection composé de tous les éléments cochés dans l'élément graphique  */
     public ArrayList getCheckArray(){
         for (int i = 0; i < vect.size(); i++) {
             if(vect.get(i).isSelected()){
@@ -62,6 +66,7 @@ public class JCheckList{
     }
 }
 
+/*  Classe des CheckBox  */
 class CheckListItem {
 
     private String label;
@@ -83,6 +88,7 @@ class CheckListItem {
     public String toString() {
         return label;
     }
+    
 }
 
 class CheckListRenderer extends JCheckBox implements ListCellRenderer {
@@ -97,4 +103,5 @@ class CheckListRenderer extends JCheckBox implements ListCellRenderer {
         setText(value.toString());
         return this;
     }
+    
 }

@@ -6,11 +6,7 @@ import firststock.FirstStock;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -52,7 +48,6 @@ public class StockMenu extends PluginStyle implements ActionListener {
         choix.addActionListener(this);
         bottom.add(exporter);
         bottom.add(choix);
-//newProduct
         this.setLayout(new BorderLayout(0, 0));
         pane = IA.makePredictionStock(newProduct);
         this.add(pane, BorderLayout.CENTER);
@@ -144,7 +139,7 @@ public class StockMenu extends PluginStyle implements ActionListener {
         plugin.setVisible(true);
         plugin.getToolsBox().pane.removeAll();
 
-        System.out.println("view.Window.load : " + name);
+        /*  Fontion pour lire les fichiers jar et appeler la fonction pour charger les plugins dans la barre d'outils  */
         if (this.window.files.size() > 0) {
             this.window.pluginsLoader.setFiles(this.window.convertArrayListToArrayString(this.window.files));
             try {
@@ -153,9 +148,11 @@ public class StockMenu extends PluginStyle implements ActionListener {
                 e.printStackTrace();
             }
         }
+        
         plugin.getToolsBox().pane.validate();
     }
 
+    /*  Fonction pour charger les plugins dans le barre d'outils  */
     public void loadPlugins(StockPlugin[] stockplugins) {
 
         for (int index = 0; index < stockplugins.length; index++) {

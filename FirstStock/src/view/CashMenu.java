@@ -7,11 +7,7 @@ import javax.swing.JPanel;
 import plugginLoad.CashPlugin;
 import java.awt.BorderLayout;
 import java.io.File;
-import java.awt.GridBagConstraints;
-import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 
 
 public class CashMenu extends PluginStyle {
