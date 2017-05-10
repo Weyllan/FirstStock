@@ -12,10 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author kieffersarah
- */
+
 public class SaleMenu extends PluginStyle implements ActionListener {
 
     JDialog chooseProduct;

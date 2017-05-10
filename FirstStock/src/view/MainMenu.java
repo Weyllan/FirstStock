@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JMenu;
 
 
 public class MainMenu extends PluginStyle {
