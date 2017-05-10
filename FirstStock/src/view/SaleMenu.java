@@ -26,8 +26,9 @@ public class SaleMenu extends PluginStyle implements ActionListener {
     private JPanel pane = null;
     private JButton exporter = new JButton("Exporter");
     private JButton choix = new JButton("Choix");
-    private JComboBox productList; 
+    private JComboBox productList;
     private JButton selectProduct, cancel;
+    private JPanel bottom = new JPanel();
     String newProduct;
 
     public SaleMenu(String name, WorkSpace workSpace, Window window) {
@@ -41,9 +42,12 @@ public class SaleMenu extends PluginStyle implements ActionListener {
 
         exporter.addActionListener(new SaleMenu.EventExport());
 
-        this.setLayout(new BorderLayout(0,0));
+        bottom.add(exporter);
+        bottom.add(choix);
+        this.setLayout(new BorderLayout(0, 0));
         pane = IA.makePredictionVente("ordinateur");
         this.add(pane, BorderLayout.CENTER);
+        this.add(bottom, BorderLayout.SOUTH);
 
     }
 
@@ -54,7 +58,9 @@ public class SaleMenu extends PluginStyle implements ActionListener {
             sale.loadMenu();
         }
     }
+
     public class EventExport implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent clic) {
             /*
@@ -75,8 +81,8 @@ public class SaleMenu extends PluginStyle implements ActionListener {
                 IA.makePredictionVente(newProduct);
                 
             }
-            */
-            myIA IA = new myIA();        
+             */
+            myIA IA = new myIA();
             File file = new File("vente.jpeg");
             IA.setFile(file);
             IA.makePredictionVente(newProduct);
@@ -97,10 +103,11 @@ public class SaleMenu extends PluginStyle implements ActionListener {
     }
 
     public void loadMenu() {
-        plugin.getWorkSpace().getContentPane().removeAll();        
         plugin.getWorkSpace().getPlugin().button.setEnabled(true);
         plugin.getWorkSpace().setPlugin(plugin);
         plugin.button.setEnabled(false);
+        plugin.getWorkSpace().getContentPane().removeAll();
+        plugin.add(bottom, BorderLayout.SOUTH);
         plugin.add(pane, BorderLayout.CENTER);
         plugin.getWorkSpace().setContentPane(plugin);
         plugin.getWorkSpace().getContentPane().validate();

@@ -19,7 +19,6 @@ public class CashMenu extends PluginStyle {
     private CashMenu cash = this;
     private JPanel pane = null;
     private JButton exporter = new JButton("Exporter");
-    private JButton choix = new JButton("Choix");
     private JPanel bottom = new JPanel();
 
     public CashMenu(String name, WorkSpace workSpace, Window window) {
@@ -32,7 +31,6 @@ public class CashMenu extends PluginStyle {
         myIA IA = new myIA();
         exporter.addActionListener(new CashMenu.EventExport());
         bottom.add(exporter);
-        bottom.add(choix);
         this.setLayout(new BorderLayout(0,0));
         pane = IA.makePredictionTresorerie();
         this.add(pane, BorderLayout.CENTER);
