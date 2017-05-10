@@ -1,0 +1,9 @@
+Utilisation de FirstStock:
+
+-Importez la base de donnée SQL fournie dans votre gestionnaire de BDD
+-Remplissez le fichier log.txt selon le modèle fourni (url
+						       username
+						       pwd)
+-Lancer le logiciel
+-Pour les plugins: Charger le firstStockPlugins.firststockplugins.jar avec le JFileChooser
+-Vous êtes prêts.
